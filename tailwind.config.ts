@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+// const colors = require("./Colors2.tsx");
 
 const config: Config = {
   content: [
@@ -11,6 +12,10 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        // colors: colors,
+        mainColor: "#3399ff",
+        // mainColor: "#00ff00",
+        // mainColor: "#8338EC",
       },
     },
   },
