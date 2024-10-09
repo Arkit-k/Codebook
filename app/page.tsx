@@ -1,4 +1,6 @@
-import { mainColor } from "@/Colors";
+"use client";
+import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -39,18 +41,31 @@ function Logo() {
 }
 
 function Buttons() {
+  const { userId } = useAuth();
   return (
-    <div className="flex gap-2 max-sm:flex-col max-sm:w-[60%] max-sm:mt-8">
-      <button
-        className={`max-sm:w-full bg-mainColor p-[8px] px-6 text-sm text-white rounded-full`}
-      >
-        Sign in
-      </button>
-      <button
-        className={`text-sm border border-mainColor text-mainColor hover:bg-mainColor hover:text-white p-[8px] px-6 rounded-full`}
-      >
-        Sign up
-      </button>
+    <div className="max-sm:w-full">
+      {userId ? (
+        <Link href="/my-notes">
+          <button
+            className={`max-sm:w-full bg-mainColor p-[8px] px-6 text-sm text-white rounded-full`}
+          >
+            Dashboard
+          </button>
+        </Link>
+      ) : (
+        <div className="flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8">
+          <button
+            className={`max-sm:w-full bg-mainColor p-[8px] px-6 text-sm text-white rounded-full`}
+          >
+            <Link href="/sign-in">Sign in</Link>
+          </button>
+          <button
+            className={`text-sm border border-mainColor text-mainColor hover:bg-mainColor hover:text-white p-[8px] px-6 rounded-full`}
+          >
+            <Link href="/sign-up">Sign up</Link>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
