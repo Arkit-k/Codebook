@@ -67,7 +67,9 @@ export async function POST(req: Request) {
       await connect();
       await User.create(newUser);
       console.log("user created");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   console.log("Webhook body:", body);
