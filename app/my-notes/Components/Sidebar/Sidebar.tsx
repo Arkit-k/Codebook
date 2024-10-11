@@ -1,3 +1,5 @@
+"use client";
+import { useGlobalContext } from "@/Context/ContextApi";
 import {
   BorderAll,
   DeleteOutlineOutlined,
@@ -31,23 +33,37 @@ function Logo() {
 }
 
 function QuickLinks() {
+  const {
+    sideBarMenuObject: { sideBarMenu, setSideBarMenu },
+  } = useGlobalContext();
+
+  function clickedMenu(index: number) {
+    const updatedSideBarMenu = sideBarMenu.map((menu, i) => {
+      if (i === index) {
+        return { ...menu, isSelected: true };
+      } else {
+        return { ...menu, isSelected: false };
+      }
+    });
+    setSideBarMenu(updatedSideBarMenu);
+  }
+
   return (
     <div className="mt-20 text-sm">
       <div className="font-bold text-slate-400">Links</div>
       <ul className="text-slate-400 mt-4 flex flex-col gap-2">
-        <li className="flex gap-1 items-center bg-purple-600 text-white p-[7px] px-2 rounded-md w-[60%]">
-          <BorderAll sx={{ fontSize: 18 }} />
-          <span>All snippets</span>
-        </li>
-        <li className="flex gap-1 items-center hover:bg-purple-600 hover:text-white p-[7px] px-2 rounded-md w-[60%]">
-          <FavoriteBorder sx={{ fontSize: 18 }} />
-          <span>Favourites</span>
-        </li>
-        <li className="flex gap-1 items-center hover:bg-purple-600 hover:text-white p-[7px] px-2 rounded-md w-[60%]">
-          <DeleteOutlineOutlined sx={{ fontSize: 18 }} />
-
-          <span>Trash</span>
-        </li>
+        {sideBarMenu.map((menu, index) => (
+          <li
+            key={index}
+            onClick={() => clickedMenu(index)}
+            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[60%] rounded-md
+            ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
+              `}
+          >
+            {menu.icons}
+            <span>{menu.name}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );

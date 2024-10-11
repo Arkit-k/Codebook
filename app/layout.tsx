@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import GlobalContextProvider from "@/Context/ContextApi";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -34,12 +35,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body
-          className={`${poppins.className} antialiased`}
-          // className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} antialiased`}
-        >
-          {children}
-        </body>
+        <GlobalContextProvider>
+          <body
+            className={`${poppins.className} antialiased`}
+            // className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} antialiased`}
+          >
+            {children}
+          </body>
+        </GlobalContextProvider>
       </ClerkProvider>
     </html>
   );
