@@ -1,13 +1,23 @@
+import { useGlobalContext } from "@/Context/ContextApi";
 import { Search } from "@mui/icons-material";
 import React from "react";
 
 function SearchBar() {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
   return (
-    <div className="relative pl-3 w-[60%] h-[36px] bg-slate-100 rounded-3xl flex items-center gap-2">
+    <div
+      className={`relative pl-3 w-[60%] h-[36px] rounded-3xl flex items-center gap-2 ${
+        darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
+      }`}
+    >
       <Search className="text-sky-400" sx={{ fontSize: 13 }} />
       <input
         placeholder="Search a snippet"
-        className="w-[70%] outline-none text-sm bg-slate-100 text-slate-500"
+        className={`w-[70%] outline-none text-sm bg-slate-100 text-slate-500 ${
+          darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
+        }`}
       />
       <AddSnippetButton />
     </div>
