@@ -28,9 +28,9 @@ export default SearchBar;
 
 function AddSnippetButton() {
   return (
-    <div className="flex absolute gap-2 px-3 rounded-3xl bg-blue-500 p-1 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none">
-      <div className="font-bold">+</div>
-      <div className="">Snippet</div>
+    <div className="flex absolute gap-2 px-3 rounded-3xl bg-blue-500 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none">
+      <div className="md:font-bold max-md:text-xl">+</div>
+      <div className="max-md:hidden">Snippet</div>
     </div>
   );
 }

@@ -1,19 +1,36 @@
 "use client";
 import { useGlobalContext } from "@/Context/ContextApi";
+import { useEffect, useState } from "react";
 
 import { FaPython } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { SiCplusplus } from "react-icons/si";
+import useWindowDimensions from "./WindowDimensions";
 
 export default function Sidebar() {
   const {
     darkModeObject: { darkMode },
+    openSidebarObject: { openSidebar, setOpenSidebar },
   } = useGlobalContext();
+
+  const { width } = useWindowDimensions();
+  // console.log(width);
+
+  useEffect(() => {
+    if (openSidebar) {
+      if (width && width > 768) {
+        setOpenSidebar(false);
+      }
+    }
+  }, [width]);
+  // ====================================================
   return (
     <div
-      className={`w-[20%] p-5 flex flex-col gap-2 h-screen pt-7 ${
-        darkMode[1].isSelected ? "bg-slate-900" : "bg-white"
-      }`}
+      className={`
+        ${openSidebar ? "fixed z-50 shadow-lg" : "max-md:hidden"}
+        pr-10 flex flex-col gap-2 p-6 h-screen shadow-lg pt-7 ${
+          darkMode[1].isSelected ? "bg-slate-900" : "bg-white"
+        }`}
     >
       <Logo />
       <QuickLinks />
@@ -67,7 +84,7 @@ function QuickLinks() {
           <li
             key={index}
             onClick={() => clickedMenu(index)}
-            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[60%] rounded-md
+            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
             ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
               `}
           >
