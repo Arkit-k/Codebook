@@ -6,6 +6,7 @@ import DarkMode from "./TopBar/DarkMode";
 import { useGlobalContext } from "@/Context/ContextApi";
 import SidebarMenuIcon from "./TopBar/SidebarMenuIcon";
 import SwiperSelection from "./NotesArea/SwiperSelection";
+import AllNotesSection from "./NotesArea/AllNotesSection";
 
 function ContentArea() {
   const {
@@ -13,7 +14,7 @@ function ContentArea() {
   } = useGlobalContext();
   return (
     <div
-      className={`w-full h-screen p-0 sm:p-5 ${
+      className={`w-full p-0 sm:p-5 ${
         darkMode[1].isSelected ? "bg-slate-800" : "bg-slate-100"
       }`}
     >
@@ -47,8 +48,9 @@ function TopBar() {
 
 function NotesArea() {
   return (
-    <div className="mt-5">
+    <div className="mt-5 max-sm:px-3">
       <SwiperSelection />
+      <AllNotesSection />
     </div>
   );
 }
