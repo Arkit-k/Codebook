@@ -30,3 +30,41 @@ body {
     text-wrap: balance;
   }
 } */
+
+.swiper {
+  /* width: 100%; */
+  /* width: fit-content; */
+  height: 100%;
+  /* border: 1px solid red */
+  display: flex;
+  /* background-color: #6b21a8; */
+}
+
+.mySwiper .swiper-slide {
+  width: auto !important;
+  display: inline-block;
+  padding: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  /* background-color: #6b21a8; */
+  user-select: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 30px;
+  font-size: 14px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+body::-webkit-scrollbar-thumb:horizontal {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
