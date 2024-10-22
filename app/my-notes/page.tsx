@@ -2,12 +2,14 @@ import { UserButton } from "@clerk/nextjs";
 import React from "react";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import ContentArea from "./Components/ContentArea/ContentArea";
+import ContentNoteModal from "./Components/ContentNote/ContentNoteModal";
 
 const page = () => {
   return (
     <div className="flex">
       <Sidebar />
       <ContentArea />
+      <ContentNoteModal />
     </div>
   );
 };

@@ -7,6 +7,8 @@ import { useGlobalContext } from "@/Context/ContextApi";
 import SidebarMenuIcon from "./TopBar/SidebarMenuIcon";
 import SwiperSelection from "./NotesArea/SwiperSelection";
 import AllNotesSection from "./NotesArea/AllNotesSection";
+import ContentNote from "../ContentNote/ContentNote";
+import ContentNoteModal from "../ContentNote/ContentNoteModal";
 
 function ContentArea() {
   const {
@@ -47,10 +49,24 @@ function TopBar() {
 }
 
 function NotesArea() {
+  const {
+    openContentNoteObject: { openContentNote },
+    isMobileObject: { isMobile },
+  } = useGlobalContext();
   return (
-    <div className="mt-5 max-sm:px-3">
-      <SwiperSelection />
-      <AllNotesSection />
+    <div className="flex gap-2 mt-5 max-sm:px-3">
+      {/* <div
+        className={`${
+          openContentNote
+            ? `${isMobile ? "w-full overflow-y-scroll" : "w-[50%]"}`
+            : "w-full"
+        }`}
+      > */}
+      <div className={`w-full`}>
+        <SwiperSelection />
+        <AllNotesSection />
+      </div>
+      {/* <ContentNote /> */}
     </div>
   );
 }

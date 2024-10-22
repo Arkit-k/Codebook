@@ -1,6 +1,12 @@
 "use client";
 
 import {
+  DarkModeType,
+  GlobalContextType,
+  SideBarMenu,
+  SingleNoteType,
+} from "@/app/types/Types";
+import {
   BorderAll,
   DarkMode,
   DeleteOutlineOutlined,
@@ -8,36 +14,7 @@ import {
   LightMode,
   Logout,
 } from "@mui/icons-material";
-import { createContext, useContext, useState } from "react";
-
-// types ===========================================
-interface SideBarMenu {
-  id: number;
-  name: string;
-  isSelected: boolean;
-  icons: React.ReactNode;
-}
-
-interface DarkModeType {
-  id: number;
-  icon: React.ReactNode;
-  isSelected: boolean;
-}
-
-interface GlobalContextType {
-  sideBarMenuObject: {
-    sideBarMenu: SideBarMenu[];
-    setSideBarMenu: React.Dispatch<React.SetStateAction<SideBarMenu[]>>;
-  };
-  darkModeObject: {
-    darkMode: DarkModeType[];
-    setDarkMode: React.Dispatch<React.SetStateAction<DarkModeType[]>>;
-  };
-  openSidebarObject: {
-    openSidebar: boolean;
-    setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-  };
-}
+import { createContext, useContext, useEffect, useState } from "react";
 
 // create context ==========================================================
 const ContextProvider = createContext<GlobalContextType>({
@@ -52,6 +29,18 @@ const ContextProvider = createContext<GlobalContextType>({
   openSidebarObject: {
     openSidebar: false,
     setOpenSidebar: () => {},
+  },
+  openContentNoteObject: {
+    openContentNote: false,
+    setOpenContentNote: () => {},
+  },
+  isMobileObject: {
+    isMobile: false,
+    setIsMobile: () => {},
+  },
+  allNotesObject: {
+    allNotes: [],
+    setAllNotes: () => {},
   },
 });
 
@@ -106,8 +95,83 @@ export default function GlobalContextProvider({
     useState<SideBarMenu[]>(sideBarMenuItems);
 
   const [darkMode, setDarkMode] = useState<DarkModeType[]>(darkModeItems);
-
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [openContentNote, setOpenContentNote] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [allNotes, setAllNotes] = useState<SingleNoteType[]>([]);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 640);
+  };
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    function updateAllNotes() {
+      const allNotes = [
+        {
+          id: "1",
+          title: "this is a note",
+          isFavorite: false,
+          tags: ["tag1", "tag2"],
+          description: "this is a note",
+          code: `
+          import React from 'react';
+
+          function HelloWorld(){
+            return <h1>Hello</h1>
+          }
+            export default HelloWorld
+          `,
+          language: "javascript",
+          creationDate: "2024-01-02",
+        },
+        {
+          id: "2",
+          title: "this is a note2",
+          isFavorite: false,
+          tags: ["tag1", "tag2"],
+          description: "this is a note2",
+          code: `
+          import React from 'react';
+
+          function HelloWorld(){
+            return <h1>Hello</h1>
+          }
+            export default HelloWorld
+          `,
+          language: "javascript",
+          creationDate: "2024-01-02",
+        },
+        {
+          id: "3",
+          title: "this is a note3",
+          isFavorite: false,
+          tags: ["tag1", "tag2"],
+          description: "this is a note3",
+          code: `
+          import React from 'react';
+
+          function HelloWorld(){
+            return <h1>Hello</h1>
+          }
+            export default HelloWorld
+          `,
+          language: "javascript",
+          creationDate: "2024-01-02",
+        },
+      ];
+      setTimeout(() => {
+        setAllNotes(allNotes);
+      }, 1200);
+    }
+    updateAllNotes();
+  }, []);
 
   // ==========================================================
   return (
@@ -116,6 +180,9 @@ export default function GlobalContextProvider({
         sideBarMenuObject: { sideBarMenu, setSideBarMenu },
         darkModeObject: { darkMode, setDarkMode },
         openSidebarObject: { openSidebar, setOpenSidebar },
+        openContentNoteObject: { openContentNote, setOpenContentNote },
+        isMobileObject: { isMobile, setIsMobile },
+        allNotesObject: { allNotes, setAllNotes },
       }}
     >
       {children}
