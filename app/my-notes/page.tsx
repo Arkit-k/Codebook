@@ -6,7 +6,7 @@ import ContentNoteModal from "./Components/ContentNote/ContentNoteModal";
 
 const page = () => {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar />
       <ContentArea />
       <ContentNoteModal />

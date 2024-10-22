@@ -1,6 +1,7 @@
 import { useGlobalContext } from "@/Context/ContextApi";
-import { Search } from "@mui/icons-material";
+import { AddOutlined, Search } from "@mui/icons-material";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function SearchBar() {
   const {
@@ -27,9 +28,38 @@ function SearchBar() {
 export default SearchBar;
 
 function AddSnippetButton() {
+  const {
+    allNotesObject: { allNotes, setAllNotes },
+    selectedNoteObject: { selectedNote, setSelectedNote },
+    openContentNoteObject: { setOpenContentNote },
+    isNewNoteObject: { isNewNote, setIsNewNote },
+  } = useGlobalContext();
+
+  function openTheContentNote() {
+    const newSingleNote = {
+      _id: uuidv4(),
+      title: "",
+      isFavorite: false,
+      tags: [],
+      description: "",
+      code: "",
+      language: "",
+      creationDate: "",
+    };
+    setIsNewNote(true);
+    setOpenContentNote(true);
+    // setAllNotes([...allNotes, newSingleNote]);
+    setSelectedNote(newSingleNote);
+  }
+
+  // ==================================================================
   return (
-    <div className="flex absolute gap-2 px-3 rounded-3xl bg-blue-500 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none">
-      <div className="md:font-bold max-md:text-xl">+</div>
+    <div
+      className="flex absolute gap-2 px-[10px] rounded-3xl bg-blue-500 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none"
+      onClick={openTheContentNote}
+    >
+      {/* <div className="md:font-bold max-md:text-xl">+</div> */}
+      <AddOutlined sx={{ fontSize: 18 }} />
       <div className="max-md:hidden">Snippet</div>
     </div>
   );

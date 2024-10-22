@@ -12,7 +12,7 @@ export interface DarkModeType {
 }
 
 export interface SingleNoteType {
-  id: string;
+  _id: string;
   title: string;
   isFavorite: boolean;
   tags: string[];
@@ -53,5 +53,9 @@ export interface GlobalContextType {
     setSelectedNote: React.Dispatch<
       React.SetStateAction<SingleNoteType | null>
     >;
+  };
+  isNewNoteObject: {
+    isNewNote: boolean;
+    setIsNewNote: React.Dispatch<React.SetStateAction<boolean>>;
   };
 }

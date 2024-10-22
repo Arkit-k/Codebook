@@ -8,17 +8,30 @@ function ContentNoteModal() {
     openContentNoteObject: { openContentNote, setOpenContentNote },
     darkModeObject: { darkMode },
     selectedNoteObject: { selectedNote, setSelectedNote },
+    isNewNoteObject: { isNewNote, setIsNewNote },
+    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
 
   const [singleNote, setSingleNote] = useState<SingleNoteType | undefined>(
     undefined
   );
 
+  // show selected note in modal ---------------------------------------
   useEffect(() => {
     if (openContentNote) {
       if (selectedNote) setSingleNote(selectedNote);
     }
   }, [openContentNote, selectedNote]);
+
+  // create new note only if not empty -------------------------------------
+  useEffect(() => {
+    if (isNewNote) {
+      if (singleNote && singleNote.title !== "") {
+        setAllNotes([...allNotes, singleNote]);
+        setIsNewNote(false);
+      }
+    }
+  }, [singleNote]);
   // =============================================
   return (
     <div
@@ -41,7 +54,10 @@ function ContentNoteModal() {
         )}
         <div
           className="cursor-pointer px-10 py-5 bg-red-400"
-          onClick={() => setOpenContentNote(false)}
+          onClick={() => {
+            setOpenContentNote(false);
+            setSelectedNote(null);
+          }}
         >
           close
         </div>
@@ -72,8 +88,8 @@ function ContentNoteHeader({
 
     // find and update main notes array
     const newAllNotes = allNotes.map((note) => {
-      if (note.id === singleNote.id) {
-        return singleNote;
+      if (note._id === singleNote._id) {
+        return newSingleNote;
       }
       return note;
     });

@@ -46,7 +46,7 @@ function SingleNote({ note }: { note: SingleNoteType }) {
     tags,
     isFavorite,
     language,
-    id,
+    _id,
   } = note;
   // -------------------------------------------
   return (
