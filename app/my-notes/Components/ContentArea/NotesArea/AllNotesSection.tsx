@@ -57,7 +57,7 @@ function SingleNote({ note }: { note: SingleNoteType }) {
           : "bg-white border-gray-400"
       } max-sm:w-full rounded-md py-4 border-[1px]`}
     >
-      <NoteHeader title={title} isFavorite={isFavorite} />
+      <NoteHeader title={title} isFavorite={isFavorite} note={note} />
       <NoteDate creationDate={creationDate} />
       <NoteTags tags={tags} />
       <NoteDescription description={description} />
@@ -70,18 +70,24 @@ function SingleNote({ note }: { note: SingleNoteType }) {
 function NoteHeader({
   title,
   isFavorite,
+  note,
 }: {
   title: string;
   isFavorite: boolean;
+  note: SingleNoteType;
 }) {
   const {
     openContentNoteObject: { openContentNote, setOpenContentNote },
+    selectedNoteObject: { selectedNote, setSelectedNote },
   } = useGlobalContext();
   return (
     <div className="flex justify-between mx-4">
       <span
         className="font-bold text-lg w-[87%] cursor-pointer hover:text-blue-500"
-        onClick={() => setOpenContentNote(true)}
+        onClick={() => {
+          setOpenContentNote(true);
+          setSelectedNote(note);
+        }}
       >
         {title}
       </span>

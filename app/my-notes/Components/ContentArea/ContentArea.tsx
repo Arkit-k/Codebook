@@ -7,8 +7,6 @@ import { useGlobalContext } from "@/Context/ContextApi";
 import SidebarMenuIcon from "./TopBar/SidebarMenuIcon";
 import SwiperSelection from "./NotesArea/SwiperSelection";
 import AllNotesSection from "./NotesArea/AllNotesSection";
-import ContentNote from "../ContentNote/ContentNote";
-import ContentNoteModal from "../ContentNote/ContentNoteModal";
 
 function ContentArea() {
   const {

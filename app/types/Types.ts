@@ -48,4 +48,10 @@ export interface GlobalContextType {
     allNotes: SingleNoteType[];
     setAllNotes: React.Dispatch<React.SetStateAction<SingleNoteType[]>>;
   };
+  selectedNoteObject: {
+    selectedNote: SingleNoteType | null;
+    setSelectedNote: React.Dispatch<
+      React.SetStateAction<SingleNoteType | null>
+    >;
+  };
 }

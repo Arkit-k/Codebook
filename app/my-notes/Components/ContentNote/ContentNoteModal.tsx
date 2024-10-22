@@ -1,12 +1,25 @@
 "use client";
+import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function ContentNoteModal() {
   const {
     openContentNoteObject: { openContentNote, setOpenContentNote },
     darkModeObject: { darkMode },
+    selectedNoteObject: { selectedNote, setSelectedNote },
   } = useGlobalContext();
+
+  const [singleNote, setSingleNote] = useState<SingleNoteType | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (openContentNote) {
+      if (selectedNote) setSingleNote(selectedNote);
+    }
+  }, [openContentNote, selectedNote]);
+  // =============================================
   return (
     <div
       className={`fixed w-full h-screen flex items-center justify-center z-[500] ${
@@ -20,32 +33,17 @@ function ContentNoteModal() {
             : "bg-white"
         }`}
       >
-        <div className="">
-          ContentNoteModal Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Asperiores aut repellendus a fugiat ipsum eum, blanditiis
-          possimus labore pariatur repellat perspiciatis corporis voluptatum
-          nemo similique recusandae vel deserunt assumenda, provident,
-          aspernatur quasi explicabo? Ipsum animi possimus architecto fuga
-          quisquam consectetur excepturi, alias placeat adipisci sequi enim quis
-          id laborum consequuntur! elit. Asperiores aut repellendus a fugiat
-          ipsum eum, blanditiis possimus labore pariatur repellat perspiciatis
-          corporis voluptatum nemo similique recusandae vel deserunt assumenda,
-          provident, aspernatur quasi explicabo? Ipsum animi possimus architecto
-          fuga quisquam consectetur excepturi, alias placeat adipisci sequi enim
-          quis id laborum consequuntur! aspernatur quasi explicabo? Ipsum animi
-          possimus architecto fuga quisquam consectetur excepturi, alias placeat
-          adipisci sequi enim quis id laborum consequuntur! elit. Asperiores aut
-          repellendus a fugiat ipsum eum, blanditiis possimus labore pariatur
-          repellat perspiciatis corporis voluptatum nemo similique recusandae
-          vel deserunt assumenda, provident, aspernatur quasi explicabo? Ipsum
-          animi possimus architecto fuga quisquam consectetur excepturi, alias
-          placeat adipisci sequi enim quis id laborum consequuntur!
-          <div
-            className="cursor-pointer p-24 bg-red-400"
-            onClick={() => setOpenContentNote(false)}
-          >
-            close
-          </div>
+        {singleNote && (
+          <ContentNoteHeader
+            singleNote={singleNote}
+            setSingleNote={setSingleNote}
+          />
+        )}
+        <div
+          className="cursor-pointer px-10 py-5 bg-red-400"
+          onClick={() => setOpenContentNote(false)}
+        >
+          close
         </div>
       </div>
     </div>
@@ -53,3 +51,40 @@ function ContentNoteModal() {
 }
 
 export default ContentNoteModal;
+
+function ContentNoteHeader({
+  singleNote,
+  setSingleNote,
+}: {
+  singleNote: SingleNoteType;
+  setSingleNote: React.Dispatch<
+    React.SetStateAction<SingleNoteType | undefined>
+  >;
+}) {
+  const {
+    allNotesObject: { allNotes, setAllNotes },
+  } = useGlobalContext();
+
+  // update notes ----------------------------------
+  function onUpdateTitle(event: React.ChangeEvent<HTMLInputElement>) {
+    const newSingleNote = { ...singleNote, title: event.target.value }; // get title
+    setSingleNote(newSingleNote);
+
+    // find and update main notes array
+    const newAllNotes = allNotes.map((note) => {
+      if (note.id === singleNote.id) {
+        return singleNote;
+      }
+      return note;
+    });
+    setAllNotes(newAllNotes);
+  }
+  // ----------------------------------------------------------
+  return (
+    <input
+      placeholder="new title"
+      value={singleNote.title}
+      onChange={onUpdateTitle}
+    />
+  );
+}
