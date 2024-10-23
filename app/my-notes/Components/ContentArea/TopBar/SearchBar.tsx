@@ -29,10 +29,9 @@ export default SearchBar;
 
 function AddSnippetButton() {
   const {
-    allNotesObject: { allNotes, setAllNotes },
-    selectedNoteObject: { selectedNote, setSelectedNote },
+    selectedNoteObject: { setSelectedNote },
     openContentNoteObject: { setOpenContentNote },
-    isNewNoteObject: { isNewNote, setIsNewNote },
+    isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();
 
   function openTheContentNote() {

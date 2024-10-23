@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { AddOutlined } from "@mui/icons-material";
 
 // Import Swiper React components
@@ -12,8 +12,8 @@ import "swiper/css/pagination";
 // import "./styles.css";
 
 // import required modules
-import { FreeMode, Pagination } from "swiper/modules";
-import GlobalContextProvider, { useGlobalContext } from "@/Context/ContextApi";
+import { FreeMode } from "swiper/modules";
+import { useGlobalContext } from "@/Context/ContextApi";
 
 export default function SwiperSelection() {
   const {

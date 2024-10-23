@@ -1,6 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/Context/ContextApi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { FaPython } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";

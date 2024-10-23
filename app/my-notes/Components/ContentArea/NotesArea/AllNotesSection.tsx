@@ -38,16 +38,8 @@ function SingleNote({ note }: { note: SingleNoteType }) {
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
-  const {
-    title,
-    creationDate,
-    description,
-    code,
-    tags,
-    isFavorite,
-    language,
-    _id,
-  } = note;
+  const { title, creationDate, description, code, tags, isFavorite, language } =
+    note;
   // -------------------------------------------
   return (
     <div
@@ -69,7 +61,6 @@ function SingleNote({ note }: { note: SingleNoteType }) {
 
 function NoteHeader({
   title,
-  isFavorite,
   note,
 }: {
   title: string;
@@ -77,8 +68,8 @@ function NoteHeader({
   note: SingleNoteType;
 }) {
   const {
-    openContentNoteObject: { openContentNote, setOpenContentNote },
-    selectedNoteObject: { selectedNote, setSelectedNote },
+    openContentNoteObject: { setOpenContentNote },
+    selectedNoteObject: { setSelectedNote },
   } = useGlobalContext();
   return (
     <div className="flex justify-between mx-4">

@@ -3,8 +3,7 @@ import React from "react";
 
 function ContentNote() {
   const {
-    openContentNoteObject: { openContentNote, setOpenContentNote },
-    isMobileObject: { isMobile, setIsMobile },
+    openContentNoteObject: { setOpenContentNote },
   } = useGlobalContext();
 
   return (
