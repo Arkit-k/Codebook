@@ -5,6 +5,7 @@ import {
   GlobalContextType,
   SideBarMenu,
   SingleNoteType,
+  SingleTagType,
 } from "@/app/types/Types";
 import {
   BorderAll,
@@ -49,6 +50,14 @@ const ContextProvider = createContext<GlobalContextType>({
   isNewNoteObject: {
     isNewNote: false,
     setIsNewNote: () => {},
+  },
+  allTagsObject: {
+    allTags: [],
+    setAllTags: () => {},
+  },
+  selectedTagsObject: {
+    selectedTags: [],
+    setSelectedTags: () => {},
   },
 });
 
@@ -109,6 +118,10 @@ export default function GlobalContextProvider({
   const [allNotes, setAllNotes] = useState<SingleNoteType[]>([]);
   const [selectedNote, setSelectedNote] = useState<SingleNoteType | null>(null);
   const [isNewNote, setIsNewNote] = useState(false);
+  const [allTags, setAllTags] = useState<SingleTagType[]>([]);
+  const [selectedTags, setSelectedTags] = useState<SingleTagType[]>([]);
+
+  // ================================================================
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 640);
@@ -128,7 +141,10 @@ export default function GlobalContextProvider({
           _id: "1",
           title: "this is a note",
           isFavorite: false,
-          tags: ["tag1", "tag2"],
+          tags: [
+            { _id: "1", name: "Tag1" },
+            { _id: "2", name: "Tag2" },
+          ],
           description: "this is a note",
           code: `
           import React from 'react';
@@ -145,7 +161,7 @@ export default function GlobalContextProvider({
           _id: "2",
           title: "this is a note2",
           isFavorite: false,
-          tags: ["tag1", "tag2"],
+          tags: [],
           description: "this is a note2",
           code: `
           import React from 'react';
@@ -162,7 +178,7 @@ export default function GlobalContextProvider({
           _id: "3",
           title: "this is a note3",
           isFavorite: false,
-          tags: ["tag1", "tag2"],
+          tags: [{ _id: "1", name: "Tag1" }],
           description: "this is a note3",
           code: `
           import React from 'react';
@@ -180,8 +196,26 @@ export default function GlobalContextProvider({
         setAllNotes(allNotes);
       }, 1200);
     }
+
+    function updateAllTags() {
+      const allTags = [
+        { _id: "1", name: "Tag1" },
+        { _id: "2", name: "Tag2" },
+        { _id: "3", name: "Tag3" },
+        { _id: "4", name: "Tag4" },
+        { _id: "5", name: "Tag5" },
+        { _id: "6", name: "Tag6" },
+      ];
+      setAllTags(allTags);
+    }
+
     updateAllNotes();
+    updateAllTags();
   }, []);
+
+  useEffect(() => {
+    setSelectedTags(selectedNote?.tags || []);
+  }, [selectedNote]);
 
   // ==========================================================
   return (
@@ -195,6 +229,8 @@ export default function GlobalContextProvider({
         allNotesObject: { allNotes, setAllNotes },
         selectedNoteObject: { selectedNote, setSelectedNote },
         isNewNoteObject: { isNewNote, setIsNewNote },
+        allTagsObject: { allTags, setAllTags },
+        selectedTagsObject: { selectedTags, setSelectedTags },
       }}
     >
       {children}

@@ -15,11 +15,17 @@ export interface SingleNoteType {
   _id: string;
   title: string;
   isFavorite: boolean;
-  tags: string[];
+  tags: SingleTagType[];
+  // tags: string[];
   description: string;
   code: string;
   language: string;
   creationDate: string;
+}
+
+export interface SingleTagType {
+  _id: string;
+  name: string;
 }
 
 export interface GlobalContextType {
@@ -57,5 +63,13 @@ export interface GlobalContextType {
   isNewNoteObject: {
     isNewNote: boolean;
     setIsNewNote: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  allTagsObject: {
+    allTags: SingleTagType[];
+    setAllTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>;
+  };
+  selectedTagsObject: {
+    selectedTags: SingleTagType[];
+    setSelectedTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>;
   };
 }

@@ -1,5 +1,5 @@
 "use client";
-import { SingleNoteType } from "@/app/types/Types";
+import { SingleNoteType, SingleTagType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { DeleteRounded, FavoriteBorderOutlined } from "@mui/icons-material";
 import React from "react";
@@ -14,6 +14,7 @@ function AllNotesSection() {
   const {
     allNotesObject: { allNotes },
   } = useGlobalContext();
+
   return (
     // <div
     //   className={`${
@@ -87,16 +88,28 @@ function NoteHeader({
   );
 }
 
-function NoteTags({ tags }: { tags: string[] }) {
+function NoteTags({ tags }: { tags: SingleTagType[] }) {
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
+
   return (
     <div
       className={`${
         darkMode[1].isSelected ? "" : ""
       } text-slate-500 text-[11px] mx-4 flex-wrap flex gap-1 mt-4`}
     >
+      {tags.length === 0 && (
+        <span
+          className={`${
+            darkMode[1].isSelected
+              ? "bg-blue-700 text-white"
+              : "bg-slate-200 text-blue-700"
+          } p-1 text-xs rounded-full px-2 mr-1`}
+        >
+          No Tags
+        </span>
+      )}
       {tags.map((tag, index) => (
         <span
           key={index}
@@ -106,7 +119,7 @@ function NoteTags({ tags }: { tags: string[] }) {
               : "bg-slate-200 text-blue-700"
           } p-1 text-xs rounded-full px-2 mr-1`}
         >
-          {tag}
+          {tag.name}
         </span>
       ))}
     </div>
