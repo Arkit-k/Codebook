@@ -1,9 +1,13 @@
 "use client";
-import { SingleNoteType, SingleTagType } from "@/app/types/Types";
+import { getLanguageIcon } from "@/app/localData/Languages";
+import {
+  SingleCodeLanguageType,
+  SingleNoteType,
+  SingleTagType,
+} from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { DeleteRounded, FavoriteBorderOutlined } from "@mui/icons-material";
 import React from "react";
-import { SiJavascript } from "react-icons/si";
 // import SyntaxHighlighter from "react-syntax-highlighter";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
@@ -174,10 +178,14 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
 function NoteFooter({ language }: { language: string }) {
   return (
     <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
-      <div className="flex gap-1 items-center">
-        <SiJavascript size={15} className="mb-[2px]" />
-        {language}
-      </div>
+      {language ? (
+        <div className="flex gap-1 items-center">
+          {getLanguageIcon(language)}
+          <span>{language}</span>
+        </div>
+      ) : (
+        <span>No language selected</span>
+      )}
       <DeleteRounded sx={{ fontSize: 17 }} className="cursor-pointer" />
     </div>
   );

@@ -28,6 +28,12 @@ export interface SingleTagType {
   name: string;
 }
 
+export interface SingleCodeLanguageType {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+}
+
 export interface GlobalContextType {
   sideBarMenuObject: {
     sideBarMenu: SideBarMenu[];
@@ -71,5 +77,11 @@ export interface GlobalContextType {
   selectedTagsObject: {
     selectedTags: SingleTagType[];
     setSelectedTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>;
+  };
+  selectedLanguageObject: {
+    selectedLanguage: SingleCodeLanguageType | null;
+    setSelectedLanguage: React.Dispatch<
+      React.SetStateAction<SingleCodeLanguageType | null>
+    >;
   };
 }

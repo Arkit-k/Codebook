@@ -49,18 +49,10 @@ function TopBar() {
 function NotesArea() {
   return (
     <div className="flex gap-2 mt-5 max-sm:px-3">
-      {/* <div
-        className={`${
-          openContentNote
-            ? `${isMobile ? "w-full overflow-y-scroll" : "w-[50%]"}`
-            : "w-full"
-        }`}
-      > */}
       <div className={`w-full`}>
         <SwiperSelection />
         <AllNotesSection />
       </div>
-      {/* <ContentNote /> */}
     </div>
   );
 }

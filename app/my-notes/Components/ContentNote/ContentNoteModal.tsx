@@ -1,14 +1,8 @@
 "use client";
-import { SingleNoteType, SingleTagType } from "@/app/types/Types";
+import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import {
-  DescriptionOutlined,
-  EditOutlined,
-  StyleOutlined,
-  TitleOutlined,
-} from "@mui/icons-material";
+
 import React, { useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { ContentNoteHeader } from "./ContentNoteComponents/ContentNoteHeader";
 import { NoteTags } from "./ContentNoteComponents/NoteTags";
 import { Description } from "./ContentNoteComponents/ContentNoteDescription";
@@ -16,11 +10,12 @@ import { CodeEditor } from "./ContentNoteComponents/CodeEditor";
 
 function ContentNoteModal() {
   const {
-    openContentNoteObject: { openContentNote, setOpenContentNote },
+    openContentNoteObject: { openContentNote },
     darkModeObject: { darkMode },
-    selectedNoteObject: { selectedNote, setSelectedNote },
+    selectedNoteObject: { selectedNote },
     isNewNoteObject: { isNewNote, setIsNewNote },
     allNotesObject: { allNotes, setAllNotes },
+    selectedLanguageObject: { selectedLanguage },
   } = useGlobalContext();
 
   const [singleNote, setSingleNote] = useState<SingleNoteType | undefined>(
@@ -45,6 +40,28 @@ function ContentNoteModal() {
       }
     }
   }, [singleNote]);
+
+  // selected note language----------------------------------------------------------
+  useEffect(() => {
+    if (selectedLanguage && singleNote) {
+      const newLanguage = selectedLanguage;
+      const updateSingleNote: SingleNoteType = {
+        ...singleNote,
+        language: newLanguage.name,
+      };
+
+      const updateAllNotes = allNotes.map((note) => {
+        if (note._id === singleNote?._id) {
+          return updateSingleNote;
+        }
+        return note;
+      });
+      setAllNotes(updateAllNotes);
+      setSingleNote(updateSingleNote);
+    }
+  }, [selectedLanguage]);
+  console.log("all notes: ", allNotes);
+
   // =============================================
   return (
     <div

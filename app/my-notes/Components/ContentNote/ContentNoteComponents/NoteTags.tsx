@@ -102,6 +102,7 @@ export function NoteTags({
                   darkMode[1].isSelected ? "text-blue-400" : "text-slate-800"
                 } cursor-pointer`}
               />
+              {/* show tags menu -------------------------------------------------- */}
               {isOpened && <TagsMenu onClickedTag={onClickedTag} />}
             </div>
           )}
@@ -109,6 +110,7 @@ export function NoteTags({
       </div>
     </div>
   );
+  // ----------------------------------------------------------
   function TagsMenu({
     onClickedTag,
   }: {
@@ -126,7 +128,7 @@ export function NoteTags({
           darkMode[1].isSelected
             ? "bg-slate-700 border border-slate-400 text-slate-200"
             : "bg-slate-100 border border-slate-500"
-        } absolute p-1 top-10 rounded-md flex flex-col gap-1 overflow-hidden`}
+        } absolute p-1 top-10 rounded-md flex flex-col gap-1 overflow-hidden z-50`}
       >
         {allTags.map((tag) => (
           <li

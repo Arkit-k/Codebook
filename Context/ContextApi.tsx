@@ -4,6 +4,7 @@ import {
   DarkModeType,
   GlobalContextType,
   SideBarMenu,
+  SingleCodeLanguageType,
   SingleNoteType,
   SingleTagType,
 } from "@/app/types/Types";
@@ -58,6 +59,10 @@ const ContextProvider = createContext<GlobalContextType>({
   selectedTagsObject: {
     selectedTags: [],
     setSelectedTags: () => {},
+  },
+  selectedLanguageObject: {
+    selectedLanguage: null,
+    setSelectedLanguage: () => {},
   },
 });
 
@@ -120,6 +125,8 @@ export default function GlobalContextProvider({
   const [isNewNote, setIsNewNote] = useState(false);
   const [allTags, setAllTags] = useState<SingleTagType[]>([]);
   const [selectedTags, setSelectedTags] = useState<SingleTagType[]>([]);
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<SingleCodeLanguageType | null>(null);
 
   // ================================================================
 
@@ -154,7 +161,7 @@ export default function GlobalContextProvider({
           }
             export default HelloWorld
           `,
-          language: "javascript",
+          language: "",
           creationDate: "2024-01-02",
         },
         {
@@ -171,7 +178,7 @@ export default function GlobalContextProvider({
           }
             export default HelloWorld
           `,
-          language: "javascript",
+          language: "",
           creationDate: "2024-01-02",
         },
         {
@@ -188,7 +195,7 @@ export default function GlobalContextProvider({
           }
             export default HelloWorld
           `,
-          language: "javascript",
+          language: "",
           creationDate: "2024-01-02",
         },
       ];
@@ -231,6 +238,7 @@ export default function GlobalContextProvider({
         isNewNoteObject: { isNewNote, setIsNewNote },
         allTagsObject: { allTags, setAllTags },
         selectedTagsObject: { selectedTags, setSelectedTags },
+        selectedLanguageObject: { selectedLanguage, setSelectedLanguage },
       }}
     >
       {children}
