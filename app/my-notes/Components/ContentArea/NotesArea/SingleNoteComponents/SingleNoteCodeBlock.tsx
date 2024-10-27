@@ -16,9 +16,10 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
   } = useGlobalContext();
 
   return (
-    <div className="overflow-hidden text-sm my-5">
+    <div className="overflow-hidden text-sm my-5 flex-1">
       <SyntaxHighlighter
         language={language}
+        className="h-full"
         style={darkMode[1].isSelected ? tomorrowNightBlue : monoBlue}
       >
         {code}

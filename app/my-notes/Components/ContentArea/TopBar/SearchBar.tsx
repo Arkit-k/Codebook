@@ -43,12 +43,21 @@ function AddSnippetButton() {
       description: "",
       code: "",
       language: "",
-      creationDate: "",
+      creationDate: formatDate(new Date()),
     };
     setIsNewNote(true);
     setOpenContentNote(true);
     // setAllNotes([...allNotes, newSingleNote]);
     setSelectedNote(newSingleNote);
+  }
+
+  function formatDate(date: Date) {
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
+    return new Intl.DateTimeFormat("en-US", options).format(date);
   }
 
   // ==================================================================

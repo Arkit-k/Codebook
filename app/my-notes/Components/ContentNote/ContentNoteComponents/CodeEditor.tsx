@@ -1,5 +1,5 @@
 import { useGlobalContext } from "@/Context/ContextApi";
-import { ContentCopyOutlined } from "@mui/icons-material";
+import { ContentCopyOutlined, DoneAllOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { FaArrowDown, FaArrowUp, FaCode, FaSearch } from "react-icons/fa";
 import AceEditor from "react-ace";
@@ -24,8 +24,9 @@ export function CodeEditor({
     selectedNoteObject: { selectedNote },
     allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
-  const [isOpened, setIsOpened] = useState(false);
 
+  const [isOpened, setIsOpened] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   // to get selected language ---------------------------------------------
   useEffect(() => {
     if (selectedNote) {
@@ -50,6 +51,15 @@ export function CodeEditor({
     setAllNotes(updateAllNotes);
     setSingleNote(newSingleNote);
   }
+
+  // copy code ------------------------------------
+  function clickedCopyBtn() {
+    navigator.clipboard.writeText(singleNote.code);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1200);
+  }
   // ======================================
   return (
     <div className="flex gap-2 text-[12px] mt-8 group">
@@ -64,13 +74,23 @@ export function CodeEditor({
       >
         {/* copy button ------------------------------------------------------------- */}
         <div className="absolute top-4 right-4 z-50 ">
-          <IconButton>
-            <ContentCopyOutlined
-              sx={{ fontSize: 18 }}
-              className={`${
-                darkMode[1].isSelected ? "text-white" : "text-slate-700"
-              }`}
-            />
+          <IconButton disabled={isCopied}>
+            {isCopied ? (
+              <DoneAllOutlined
+                sx={{ fontSize: 18 }}
+                className={`${
+                  darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                }`}
+              />
+            ) : (
+              <ContentCopyOutlined
+                onClick={() => clickedCopyBtn()}
+                sx={{ fontSize: 18 }}
+                className={`${
+                  darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                }`}
+              />
+            )}
           </IconButton>
         </div>
         {/* language selector -------------------------------------------- */}

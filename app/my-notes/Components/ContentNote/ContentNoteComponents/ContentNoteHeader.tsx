@@ -1,6 +1,7 @@
 import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { TitleOutlined } from "@mui/icons-material";
+import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
 export function ContentNoteHeader({
@@ -16,11 +17,15 @@ export function ContentNoteHeader({
 }) {
   const {
     allNotesObject: { allNotes, setAllNotes },
-    openContentNoteObject: { setOpenContentNote },
+    openContentNoteObject: { openContentNote, setOpenContentNote },
     selectedLanguageObject: { setSelectedLanguage },
     darkModeObject: { darkMode },
+    selectedNoteObject: { setSelectedNote },
+    isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();
 
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [onFocus, setOnFocus] = useState(false);
   // update notes ----------------------------------
   function onUpdateTitle(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newSingleNote = { ...singleNote, title: event.target.value }; // get title
@@ -41,6 +46,14 @@ export function ContentNoteHeader({
       event.preventDefault();
     }
   }
+
+  // set focus on text area ---------------------
+  useEffect(() => {
+    if (openContentNote) {
+      textRef.current?.focus();
+      setOnFocus(true);
+    }
+  }, [openContentNote]);
   // ----------------------------------------------------------
   return (
     <div
@@ -53,9 +66,12 @@ export function ContentNoteHeader({
         <div className="flex flex-1 gap-2 group">
           <TitleOutlined
             sx={{ fontSize: 19 }}
-            className="text-slate-400 group-hover:text-blue-400 mt-[4px]"
+            className={`${
+              onFocus ? "text-blue-400" : "text-slate-400"
+            }  group-hover:text-blue-400 mt-[4px]`}
           />
           <textarea
+            ref={textRef}
             placeholder="New title"
             className={`text-lg font-bold resize-none outline-none overflow-hidden w-full h-auto group-hover:text-blue-500 ${
               darkMode[1].isSelected ? "bg-slate-800" : "bg-white"
@@ -73,6 +89,8 @@ export function ContentNoteHeader({
             setOpenContentNote(false);
             setIsOpened(false);
             setSelectedLanguage(null);
+            // setSelectedNote(null);
+            setIsNewNote(false);
           }}
         />
       </div>

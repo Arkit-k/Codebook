@@ -35,7 +35,16 @@ function ContentNoteModal() {
   useEffect(() => {
     if (isNewNote) {
       if (singleNote && singleNote.title !== "") {
-        setAllNotes([...allNotes, singleNote]);
+        const updateAllNotes = [...allNotes, singleNote];
+        // sort notes by date ----------------------------------------
+        const sortedAllNotes = updateAllNotes.sort((a, b) => {
+          return (
+            new Date(b.creationDate).getTime() -
+            new Date(a.creationDate).getTime()
+          );
+        });
+        // setAllNotes([...allNotes, singleNote]);
+        setAllNotes(sortedAllNotes);
         setIsNewNote(false);
       }
     }
@@ -69,7 +78,7 @@ function ContentNoteModal() {
       } ${openContentNote ? "block no-doc-scroll" : "hidden"}`}
     >
       <div
-        className={`h-[80%] max-md:w-[90%] max-lg:w-[70%] w-[50%] rounded-md p-4 overflow-scroll ${
+        className={`h-[80%] max-md:w-[90%] max-lg:w-[80%] w-[60%] rounded-md p-4 overflow-scroll ${
           darkMode[1].isSelected
             ? "bg-slate-800 border-[1px] border-gray-400"
             : "bg-white"

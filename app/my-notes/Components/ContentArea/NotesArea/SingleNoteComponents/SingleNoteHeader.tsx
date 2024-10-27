@@ -16,15 +16,20 @@ export function NoteHeader({
   } = useGlobalContext();
   return (
     <div className="flex justify-between mx-4">
-      <span
+      <div
         className="font-bold text-lg w-[87%] cursor-pointer hover:text-blue-500"
         onClick={() => {
           setOpenContentNote(true);
           setSelectedNote(note);
         }}
       >
-        {title}
-      </span>
+        {!title ? (
+          <span className="text-slate-400 hover:text-blue-500">No title</span>
+        ) : (
+          <span>{title}</span>
+        )}
+      </div>
+
       <FavoriteBorderOutlined className="text-blue-500 cursor-pointer" />
     </div>
   );

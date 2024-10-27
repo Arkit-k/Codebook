@@ -51,7 +51,7 @@ function SingleNote({ note }: { note: SingleNoteType }) {
         darkMode[1].isSelected
           ? "bg-slate-900 text-white border-slate-700"
           : "bg-white border-gray-400"
-      } max-sm:w-full rounded-md py-4 border-[1px]`}
+      } max-sm:w-full rounded-md py-4 border-[1px] h-[420px] flex flex-col`}
     >
       <NoteHeader title={title} isFavorite={isFavorite} note={note} />
       <NoteDate creationDate={creationDate} />

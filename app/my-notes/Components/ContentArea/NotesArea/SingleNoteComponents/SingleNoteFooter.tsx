@@ -3,7 +3,7 @@ import { DeleteRounded } from "@mui/icons-material";
 
 export function NoteFooter({ language }: { language: string }) {
   return (
-    <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
+    <div className="flex justify-between text-[13px] text-slate-500 mx-4 mt-3 h-fit">
       {language ? (
         <div className="flex gap-1 items-center">
           {getLanguageIcon(language)}
