@@ -17,16 +17,14 @@ function AllNotesSection() {
     allNotesObject: { allNotes },
   } = useGlobalContext();
 
+  // filter notes, get notes which are not deleted
+  const filterIsTrashedNotes = allNotes.filter(
+    (note) => note.isTrash === false
+  );
+  // =======================================================
   return (
-    // <div
-    //   className={`${
-    //     openContentNote
-    //       ? "grid-cols-1"
-    //       : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-    //   } mt-5 grid  gap-4`}
-    // >
     <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-      {allNotes.map((note, index) => (
+      {filterIsTrashedNotes.map((note, index) => (
         <div className="" key={index}>
           <SingleNote note={note} />
         </div>
@@ -41,8 +39,16 @@ function SingleNote({ note }: { note: SingleNoteType }) {
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
-  const { title, creationDate, description, code, tags, isFavorite, language } =
-    note;
+  const {
+    _id,
+    title,
+    creationDate,
+    description,
+    code,
+    tags,
+    isFavorite,
+    language,
+  } = note;
 
   // -------------------------------------------
   return (
@@ -53,12 +59,12 @@ function SingleNote({ note }: { note: SingleNoteType }) {
           : "bg-white border-gray-400"
       } max-sm:w-full rounded-md py-4 border-[1px] h-[420px] flex flex-col`}
     >
-      <NoteHeader title={title} isFavorite={isFavorite} note={note} />
+      <NoteHeader title={title} isFavorite={isFavorite} note={note} id={_id} />
       <NoteDate creationDate={creationDate} />
       <NoteTags tags={tags} />
       <NoteDescription description={description} />
       <CodeBlock language={language} code={code} />
-      <NoteFooter language={language} />
+      <NoteFooter language={language} note={note} />
     </div>
   );
 }

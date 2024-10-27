@@ -44,6 +44,7 @@ function AddSnippetButton() {
       code: "",
       language: "",
       creationDate: formatDate(new Date()),
+      isTrash: false,
     };
     setIsNewNote(true);
     setOpenContentNote(true);
@@ -56,6 +57,10 @@ function AddSnippetButton() {
       day: "numeric",
       month: "short",
       year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
     };
     return new Intl.DateTimeFormat("en-US", options).format(date);
   }

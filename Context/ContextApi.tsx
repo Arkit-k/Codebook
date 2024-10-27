@@ -163,6 +163,7 @@ export default function GlobalContextProvider({
           `,
           language: "",
           creationDate: "2024-01-02",
+          isTrash: false,
         },
         {
           _id: "2",
@@ -180,23 +181,7 @@ export default function GlobalContextProvider({
           `,
           language: "",
           creationDate: "2024-01-02",
-        },
-        {
-          _id: "3",
-          title: "this is a note3",
-          isFavorite: false,
-          tags: [{ _id: "1", name: "Tag1" }],
-          description: "this is a note3",
-          code: `
-          import React from 'react';
-
-          function HelloWorld(){
-            return <h1>Hello</h1>
-          }
-            export default HelloWorld
-          `,
-          language: "",
-          creationDate: "2024-01-02",
+          isTrash: false,
         },
       ];
       setTimeout(() => {

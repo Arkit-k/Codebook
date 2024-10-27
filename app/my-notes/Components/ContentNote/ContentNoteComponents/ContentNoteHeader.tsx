@@ -62,7 +62,7 @@ export function ContentNoteHeader({
       }`}
     >
       {/* title --------------------------------------------- */}
-      <div className="flex gap-2 w-full">
+      <div className="flex gap-2 w-full mb-3">
         <div className="flex flex-1 gap-2 group">
           <TitleOutlined
             sx={{ fontSize: 19 }}
@@ -73,7 +73,7 @@ export function ContentNoteHeader({
           <textarea
             ref={textRef}
             placeholder="New title"
-            className={`text-lg font-bold resize-none outline-none overflow-hidden w-full h-auto group-hover:text-blue-500 ${
+            className={`text-lg p-1 font-bold resize-none outline-none overflow-scroll w-full h-[45px] border border-slate-400 rounded-md group-hover:text-blue-500 ${
               darkMode[1].isSelected ? "bg-slate-800" : "bg-white"
             }`}
             value={singleNote.title}

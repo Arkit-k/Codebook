@@ -21,6 +21,7 @@ export interface SingleNoteType {
   code: string;
   language: string;
   creationDate: string;
+  isTrash: boolean;
 }
 
 export interface SingleTagType {

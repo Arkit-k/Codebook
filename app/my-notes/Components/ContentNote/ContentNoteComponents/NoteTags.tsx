@@ -75,7 +75,7 @@ export function NoteTags({
                   darkMode[1].isSelected
                     ? "bg-blue-700 text-white"
                     : "bg-slate-200 text-blue-700"
-                } p-1 text-xs rounded-full px-2 mr-1`}
+                } p-1 text-xs rounded-full px-3 mr-1`}
               >
                 {tag.name}
               </span>
