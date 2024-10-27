@@ -17,7 +17,7 @@ export function ContentNoteHeader({
   const {
     allNotesObject: { allNotes, setAllNotes },
     openContentNoteObject: { setOpenContentNote },
-    selectedNoteObject: { setSelectedNote },
+    selectedLanguageObject: { setSelectedLanguage },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
@@ -72,6 +72,7 @@ export function ContentNoteHeader({
           onClick={() => {
             setOpenContentNote(false);
             setIsOpened(false);
+            setSelectedLanguage(null);
           }}
         />
       </div>

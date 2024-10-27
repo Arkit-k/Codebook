@@ -3,31 +3,53 @@ import { ContentCopyOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { FaArrowDown, FaArrowUp, FaCode, FaSearch } from "react-icons/fa";
 import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/theme-terminal";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/mode-javascript";
+
 import { SingleCodeLanguageType, SingleNoteType } from "@/app/types/Types";
 import { useEffect, useRef, useState } from "react";
-import { allLanguages, getLanguageIcon } from "@/app/localData/Languages";
+import { allLanguages } from "@/app/localData/Languages";
 
-export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
+export function CodeEditor({
+  singleNote,
+  setSingleNote,
+}: {
+  singleNote: SingleNoteType;
+  setSingleNote: (value: SingleNoteType) => void;
+}) {
   const {
     darkModeObject: { darkMode },
     selectedLanguageObject: { selectedLanguage, setSelectedLanguage },
     selectedNoteObject: { selectedNote },
+    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
   const [isOpened, setIsOpened] = useState(false);
 
-  // to get language
-  // useEffect(() => {
-  //   if (selectedNote) {
-  //     const findLanguage = allLanguages.find((language) => {
-  //       return (
-  //         language.name.toLocaleLowerCase() ===
-  //         selectedNote.language.toLocaleLowerCase()
-  //       );
-  //     });
-  //     if (findLanguage) setSelectedLanguage(findLanguage);
-  //   }
-  // }, [selectedNote]);
+  // to get selected language ---------------------------------------------
+  useEffect(() => {
+    if (selectedNote) {
+      const findLanguage = allLanguages.find(
+        (language) =>
+          language.name.toLocaleLowerCase() ===
+          selectedNote.language.toLocaleLowerCase()
+      );
+      if (findLanguage) setSelectedLanguage(findLanguage);
+    }
+  }, [selectedNote]);
 
+  // code editor handle change -----------------------------------------------
+  function handleChange(code: string) {
+    const newSingleNote = { ...singleNote, code };
+    const updateAllNotes = allNotes.map((note) => {
+      if (note._id === singleNote._id) {
+        return newSingleNote;
+      }
+      return note;
+    });
+    setAllNotes(updateAllNotes);
+    setSingleNote(newSingleNote);
+  }
   // ======================================
   return (
     <div className="flex gap-2 text-[12px] mt-8 group">
@@ -61,12 +83,14 @@ export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
           onClick={() => setIsOpened(!isOpened)}
         >
           <div>
-            {!selectedNote?.language ? (
+            {!selectedLanguage ? (
               <span className="">Select language</span>
             ) : (
               <div className={`flex gap-1 items-center`}>
-                {getLanguageIcon(selectedNote?.language)}
-                <span className="mt-[1px]">{selectedNote?.language}</span>
+                {selectedLanguage?.icon}
+                <span className="mt-[1px]">{selectedLanguage?.name}</span>
+                {/* {getLanguageIcon(selectedNote?.language)}
+                <span className="mt-[1px]">{selectedNote?.language}</span> */}
               </div>
             )}
           </div>
@@ -79,7 +103,7 @@ export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
         <AceEditor
           placeholder="Placeholder Text"
           mode="javascript"
-          theme="xcode"
+          theme="terminal"
           name="blah2"
           width="100%"
           height="300px"
@@ -88,15 +112,14 @@ export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
           showPrintMargin={false}
           showGutter={false}
           highlightActiveLine={false}
-          className={`${
-            darkMode[1].isSelected
-              ? "bg-gray-900 text-slate-200"
-              : "bg-slate-200  text-black"
-          }`}
-          value={singleNote?.code}
-          //           value={`function onLoad(editor) {
-          //   console.log("i've loaded");
+          // className={`bg-transparent`}
+          // className={`${
+          //   darkMode[1].isSelected
+          //     ? "bg-gray-900 text-slate-200"
+          //     : "bg-slate-200  text-black"
           // }`}
+          value={singleNote?.code}
+          onChange={handleChange}
           setOptions={{
             enableBasicAutocompletion: false,
             enableLiveAutocompletion: false,
@@ -110,7 +133,7 @@ export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
   );
   // =========================================================
   function LanguageMenu() {
-    const textRef = useRef<HTMLInputElement>(null);
+    const textRef = useRef<HTMLInputElement>(null); // for search input
     const [filteredLanguages, setFilteredLanguages] = useState(allLanguages);
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -145,10 +168,13 @@ export function CodeEditor({ singleNote }: { singleNote: SingleNoteType }) {
     }, []);
 
     // select language function -----------------------------------------------------
+    // useeffect in note modal file after change
     function clickedLanguage(language: SingleCodeLanguageType) {
       setSelectedLanguage(language);
       setIsOpened(false);
     }
+    console.log("selectedLanguage: ", selectedLanguage);
+
     // -----------------------------------------------------
     return (
       <div
