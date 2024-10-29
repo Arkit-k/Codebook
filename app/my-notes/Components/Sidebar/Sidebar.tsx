@@ -75,6 +75,7 @@ function QuickLinks() {
     });
     setSideBarMenu(updatedSideBarMenu);
   }
+  console.log("sidebar menu: ", sideBarMenu);
 
   return (
     <div className="mt-20 text-sm">

@@ -1,23 +1,25 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
+import HomeBg from "../assets/01.jpg";
 
 export default function Home() {
   return (
-    <div className={`poppins`}>
+    <div
+      className={`poppins flex flex-col bg-gradient-to-b from-white/90 to-black/90 h-screen`}
+    >
       <Navbar />
+      <HeroSection />
     </div>
   );
 }
 
 function Navbar() {
   return (
-    <div className="">
-      <div className="flex m-5 max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col">
-        <Logo />
-        <Buttons />
-      </div>
-      <HeroSection />
+    <div className="flex m-5 max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col">
+      <Logo />
+      <Buttons />
     </div>
   );
 }
@@ -72,21 +74,27 @@ function Buttons() {
 
 function HeroSection() {
   return (
-    <div className="flex flex-col mx-16 items-center mt-[120px] gap-6">
-      <h1 className="font-bold text-2xl text-center">
-        Organize your code snippets
-        <span className="text-mainColor"> Efficiently</span>
-      </h1>
-      <p className="text-center text-sm w-[450px] max-sm:w-full text-slate-500">
-        Store and save all your snippets. With tagging and search features, you
-        can quickly find the snippet you need.
-      </p>
-      <button
-        className="block px-9 py-3 text-sm font-medium text-white transition focus:outline-none"
-        type="button"
-      >
-        {`Let's get started`}
-      </button>
-    </div>
+    <>
+      {/* bg image */}
+      <div className="h-full w-full -z-10 absolute">
+        <Image src={HomeBg} alt="home" fill />
+      </div>
+      <div className="flex flex-col mx-16 items-center mt-[120px] gap-6">
+        <h1 className="font-bold text-2xl md:text-4xl text-center">
+          Organize your code snippets
+          <span className="text-blue-700"> Efficiently</span>
+        </h1>
+        <p className="text-center text-sm md:text-md w-[450px] max-sm:w-full text-white">
+          Store and save all your snippets. With tagging and search features,
+          you can quickly find the snippet you need.
+        </p>
+        <button
+          className="block  px-9 py-3 text-md text-blue-400 transition focus:outline-none"
+          type="button"
+        >
+          {`Let's get started`}
+        </button>
+      </div>
+    </>
   );
 }

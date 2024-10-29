@@ -1,7 +1,7 @@
 "use client";
 import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { NoteHeader } from "./SingleNoteComponents/SingleNoteHeader";
 import { NoteTags } from "./SingleNoteComponents/SingleNoteTags";
@@ -15,16 +15,53 @@ import { NoteFooter } from "./SingleNoteComponents/SingleNoteFooter";
 function AllNotesSection() {
   const {
     allNotesObject: { allNotes },
+    sideBarMenuObject: { sideBarMenu },
   } = useGlobalContext();
+
+  const [filteredNotes, setFilteredNotes] = useState(
+    allNotes.filter((note) => note.isTrash === false)
+  );
 
   // filter notes, get notes which are not deleted
   const filterIsTrashedNotes = allNotes.filter(
     (note) => note.isTrash === false
   );
+
+  // =========================
+  useEffect(() => {
+    // all snippets
+    if (sideBarMenu[0].isSelected) {
+      setFilteredNotes(allNotes.filter((note) => !note.isTrash));
+    }
+    // if favorites
+    if (sideBarMenu[1].isSelected) {
+      setFilteredNotes(
+        allNotes.filter((note) => note.isFavorite && note?.isTrash === false)
+      );
+    }
+  }, [allNotes]);
+
+  // if sidebar changes
+  useEffect(() => {
+    if (sideBarMenu[0].isSelected) {
+      setFilteredNotes(filterIsTrashedNotes);
+    }
+    if (sideBarMenu[1].isSelected) {
+      const filteredFavoriteNotes = allNotes.filter(
+        (note) => !note.isTrash && note.isFavorite
+      );
+      setFilteredNotes(filteredFavoriteNotes);
+    }
+    if (sideBarMenu[2].isSelected) {
+      const filterTrashedNotes = allNotes.filter((note) => note.isTrash);
+      setFilteredNotes(filterTrashedNotes);
+    }
+  }, [sideBarMenu]);
+
   // =======================================================
   return (
     <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-      {filterIsTrashedNotes.map((note, index) => (
+      {filteredNotes.map((note, index) => (
         <div className="" key={index}>
           <SingleNote note={note} />
         </div>

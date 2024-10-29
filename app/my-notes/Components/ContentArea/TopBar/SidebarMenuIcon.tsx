@@ -7,7 +7,7 @@ function SidebarMenuIcon() {
     openSidebarObject: { openSidebar, setOpenSidebar },
   } = useGlobalContext();
   return (
-    <>
+    <div className="cursor-pointer hidden max-lg:block">
       {!openSidebar ? (
         <MenuOutlined
           onClick={() => setOpenSidebar(!openSidebar)}
@@ -18,10 +18,10 @@ function SidebarMenuIcon() {
         <CloseOutlined
           onClick={() => setOpenSidebar(!openSidebar)}
           // className="text-slate-500 cursor-pointer md:hidden"
-          className="text-slate-500 cursor-pointer hidden max-lg:block"
+          className="text-slate-500 "
         />
       )}
-    </>
+    </div>
   );
 }
 
