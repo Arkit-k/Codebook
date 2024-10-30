@@ -63,9 +63,11 @@ function Logo() {
 function QuickLinks() {
   const {
     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
+    openSidebarObject: { openSidebar, setOpenSidebar },
   } = useGlobalContext();
 
   function clickedMenu(index: number) {
+    if (openSidebar) setOpenSidebar(false);
     const updatedSideBarMenu = sideBarMenu.map((menu, i) => {
       if (i === index) {
         return { ...menu, isSelected: true };
@@ -75,7 +77,6 @@ function QuickLinks() {
     });
     setSideBarMenu(updatedSideBarMenu);
   }
-  console.log("sidebar menu: ", sideBarMenu);
 
   return (
     <div className="mt-20 text-sm">

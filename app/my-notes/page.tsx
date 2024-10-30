@@ -8,7 +8,7 @@ const page = () => {
   return (
     <div className="flex min-h-screen">
       <Toaster
-        position="bottom-left"
+        position="top-center"
         toastOptions={{
           style: {
             backgroundColor: "#3b82f6",

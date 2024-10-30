@@ -1,7 +1,7 @@
 import { getLanguageIcon } from "@/app/localData/Languages";
 import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import { DeleteRounded } from "@mui/icons-material";
+import { DeleteRounded, RestoreFromTrashOutlined } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { LuUndo2 } from "react-icons/lu";
 
@@ -24,7 +24,6 @@ export function NoteFooter({
 
     copyAllNotes[findIndex] = clickedNote; // update note
 
-    console.log("delete note: ", clickedNote);
     setAllNotes(copyAllNotes);
 
     // toast notification
@@ -66,12 +65,23 @@ export function NoteFooter({
       ) : (
         <span>No language selected</span>
       )}
-      {/* delete button --------------------------------- */}
-      <DeleteRounded
-        onClick={trashNoteFunction}
-        sx={{ fontSize: 17 }}
-        className="cursor-pointer"
-      />
+      {/* delete and restore button --------------------------------- */}
+      <div className="flex gap-2 items-center">
+        {note.isTrash && (
+          <div
+            onClick={resetNoteFunction}
+            className="cursor-pointer flex items-center"
+          >
+            <RestoreFromTrashOutlined sx={{ fontSize: 17 }} className="" />
+            <span>Restore</span>
+          </div>
+        )}
+        <DeleteRounded
+          onClick={trashNoteFunction}
+          sx={{ fontSize: 17 }}
+          className="cursor-pointer"
+        />
+      </div>
     </div>
   );
 }

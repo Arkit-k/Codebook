@@ -8,11 +8,13 @@ export function NoteHeader({
   title,
   note,
   isFavorite,
+  isTrashed,
 }: {
   id: string;
   title: string;
   isFavorite: boolean;
   note: SingleNoteType;
+  isTrashed: boolean;
 }) {
   const {
     openContentNoteObject: { setOpenContentNote },
@@ -36,27 +38,29 @@ export function NoteHeader({
   return (
     <div className="flex justify-between mx-4">
       <div
-        className="font-bold text-lg w-[87%] cursor-pointer hover:text-blue-500 line-clamp-1 h-fit"
+        className={`font-bold text-lg w-[87%] line-clamp-1 h-fit ${
+          !isTrashed ? "hover:text-blue-500 cursor-pointer" : ""
+        }`}
         onClick={() => {
+          if (isTrashed) return;
           setOpenContentNote(true);
           setSelectedNote(note);
         }}
       >
-        {!title ? (
-          <span className="text-slate-400 hover:text-blue-500">No title</span>
-        ) : (
-          <span>{title}</span>
-        )}
+        {!title ? <span>No title</span> : <span>{title}</span>}
       </div>
 
-      <Checkbox
-        icon={
-          <FavoriteBorderOutlined className="text-blue-500 cursor-pointer" />
-        }
-        checkedIcon={<Favorite className="text-blue-500 cursor-pointer" />}
-        checked={isFavorite}
-        onClick={handleClickedCheckbox}
-      />
+      {/* favorite button --------------------- */}
+      {!isTrashed && (
+        <Checkbox
+          icon={
+            <FavoriteBorderOutlined className="text-blue-500 cursor-pointer" />
+          }
+          checkedIcon={<Favorite className="text-blue-500 cursor-pointer" />}
+          checked={isFavorite}
+          onClick={handleClickedCheckbox}
+        />
+      )}
     </div>
   );
 }

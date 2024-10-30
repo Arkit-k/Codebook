@@ -11,6 +11,8 @@ import {
 } from "./SingleNoteComponents/SingleNoteDateAndDescription";
 import { CodeBlock } from "./SingleNoteComponents/SingleNoteCodeBlock";
 import { NoteFooter } from "./SingleNoteComponents/SingleNoteFooter";
+import { NotesAreaHeader } from "./NotesAreaHeader";
+import { NoNotes } from "./NoNotes";
 
 function AllNotesSection() {
   const {
@@ -39,6 +41,9 @@ function AllNotesSection() {
         allNotes.filter((note) => note.isFavorite && note?.isTrash === false)
       );
     }
+    if (sideBarMenu[2].isSelected) {
+      setFilteredNotes(allNotes.filter((note) => note?.isTrash === true));
+    }
   }, [allNotes]);
 
   // if sidebar changes
@@ -60,13 +65,17 @@ function AllNotesSection() {
 
   // =======================================================
   return (
-    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-      {filteredNotes.map((note, index) => (
-        <div className="" key={index}>
-          <SingleNote note={note} />
-        </div>
-      ))}
-    </div>
+    <>
+      <NotesAreaHeader />
+      <NoNotes notesLength={filteredNotes.length} />
+      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {filteredNotes.map((note, index) => (
+          <div className="" key={index}>
+            <SingleNote note={note} />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -85,6 +94,7 @@ function SingleNote({ note }: { note: SingleNoteType }) {
     tags,
     isFavorite,
     language,
+    isTrash,
   } = note;
 
   // -------------------------------------------
@@ -96,7 +106,13 @@ function SingleNote({ note }: { note: SingleNoteType }) {
           : "bg-white border-gray-400"
       } max-sm:w-full rounded-md py-4 border-[1px] h-[420px] flex flex-col`}
     >
-      <NoteHeader title={title} isFavorite={isFavorite} note={note} id={_id} />
+      <NoteHeader
+        title={title}
+        isFavorite={isFavorite}
+        note={note}
+        id={_id}
+        isTrashed={isTrash}
+      />
       <NoteDate creationDate={creationDate} />
       <NoteTags tags={tags} />
       <NoteDescription description={description} />
