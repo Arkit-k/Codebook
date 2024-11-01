@@ -85,4 +85,20 @@ export interface GlobalContextType {
       React.SetStateAction<SingleCodeLanguageType | null>
     >;
   };
+  openDeleteConfirmationObject: {
+    openDeleteConfirmationWindow: boolean;
+    setOpenDeleteConfirmationWindow: React.Dispatch<
+      React.SetStateAction<boolean>
+    >;
+  };
+  noteToDeleteObject: {
+    noteToDelete: string | null;
+    setNoteToDelete: React.Dispatch<React.SetStateAction<string | null>>;
+  };
+  openDeleteAllNotesConfirmationObject: {
+    openDeleteAllNotesConfirmationWindow: boolean;
+    setOpenDeleteAllNotesConfirmationWindow: React.Dispatch<
+      React.SetStateAction<boolean>
+    >;
+  };
 }

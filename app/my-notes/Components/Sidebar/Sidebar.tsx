@@ -14,7 +14,6 @@ export default function Sidebar() {
   } = useGlobalContext();
 
   const { width } = useWindowDimensions();
-  // console.log(width);
 
   useEffect(() => {
     if (openSidebar) {

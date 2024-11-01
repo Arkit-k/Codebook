@@ -20,7 +20,6 @@ export function ContentNoteHeader({
     openContentNoteObject: { openContentNote, setOpenContentNote },
     selectedLanguageObject: { setSelectedLanguage },
     darkModeObject: { darkMode },
-    selectedNoteObject: { setSelectedNote },
     isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();
 
@@ -58,7 +57,7 @@ export function ContentNoteHeader({
   return (
     <div
       className={`flex justify-between gap-8 mt-[4px] ${
-        darkMode[1].isSelected ? "bg-slate-800 text-white" : "bg-white"
+        darkMode[1].isSelected ? "bg-transparent text-white" : "bg-white"
       }`}
     >
       {/* title --------------------------------------------- */}

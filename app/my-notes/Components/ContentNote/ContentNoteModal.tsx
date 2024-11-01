@@ -80,7 +80,7 @@ function ContentNoteModal() {
       <div
         className={`h-[80%] max-md:w-[90%] max-lg:w-[80%] w-[60%] rounded-md p-4 overflow-scroll ${
           darkMode[1].isSelected
-            ? "bg-slate-800 border-[1px] border-gray-400"
+            ? "bg-slate-900 border-[1px] border-gray-400"
             : "bg-white"
         }`}
       >

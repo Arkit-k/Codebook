@@ -3,6 +3,8 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import ContentArea from "./Components/ContentArea/ContentArea";
 import ContentNoteModal from "./Components/ContentNote/ContentNoteModal";
 import { Toaster } from "react-hot-toast";
+import { DeleteNotePermanently } from "./Components/ContentArea/NotesArea/SingleNoteComponents/DeleteNotePermanently";
+import { DeleteAllTrashedNotesConfirmationWindow } from "./Components/ContentArea/NotesArea/DeleteAllTrashedNotesConfirmationWindow";
 
 const page = () => {
   return (
@@ -19,6 +21,8 @@ const page = () => {
       <Sidebar />
       <ContentArea />
       <ContentNoteModal />
+      <DeleteNotePermanently />
+      <DeleteAllTrashedNotesConfirmationWindow />
     </div>
   );
 };

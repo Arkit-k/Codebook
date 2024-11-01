@@ -66,7 +66,7 @@ function AllNotesSection() {
   // =======================================================
   return (
     <>
-      <NotesAreaHeader />
+      <NotesAreaHeader length={filteredNotes.length} />
       <NoNotes notesLength={filteredNotes.length} />
       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {filteredNotes.map((note, index) => (

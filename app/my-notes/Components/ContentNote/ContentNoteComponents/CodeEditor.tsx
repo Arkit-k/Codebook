@@ -193,7 +193,6 @@ export function CodeEditor({
       setSelectedLanguage(language);
       setIsOpened(false);
     }
-    console.log("selectedLanguage: ", selectedLanguage);
 
     // -----------------------------------------------------
     return (

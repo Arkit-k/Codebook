@@ -64,6 +64,18 @@ const ContextProvider = createContext<GlobalContextType>({
     selectedLanguage: null,
     setSelectedLanguage: () => {},
   },
+  openDeleteConfirmationObject: {
+    openDeleteConfirmationWindow: false,
+    setOpenDeleteConfirmationWindow: () => {},
+  },
+  noteToDeleteObject: {
+    noteToDelete: null,
+    setNoteToDelete: () => {},
+  },
+  openDeleteAllNotesConfirmationObject: {
+    openDeleteAllNotesConfirmationWindow: false,
+    setOpenDeleteAllNotesConfirmationWindow: () => {},
+  },
 });
 
 // values ===============================================================
@@ -127,6 +139,13 @@ export default function GlobalContextProvider({
   const [selectedTags, setSelectedTags] = useState<SingleTagType[]>([]);
   const [selectedLanguage, setSelectedLanguage] =
     useState<SingleCodeLanguageType | null>(null);
+  const [openDeleteConfirmationWindow, setOpenDeleteConfirmationWindow] =
+    useState(false);
+  const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
+  const [
+    openDeleteAllNotesConfirmationWindow,
+    setOpenDeleteAllNotesConfirmationWindow,
+  ] = useState(false);
 
   // ================================================================
 
@@ -224,6 +243,15 @@ export default function GlobalContextProvider({
         allTagsObject: { allTags, setAllTags },
         selectedTagsObject: { selectedTags, setSelectedTags },
         selectedLanguageObject: { selectedLanguage, setSelectedLanguage },
+        openDeleteConfirmationObject: {
+          openDeleteConfirmationWindow,
+          setOpenDeleteConfirmationWindow,
+        },
+        noteToDeleteObject: { noteToDelete, setNoteToDelete },
+        openDeleteAllNotesConfirmationObject: {
+          openDeleteAllNotesConfirmationWindow,
+          setOpenDeleteAllNotesConfirmationWindow,
+        },
       }}
     >
       {children}

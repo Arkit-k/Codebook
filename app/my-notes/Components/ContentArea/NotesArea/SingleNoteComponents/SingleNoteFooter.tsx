@@ -14,9 +14,18 @@ export function NoteFooter({
 }) {
   const {
     allNotesObject: { allNotes, setAllNotes },
+    openDeleteConfirmationObject: { setOpenDeleteConfirmationWindow },
+    noteToDeleteObject: { setNoteToDelete },
   } = useGlobalContext();
 
   function trashNoteFunction() {
+    // if note is already in trash open modal-------------------
+    if (note.isTrash) {
+      setOpenDeleteConfirmationWindow(true);
+      setNoteToDelete(note._id);
+      // setSelectedNote(note);
+      return;
+    }
     const copyAllNotes = [...allNotes]; // copy of all notes
     const findIndex = copyAllNotes.findIndex((n) => n._id === note._id); // find index
 
