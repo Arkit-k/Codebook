@@ -1,7 +1,7 @@
 "use client";
 import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import { NoteHeader } from "./SingleNoteComponents/SingleNoteHeader";
 import { NoteTags } from "./SingleNoteComponents/SingleNoteTags";
@@ -47,7 +47,7 @@ function AllNotesSection() {
   }, [allNotes]);
 
   // if sidebar changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (sideBarMenu[0].isSelected) {
       setFilteredNotes(filterIsTrashedNotes);
     }

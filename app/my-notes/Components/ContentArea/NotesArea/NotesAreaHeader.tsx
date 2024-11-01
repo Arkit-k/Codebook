@@ -5,7 +5,6 @@ export const NotesAreaHeader = ({ length }: { length: number }) => {
   const {
     sideBarMenuObject: { sideBarMenu },
     darkModeObject: { darkMode },
-    allNotesObject: { allNotes, setAllNotes },
     openDeleteAllNotesConfirmationObject: {
       setOpenDeleteAllNotesConfirmationWindow,
     },
@@ -29,6 +28,7 @@ export const NotesAreaHeader = ({ length }: { length: number }) => {
         {currentMenu}
       </div>
 
+      {/* delete all button for trash section ---------------------- */}
       {currentMenu === "Trash" && length > 0 && (
         <button
           onClick={() => setOpenDeleteAllNotesConfirmationWindow(true)}
