@@ -6,6 +6,8 @@ import { FaPython } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { SiCplusplus } from "react-icons/si";
 import useWindowDimensions from "./WindowDimensions";
+import { QuickLinks } from "./components/QuickLinks";
+import { Languages } from "./components/Languages";
 
 export default function Sidebar() {
   const {
@@ -59,69 +61,41 @@ function Logo() {
   );
 }
 
-function QuickLinks() {
-  const {
-    sideBarMenuObject: { sideBarMenu, setSideBarMenu },
-    openSidebarObject: { openSidebar, setOpenSidebar },
-  } = useGlobalContext();
+// function QuickLinks() {
+//   const {
+//     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
+//     openSidebarObject: { openSidebar, setOpenSidebar },
+//   } = useGlobalContext();
 
-  function clickedMenu(index: number) {
-    if (openSidebar) setOpenSidebar(false);
-    const updatedSideBarMenu = sideBarMenu.map((menu, i) => {
-      if (i === index) {
-        return { ...menu, isSelected: true };
-      } else {
-        return { ...menu, isSelected: false };
-      }
-    });
-    setSideBarMenu(updatedSideBarMenu);
-  }
+//   function clickedMenu(index: number) {
+//     if (openSidebar) setOpenSidebar(false);
+//     const updatedSideBarMenu = sideBarMenu.map((menu, i) => {
+//       if (i === index) {
+//         return { ...menu, isSelected: true };
+//       } else {
+//         return { ...menu, isSelected: false };
+//       }
+//     });
+//     setSideBarMenu(updatedSideBarMenu);
+//   }
 
-  return (
-    <div className="mt-20 text-sm">
-      <div className="font-bold text-slate-400">Links</div>
-      <ul className="text-slate-400 mt-4 flex flex-col gap-2">
-        {sideBarMenu.map((menu, index) => (
-          <li
-            key={index}
-            onClick={() => clickedMenu(index)}
-            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
-            ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
-              `}
-          >
-            {menu.icons}
-            <span>{menu.name}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function Languages() {
-  return (
-    <div className="mt-12 text-sm">
-      <div className="font-bold text-slate-400">Languages</div>
-      <div className="mt-5 ml-2 text-slate-400 flex flex-col gap-4">
-        <div className="flex justify-between">
-          <div className="flex gap-1 items-center">
-            <IoLogoJavascript size={15} /> Javascript
-          </div>
-          <span className="font-bold">3</span>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex gap-1 items-center">
-            <FaPython size={15} /> Python
-          </div>
-          <span className="font-bold">3</span>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex gap-1 items-center">
-            <SiCplusplus size={15} /> C++
-          </div>
-          <span className="font-bold">3</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className="mt-20 text-sm">
+//       <div className="font-bold text-slate-400">Links</div>
+//       <ul className="text-slate-400 mt-4 flex flex-col gap-2">
+//         {sideBarMenu.map((menu, index) => (
+//           <li
+//             key={index}
+//             onClick={() => clickedMenu(index)}
+//             className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
+//             ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
+//               `}
+//           >
+//             {menu.icons}
+//             <span>{menu.name}</span>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }

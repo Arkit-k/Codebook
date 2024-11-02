@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CodeLanguageCounterType,
   DarkModeType,
   GlobalContextType,
   SideBarMenu,
@@ -76,6 +77,10 @@ const ContextProvider = createContext<GlobalContextType>({
     openDeleteAllNotesConfirmationWindow: false,
     setOpenDeleteAllNotesConfirmationWindow: () => {},
   },
+  codeLanguageCounterObject: {
+    codeLanguageCounter: [],
+    setCodeLanguageCounter: () => {},
+  },
 });
 
 // values ===============================================================
@@ -146,12 +151,15 @@ export default function GlobalContextProvider({
     openDeleteAllNotesConfirmationWindow,
     setOpenDeleteAllNotesConfirmationWindow,
   ] = useState(false);
-
+  const [codeLanguageCounter, setCodeLanguageCounter] = useState<
+    CodeLanguageCounterType[]
+  >([]);
   // ================================================================
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 640);
   };
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -228,6 +236,32 @@ export default function GlobalContextProvider({
     setSelectedTags(selectedNote?.tags || []);
   }, [selectedNote]);
 
+  // for language count
+  useEffect(() => {
+    const languageCounts: Record<string, number> = {};
+    allNotes.forEach((note) => {
+      const language = note.language.toLowerCase();
+      if (language) {
+        if (languageCounts[language]) {
+          languageCounts[language]++;
+        } else {
+          languageCounts[language] = 1;
+        }
+      }
+    });
+
+    // convert to array
+    const convertedLanguageCounts: CodeLanguageCounterType[] = Object.entries(
+      languageCounts
+    )
+      .map(([language, count]) => ({
+        language,
+        count,
+      }))
+      .sort((a, b) => b.count - a.count);
+    setCodeLanguageCounter(convertedLanguageCounts);
+  }, [allNotes]);
+
   // ==========================================================
   return (
     <ContextProvider.Provider
@@ -251,6 +285,10 @@ export default function GlobalContextProvider({
         openDeleteAllNotesConfirmationObject: {
           openDeleteAllNotesConfirmationWindow,
           setOpenDeleteAllNotesConfirmationWindow,
+        },
+        codeLanguageCounterObject: {
+          codeLanguageCounter,
+          setCodeLanguageCounter,
         },
       }}
     >

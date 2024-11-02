@@ -35,6 +35,11 @@ export interface SingleCodeLanguageType {
   icon: React.ReactNode;
 }
 
+export interface CodeLanguageCounterType {
+  language: string;
+  count: number;
+}
+
 export interface GlobalContextType {
   sideBarMenuObject: {
     sideBarMenu: SideBarMenu[];
@@ -99,6 +104,12 @@ export interface GlobalContextType {
     openDeleteAllNotesConfirmationWindow: boolean;
     setOpenDeleteAllNotesConfirmationWindow: React.Dispatch<
       React.SetStateAction<boolean>
+    >;
+  };
+  codeLanguageCounterObject: {
+    codeLanguageCounter: CodeLanguageCounterType[];
+    setCodeLanguageCounter: React.Dispatch<
+      React.SetStateAction<CodeLanguageCounterType[]>
     >;
   };
 }
