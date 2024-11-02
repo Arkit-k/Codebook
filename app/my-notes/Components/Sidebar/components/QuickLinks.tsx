@@ -4,6 +4,8 @@ export function QuickLinks() {
   const {
     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
     openSidebarObject: { openSidebar, setOpenSidebar },
+    tagsAndLogoutMenuObject: { tagsAndLogoutMenu },
+    openTagsWindowObject: { openTagsWindow, setOpenTagsWindow },
   } = useGlobalContext();
 
   function clickedMenu(index: number) {
@@ -18,8 +20,17 @@ export function QuickLinks() {
     setSideBarMenu(updatedSideBarMenu);
   }
 
+  function clickedMenu2(index: number) {
+    if (index === 0) {
+      setOpenTagsWindow(true);
+    } else if (index === 1) {
+      console.log("logout");
+    }
+  }
+
+  // =====================================================
   return (
-    <div className="mt-20 text-sm">
+    <div className="mt-20 text-sm ">
       <div className="font-bold text-slate-400">Links</div>
       <ul className="text-slate-400 mt-4 flex flex-col gap-2">
         {sideBarMenu.map((menu, index) => (
@@ -29,6 +40,19 @@ export function QuickLinks() {
             className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
             ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
               `}
+          >
+            {menu.icons}
+            <span>{menu.name}</span>
+          </li>
+        ))}
+      </ul>
+      <ul className="text-slate-400 mt-5 flex flex-col gap-2">
+        {tagsAndLogoutMenu.map((menu, index) => (
+          <li
+            key={index}
+            onClick={() => clickedMenu2(index)}
+            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-blue-500
+            `}
           >
             {menu.icons}
             <span>{menu.name}</span>

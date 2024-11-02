@@ -5,6 +5,7 @@ import ContentNoteModal from "./Components/ContentNote/ContentNoteModal";
 import { Toaster } from "react-hot-toast";
 import { DeleteNotePermanently } from "./Components/ContentArea/NotesArea/SingleNoteComponents/DeleteNotePermanently";
 import { DeleteAllTrashedNotesConfirmationWindow } from "./Components/ContentArea/NotesArea/DeleteAllTrashedNotesConfirmationWindow";
+import { TagsWindow } from "./Components/Sidebar/components/TagsWindowModal/TagsWindow";
 
 const page = () => {
   return (
@@ -23,6 +24,7 @@ const page = () => {
       <ContentNoteModal />
       <DeleteNotePermanently />
       <DeleteAllTrashedNotesConfirmationWindow />
+      <TagsWindow />
     </div>
   );
 };

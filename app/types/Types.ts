@@ -112,4 +112,12 @@ export interface GlobalContextType {
       React.SetStateAction<CodeLanguageCounterType[]>
     >;
   };
+  openTagsWindowObject: {
+    openTagsWindow: boolean;
+    setOpenTagsWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  tagsAndLogoutMenuObject: {
+    tagsAndLogoutMenu: SideBarMenu[];
+    setTagsAndLogoutMenu: React.Dispatch<React.SetStateAction<SideBarMenu[]>>;
+  };
 }

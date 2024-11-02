@@ -16,6 +16,8 @@ import {
   FavoriteBorder,
   LightMode,
   Logout,
+  LogoutOutlined,
+  StyleOutlined,
 } from "@mui/icons-material";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -81,6 +83,14 @@ const ContextProvider = createContext<GlobalContextType>({
     codeLanguageCounter: [],
     setCodeLanguageCounter: () => {},
   },
+  openTagsWindowObject: {
+    openTagsWindow: false,
+    setOpenTagsWindow: () => {},
+  },
+  tagsAndLogoutMenuObject: {
+    tagsAndLogoutMenu: [],
+    setTagsAndLogoutMenu: () => {},
+  },
 });
 
 // values ===============================================================
@@ -124,6 +134,21 @@ const darkModeItems = [
   },
 ];
 
+const tagsAndLogoutMenuItems = [
+  {
+    id: 1,
+    name: "Tags",
+    isSelected: false,
+    icons: <StyleOutlined sx={{ fontSize: 18 }} />,
+  },
+  {
+    id: 2,
+    name: "Log out",
+    isSelected: false,
+    icons: <LogoutOutlined sx={{ fontSize: 18 }} />,
+  },
+];
+
 // ===============================================================
 export default function GlobalContextProvider({
   children,
@@ -154,6 +179,10 @@ export default function GlobalContextProvider({
   const [codeLanguageCounter, setCodeLanguageCounter] = useState<
     CodeLanguageCounterType[]
   >([]);
+  const [openTagsWindow, setOpenTagsWindow] = useState(false);
+  const [tagsAndLogoutMenu, setTagsAndLogoutMenu] = useState<SideBarMenu[]>(
+    tagsAndLogoutMenuItems
+  );
   // ================================================================
 
   const handleResize = () => {
@@ -289,6 +318,14 @@ export default function GlobalContextProvider({
         codeLanguageCounterObject: {
           codeLanguageCounter,
           setCodeLanguageCounter,
+        },
+        openTagsWindowObject: {
+          openTagsWindow,
+          setOpenTagsWindow,
+        },
+        tagsAndLogoutMenuObject: {
+          tagsAndLogoutMenu,
+          setTagsAndLogoutMenu,
         },
       }}
     >
