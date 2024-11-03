@@ -91,6 +91,10 @@ const ContextProvider = createContext<GlobalContextType>({
     tagsAndLogoutMenu: [],
     setTagsAndLogoutMenu: () => {},
   },
+  openNewTagsWindowObject: {
+    openNewTagsWindow: false,
+    setOpenNewTagsWindow: () => {},
+  },
 });
 
 // values ===============================================================
@@ -183,6 +187,7 @@ export default function GlobalContextProvider({
   const [tagsAndLogoutMenu, setTagsAndLogoutMenu] = useState<SideBarMenu[]>(
     tagsAndLogoutMenuItems
   );
+  const [openNewTagsWindow, setOpenNewTagsWindow] = useState(false);
   // ================================================================
 
   const handleResize = () => {
@@ -326,6 +331,10 @@ export default function GlobalContextProvider({
         tagsAndLogoutMenuObject: {
           tagsAndLogoutMenu,
           setTagsAndLogoutMenu,
+        },
+        openNewTagsWindowObject: {
+          setOpenNewTagsWindow,
+          openNewTagsWindow,
         },
       }}
     >

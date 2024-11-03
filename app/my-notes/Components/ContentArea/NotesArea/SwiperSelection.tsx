@@ -18,15 +18,16 @@ import { useGlobalContext } from "@/Context/ContextApi";
 export default function SwiperSelection() {
   const {
     darkModeObject: { darkMode },
+    openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
   // ===========================================================
   return (
     <div
       className={`${
         darkMode[1].isSelected ? "bg-slate-900 text-slate-400" : "bg-white"
-      } p-3 rounded-lg flex gap-5 justify-between `}
+      } p-3 rounded-lg flex gap-5 justify-between`}
     >
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pb-1">
         {/* <div className="overflow-x-auto w-[1112px]"> */}
         <Swiper
           slidesPerView="auto"
@@ -52,7 +53,10 @@ export default function SwiperSelection() {
           <SwiperSlide className="">Slide 9</SwiperSlide>
         </Swiper>
       </div>
-      <button className="bg-blue-600 rounded-md px-3 flex gap-1 items-center text-white">
+      <button
+        onClick={() => setOpenNewTagsWindow(true)}
+        className="bg-blue-600 rounded-md px-3 flex gap-1 items-center text-white"
+      >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>
       </button>

@@ -120,4 +120,8 @@ export interface GlobalContextType {
     tagsAndLogoutMenu: SideBarMenu[];
     setTagsAndLogoutMenu: React.Dispatch<React.SetStateAction<SideBarMenu[]>>;
   };
+  openNewTagsWindowObject: {
+    openNewTagsWindow: boolean;
+    setOpenNewTagsWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  };
 }

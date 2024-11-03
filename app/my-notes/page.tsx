@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { DeleteNotePermanently } from "./Components/ContentArea/NotesArea/SingleNoteComponents/DeleteNotePermanently";
 import { DeleteAllTrashedNotesConfirmationWindow } from "./Components/ContentArea/NotesArea/DeleteAllTrashedNotesConfirmationWindow";
 import { TagsWindow } from "./Components/Sidebar/components/TagsWindowModal/TagsWindow";
+import { AddTagWindow } from "./Components/Sidebar/components/TagsWindowModal/AddTagWindow";
 
 const page = () => {
   return (
@@ -25,6 +26,7 @@ const page = () => {
       <DeleteNotePermanently />
       <DeleteAllTrashedNotesConfirmationWindow />
       <TagsWindow />
+      <AddTagWindow />
     </div>
   );
 };

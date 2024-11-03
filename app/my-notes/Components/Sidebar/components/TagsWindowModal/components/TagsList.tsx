@@ -9,7 +9,9 @@ export const TagsList = () => {
   return (
     <div
       className={`${
-        darkMode[1].isSelected ? "text-white border-slate-600" : "text-black"
+        darkMode[1].isSelected
+          ? "text-white border-slate-600"
+          : "bg-gray-100 text-black"
       } rounded-md flex-1 p-4 h-[70%] border overflow-auto mt-8 flex flex-col gap-4 `}
     >
       <SingleTag />

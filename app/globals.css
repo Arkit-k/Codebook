@@ -55,18 +55,19 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 2px;
+  height: 2px;
 }
 
-body::-webkit-scrollbar-thumb:horizontal {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: rgb(197, 197, 197);
+  /* outline: 1px solid rgb(255, 255, 255); */
 }
 
-body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+::-webkit-scrollbar-thumb {
+  background-color: rgb(109, 109, 109);
+  /* outline: 1px solid rgb(0, 0, 0); */
+  border-radius: 100vh;
 }
 
 :root:has(.no-doc-scroll) {

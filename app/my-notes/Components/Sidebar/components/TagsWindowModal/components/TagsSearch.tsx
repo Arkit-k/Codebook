@@ -6,9 +6,10 @@ import { FaSearch } from "react-icons/fa";
 export const TagsSearch = () => {
   const {
     darkModeObject: { darkMode },
+    openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
   return (
-    <div className="flex justify-between gap-2 md:gap-5 items-center mt-11">
+    <div className="flex justify-between gap-2 md:gap-5 items-center mt-8">
       <div
         className={`${
           darkMode[1].isSelected
@@ -23,7 +24,10 @@ export const TagsSearch = () => {
           className="bg-transparent outline-none w-full"
         />
       </div>
-      <button className="bg-blue-600 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white">
+      <button
+        onClick={() => setOpenNewTagsWindow(true)}
+        className="bg-blue-600 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
+      >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Add Tag</span>
       </button>
