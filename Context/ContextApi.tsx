@@ -252,6 +252,7 @@ export default function GlobalContextProvider({
 
     function updateAllTags() {
       const allTags = [
+        { _id: "0", name: "All" },
         { _id: "1", name: "Tag1" },
         { _id: "2", name: "Tag2" },
         { _id: "3", name: "Tag3" },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AddOutlined } from "@mui/icons-material";
 
 // Import Swiper React components
@@ -19,7 +19,43 @@ export default function SwiperSelection() {
   const {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
+    allTagsObject: { allTags },
   } = useGlobalContext();
+
+  const [tagsSelected, setTagsSelected] = useState<boolean[]>([]);
+
+  // initially get all tags and set selected to false other than ALL -----------------------------
+  useEffect(() => {
+    if (allTags) {
+      const newTagsSelected = Array(allTags.length).fill(false);
+      newTagsSelected[0] = true;
+      setTagsSelected(newTagsSelected);
+    }
+  }, [allTags]);
+
+  // -----------------------------------------------
+  function handleTagClick(index: number) {
+    const newTagsSelected = [...tagsSelected];
+    // if clicked all, turn all tags to false
+    if (index === 0) {
+      newTagsSelected[0] = true;
+      for (let i = 1; i < newTagsSelected.length; i++) {
+        newTagsSelected[i] = false;
+      }
+      setTagsSelected(newTagsSelected);
+      return;
+    } else {
+      newTagsSelected[0] = false;
+      newTagsSelected[index] = !newTagsSelected[index];
+      setTagsSelected(newTagsSelected);
+    }
+    // if all tags are false, turn first one to true
+    if (newTagsSelected.every((tag) => !tag)) {
+      newTagsSelected[0] = true;
+      setTagsSelected(newTagsSelected);
+    }
+  }
+
   // ===========================================================
   return (
     <div
@@ -40,7 +76,18 @@ export default function SwiperSelection() {
           // modules={[FreeMode, Pagination]}
           className="mySwiper w-fit"
         >
-          <SwiperSlide className="bg-blue-600 p-1 rounded-md text-white">
+          {allTags.map((tag, index) => (
+            <SwiperSlide
+              key={index}
+              className={`${
+                tagsSelected[index] ? "bg-blue-500 text-white" : ""
+              }`}
+              onClick={() => handleTagClick(index)}
+            >
+              {tag.name}
+            </SwiperSlide>
+          ))}
+          {/* <SwiperSlide className="bg-blue-600 p-1 rounded-md text-white">
             All
           </SwiperSlide>
           <SwiperSlide className="">Slide 2</SwiperSlide>
@@ -50,7 +97,7 @@ export default function SwiperSelection() {
           <SwiperSlide className="">Slide 6</SwiperSlide>
           <SwiperSlide className="">Slide 7</SwiperSlide>
           <SwiperSlide className="">Slide 8</SwiperSlide>
-          <SwiperSlide className="">Slide 9</SwiperSlide>
+          <SwiperSlide className="">Slide 9</SwiperSlide> */}
         </Swiper>
       </div>
       <button

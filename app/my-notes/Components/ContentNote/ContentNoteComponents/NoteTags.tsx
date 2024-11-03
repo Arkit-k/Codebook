@@ -128,7 +128,7 @@ export function NoteTags({
           darkMode[1].isSelected
             ? "bg-slate-700 border border-slate-400 text-slate-200"
             : "bg-slate-100 border border-slate-500"
-        } absolute p-1 top-10 rounded-md flex flex-col gap-1 overflow-hidden z-50`}
+        } absolute p-1 top-10 -left-10 rounded-md flex flex-col gap-1 overflow-auto z-[100] h-[350px]`}
       >
         {allTags.map((tag) => (
           <li
