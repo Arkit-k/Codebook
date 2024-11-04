@@ -10,14 +10,13 @@ export const DeleteNotePermanently = () => {
       setOpenDeleteConfirmationWindow,
     },
     darkModeObject: { darkMode },
-    selectedNoteObject: { selectedNote },
     allNotesObject: { allNotes, setAllNotes },
     noteToDeleteObject: { noteToDelete },
   } = useGlobalContext();
 
   // ---------------------------------------------------
   function deleteSnippet() {
-    if (selectedNote) {
+    if (noteToDelete) {
       // const updateAllNotes = allNotes.filter(
       //   (note) => note._id !== selectedNote._id
       // );

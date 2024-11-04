@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     if (openSidebar) {
-      if (width && width > 768) {
+      if (width && width > 1024) {
         setOpenSidebar(false);
       }
     }
@@ -24,7 +24,11 @@ export default function Sidebar() {
   return (
     <div
       className={`
-        ${openSidebar ? "fixed z-50 shadow-lg" : "max-lg:hidden"}
+        ${
+          openSidebar
+            ? "fixed z-50 shadow-lg overflow-y-auto h-full"
+            : "max-lg:hidden"
+        }
         pr-5 flex flex-col gap-2 p-6 min-h-screen shadow-lg pt-7 ${
           darkMode[1].isSelected ? "bg-slate-900" : "bg-white"
         }`}

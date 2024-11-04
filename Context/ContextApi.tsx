@@ -95,6 +95,10 @@ const ContextProvider = createContext<GlobalContextType>({
     openNewTagsWindow: false,
     setOpenNewTagsWindow: () => {},
   },
+  selectedTagToEditObject: {
+    selectedTagToEdit: null,
+    setSelectedTagToEdit: () => {},
+  },
 });
 
 // values ===============================================================
@@ -184,10 +188,12 @@ export default function GlobalContextProvider({
     CodeLanguageCounterType[]
   >([]);
   const [openTagsWindow, setOpenTagsWindow] = useState(false);
+  const [openNewTagsWindow, setOpenNewTagsWindow] = useState(false);
   const [tagsAndLogoutMenu, setTagsAndLogoutMenu] = useState<SideBarMenu[]>(
     tagsAndLogoutMenuItems
   );
-  const [openNewTagsWindow, setOpenNewTagsWindow] = useState(false);
+  const [selectedTagToEdit, setSelectedTagToEdit] =
+    useState<SingleTagType | null>(null);
   // ================================================================
 
   const handleResize = () => {
@@ -336,6 +342,10 @@ export default function GlobalContextProvider({
         openNewTagsWindowObject: {
           setOpenNewTagsWindow,
           openNewTagsWindow,
+        },
+        selectedTagToEditObject: {
+          selectedTagToEdit,
+          setSelectedTagToEdit,
         },
       }}
     >

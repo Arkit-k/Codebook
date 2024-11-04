@@ -30,7 +30,7 @@ export const TagsWindow = () => {
             darkMode[1].isSelected ? "text-white" : "text-black"
           } flex justify-between items-center`}
         >
-          <span className="text-xl font-bold">Tags</span>
+          <span className="text-xl font-bold">Manage Tags</span>
           <button onClick={() => setOpenTagsWindow(false)}>
             <MdClose size={20} />
           </button>

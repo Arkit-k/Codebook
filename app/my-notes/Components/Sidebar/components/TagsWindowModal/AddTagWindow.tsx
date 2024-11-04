@@ -10,6 +10,8 @@ export const AddTagWindow = () => {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { openNewTagsWindow, setOpenNewTagsWindow },
     allTagsObject: { allTags, setAllTags },
+    selectedTagToEditObject: { selectedTagToEdit, setSelectedTagToEdit },
+    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
   const [tagName, setTagName] = useState("");
   // const [placeholder, setPlaceholder] = useState("");
@@ -24,7 +26,7 @@ export const AddTagWindow = () => {
   }
 
   // ------------------------------------------------------
-  function handleAddTag() {
+  function handleClickedTag() {
     // if tag empty
     if (tagName.trim().length === 0) {
       setErrorMessage("Please add a tag name");
@@ -34,7 +36,13 @@ export const AddTagWindow = () => {
 
     // check if tag already exist
     if (!allTags.some((tag) => tag.name === tagName)) {
-      addNewTagFunction();
+      // if new tag
+      if (!selectedTagToEdit) {
+        addNewTagFunction();
+      } else {
+        handleEditTag();
+      }
+      setOpenNewTagsWindow(false);
     } else {
       setErrorMessage("Tag already exists");
       inputRef.current?.focus();
@@ -46,7 +54,6 @@ export const AddTagWindow = () => {
     try {
       setAllTags([...allTags, newTag]);
 
-      setOpenNewTagsWindow(false);
       setTagName("");
       toast.success("Tag has been added successfully");
     } catch (error) {
@@ -54,9 +61,51 @@ export const AddTagWindow = () => {
     }
   }
 
+  // edit tag and update in all notes
+  function handleEditTag() {
+    const updateAllTags = allTags.map((tag) => {
+      if (tag._id === selectedTagToEdit?._id) {
+        return { ...tag, name: tagName };
+      }
+      return tag;
+    });
+    const updatedNotes = allNotes.map((note) => {
+      if (
+        note.tags.some(
+          (tag) =>
+            tag.name.toLocaleLowerCase() ===
+            selectedTagToEdit?.name.toLocaleLowerCase()
+        )
+      ) {
+        return {
+          ...note,
+          tags: note.tags.map((tag) => {
+            if (
+              tag.name.toLocaleLowerCase() ===
+              selectedTagToEdit?.name.toLocaleLowerCase()
+            ) {
+              return { ...tag, name: tagName };
+            }
+            return tag;
+          }),
+        };
+      }
+      return note;
+    });
+    setAllTags(updateAllTags);
+    setAllNotes(updatedNotes);
+    setSelectedTagToEdit(null);
+  }
+
+  // -----------------------------------------
   useEffect(() => {
     inputRef.current?.focus();
-    setTagName("");
+    // if editing a tag -----------------
+    if (selectedTagToEdit) {
+      setTagName(selectedTagToEdit.name);
+    } else {
+      setTagName("");
+    }
     setErrorMessage("");
   }, [openNewTagsWindow]);
 
@@ -77,7 +126,9 @@ export const AddTagWindow = () => {
             : "bg-white"
         }`}
       >
-        <span className="font-bold">Add new tag</span>
+        <span className="font-bold">
+          {selectedTagToEdit ? "Edit tag" : "Add new tag"}
+        </span>
         <div className="flex my-5 gap-3 items-center relative ">
           <span>Tag name</span>
           <input
@@ -104,6 +155,7 @@ export const AddTagWindow = () => {
           <button
             onClick={() => {
               setOpenNewTagsWindow(false);
+              setSelectedTagToEdit(null);
             }}
             className={`${
               darkMode[1].isSelected
@@ -114,10 +166,10 @@ export const AddTagWindow = () => {
             Cancel
           </button>
           <button
-            onClick={handleAddTag}
+            onClick={handleClickedTag}
             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 "
           >
-            Confirm
+            {selectedTagToEdit ? "Save changes" : "Add tag"}
           </button>
         </div>
       </div>

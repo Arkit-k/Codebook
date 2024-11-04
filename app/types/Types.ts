@@ -124,4 +124,10 @@ export interface GlobalContextType {
     openNewTagsWindow: boolean;
     setOpenNewTagsWindow: React.Dispatch<React.SetStateAction<boolean>>;
   };
+  selectedTagToEditObject: {
+    selectedTagToEdit: SingleTagType | null;
+    setSelectedTagToEdit: React.Dispatch<
+      React.SetStateAction<SingleTagType | null>
+    >;
+  };
 }
