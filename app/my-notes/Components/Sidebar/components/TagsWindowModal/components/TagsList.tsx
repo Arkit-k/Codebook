@@ -1,19 +1,28 @@
 "use client";
 import { SingleNoteType, SingleTagType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
-import { StyleOutlined } from "@mui/icons-material";
+import { SearchRounded, StyleOutlined } from "@mui/icons-material";
 import React from "react";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdDragIndicator } from "react-icons/md";
 
-export const TagsList = () => {
+export const TagsList = ({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const {
     darkModeObject: { darkMode },
     allTagsObject: { allTags },
   } = useGlobalContext();
 
-  const filterAllTag = allTags.filter((t) => t.name !== "All");
+  const filterAllTag = allTags.filter((t) => t.name !== "All"); // dont show first All tag
+  const filterTagsOnSearch = filterAllTag.filter((tag) =>
+    tag.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   // ================================================================
   return (
     <div
@@ -23,16 +32,29 @@ export const TagsList = () => {
           : "bg-gray-50 text-black"
       } rounded-md flex-1 p-4 h-[70%] border overflow-auto mt-8 flex flex-col gap-3`}
     >
-      {/* if no tags ------------------------ */}
+      {/* if no tag created ------------------------ */}
       {filterAllTag.length === 0 && (
         <div className="flex flex-col h-full justify-center items-center">
           <StyleOutlined sx={{ fontSize: 70 }} />
           <span>No tags added</span>
         </div>
       )}
-      {filterAllTag.map((tag, index) => (
+      {/* if no tags found on search */}
+      {filterTagsOnSearch.length === 0 && filterAllTag.length !== 0 && (
+        <div className="flex flex-col h-full justify-center items-center">
+          <SearchRounded sx={{ fontSize: 70 }} />
+          <span>No tags Found</span>
+        </div>
+      )}
+      {/* show searched tags */}
+      {filterTagsOnSearch.map((tag, index) => (
         <SingleTag tag={tag} key={index} />
       ))}
+
+      {/* show all tags only if search is empty and no tags were found */}
+      {searchQuery.length === 0 &&
+        filterTagsOnSearch.length === 0 &&
+        filterAllTag.map((tag, index) => <SingleTag tag={tag} key={index} />)}
     </div>
   );
 };

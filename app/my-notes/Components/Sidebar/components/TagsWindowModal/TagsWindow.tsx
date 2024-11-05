@@ -1,6 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React from "react";
+import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { TagsSearch } from "./components/TagsSearch";
 import { TagsList } from "./components/TagsList";
@@ -10,6 +10,8 @@ export const TagsWindow = () => {
     openTagsWindowObject: { openTagsWindow, setOpenTagsWindow },
     darkModeObject: { darkMode },
   } = useGlobalContext();
+
+  const [searchQuery, setSearchQuery] = useState("");
   // ==========================================
   return (
     <div
@@ -36,9 +38,9 @@ export const TagsWindow = () => {
           </button>
         </div>
         {/* search --------------- */}
-        <TagsSearch />
+        <TagsSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         {/* list ------------------- */}
-        <TagsList />
+        <TagsList searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
     </div>
   );

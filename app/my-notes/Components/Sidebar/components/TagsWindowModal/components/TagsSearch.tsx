@@ -3,7 +3,13 @@ import { AddOutlined } from "@mui/icons-material";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
-export const TagsSearch = () => {
+export const TagsSearch = ({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
@@ -20,13 +26,15 @@ export const TagsSearch = () => {
         <FaSearch size={20} />
         <input
           type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search tags"
           className="bg-transparent outline-none w-full"
         />
       </div>
       <button
         onClick={() => setOpenNewTagsWindow(true)}
-        className="bg-blue-600 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
+        className="bg-blue-500 hover:bg-blue-700 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Add Tag</span>
