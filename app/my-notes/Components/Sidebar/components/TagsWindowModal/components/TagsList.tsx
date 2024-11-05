@@ -1,6 +1,9 @@
-import { SingleTagType } from "@/app/types/Types";
+"use client";
+import { SingleNoteType, SingleTagType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
+import { StyleOutlined } from "@mui/icons-material";
 import React from "react";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdDragIndicator } from "react-icons/md";
 
@@ -9,6 +12,9 @@ export const TagsList = () => {
     darkModeObject: { darkMode },
     allTagsObject: { allTags },
   } = useGlobalContext();
+
+  const filterAllTag = allTags.filter((t) => t.name !== "All");
+  // ================================================================
   return (
     <div
       className={`${
@@ -17,7 +23,14 @@ export const TagsList = () => {
           : "bg-gray-50 text-black"
       } rounded-md flex-1 p-4 h-[70%] border overflow-auto mt-8 flex flex-col gap-3`}
     >
-      {allTags.slice(1).map((tag, index) => (
+      {/* if no tags ------------------------ */}
+      {filterAllTag.length === 0 && (
+        <div className="flex flex-col h-full justify-center items-center">
+          <StyleOutlined sx={{ fontSize: 70 }} />
+          <span>No tags added</span>
+        </div>
+      )}
+      {filterAllTag.map((tag, index) => (
         <SingleTag tag={tag} key={index} />
       ))}
     </div>
@@ -29,12 +42,16 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     selectedTagToEditObject: { setSelectedTagToEdit },
+
+    allTagsObject: { allTags, setAllTags },
+    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
 
   function openTagEditWindow(tag: SingleTagType) {
     setOpenNewTagsWindow(true);
     setSelectedTagToEdit(tag);
   }
+
   // ============================================================
   return (
     <div
@@ -49,7 +66,7 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
         <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
         <div className="flex flex-col flex-1">
           <span className="font-bold">{tag.name}</span>
-          <span className="text-sm">Snippets</span>
+          {/* <span className="text-sm">Snippets</span> */}
         </div>
         {/* edit and delete buttons ------------------------------------- */}
         <div
@@ -58,11 +75,55 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
           <button className="" onClick={() => openTagEditWindow(tag)}>
             <FaEdit className="pl-[2px]" />
           </button>
-          <button className="">
+          <button
+            className=""
+            onClick={() =>
+              deleteTag(tag, allTags, setAllTags, allNotes, setAllNotes)
+            }
+          >
             <MdDelete />
           </button>
         </div>
       </div>
     </div>
   );
+}
+
+// delete tag ---------------------
+function deleteTag(
+  tag: SingleTagType,
+  allTags: SingleTagType[],
+  setAllTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>,
+  allNotes: SingleNoteType[],
+  setAllNotes: React.Dispatch<React.SetStateAction<SingleNoteType[]>>
+) {
+  try {
+    // update tags
+    const updateAllTags = allTags.filter(
+      (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+    );
+    // update tags in all notes
+    const updateAllNotes = allNotes.map((note) => {
+      // if a note has tag
+      if (
+        note.tags.some(
+          (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase()
+        )
+      ) {
+        return {
+          ...note,
+          tags: note.tags.filter(
+            (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+          ),
+        };
+      }
+      return note;
+    });
+
+    toast.success("Tag deleted");
+    setAllNotes(updateAllNotes);
+    setAllTags(updateAllTags);
+  } catch (error) {
+    console.log("error deleting tag ", error);
+  }
 }

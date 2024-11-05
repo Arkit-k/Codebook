@@ -5,7 +5,7 @@ export function QuickLinks() {
     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
     openSidebarObject: { openSidebar, setOpenSidebar },
     tagsAndLogoutMenuObject: { tagsAndLogoutMenu },
-    openTagsWindowObject: { openTagsWindow, setOpenTagsWindow },
+    openTagsWindowObject: { setOpenTagsWindow },
   } = useGlobalContext();
 
   function clickedMenu(index: number) {
