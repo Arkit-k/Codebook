@@ -130,4 +130,8 @@ export interface GlobalContextType {
       React.SetStateAction<SingleTagType | null>
     >;
   };
+  tagsClickedObject: {
+    tagsClicked: string[] | [];
+    setTagsClicked: React.Dispatch<React.SetStateAction<string[]>>;
+  };
 }

@@ -18,6 +18,7 @@ function AllNotesSection() {
   const {
     allNotesObject: { allNotes },
     sideBarMenuObject: { sideBarMenu },
+    tagsClickedObject: { tagsClicked },
   } = useGlobalContext();
 
   const [filteredNotes, setFilteredNotes] = useState(
@@ -33,18 +34,36 @@ function AllNotesSection() {
   useEffect(() => {
     // all snippets
     if (sideBarMenu[0].isSelected) {
-      setFilteredNotes(allNotes.filter((note) => !note.isTrash));
+      // show all notes ----------------------------------------------------
+      if (tagsClicked.length === 1 && tagsClicked[0] === "All") {
+        setFilteredNotes(allNotes.filter((note) => !note.isTrash));
+        return;
+      }
+      //how only notes with selected tags -------------------------------------
+      if (tagsClicked.length > 0) {
+        const updateNotes = allNotes
+          .filter((note) => {
+            return tagsClicked.every((selectedTag) =>
+              note.tags.some((noteTag) => noteTag.name === selectedTag)
+            );
+          })
+          .filter((note) => !note.isTrash);
+        setFilteredNotes(updateNotes);
+      }
     }
     // if favorites
     if (sideBarMenu[1].isSelected) {
-      setFilteredNotes(
-        allNotes.filter((note) => note.isFavorite && note?.isTrash === false)
-      );
+      if (tagsClicked.length === 1 && tagsClicked[0] === "All") {
+        setFilteredNotes(
+          allNotes.filter((note) => note.isFavorite && note?.isTrash === false)
+        );
+      }
     }
+    // show trash notes
     if (sideBarMenu[2].isSelected) {
       setFilteredNotes(allNotes.filter((note) => note?.isTrash === true));
     }
-  }, [allNotes]);
+  }, [allNotes, tagsClicked]);
 
   // if sidebar changes
   useLayoutEffect(() => {
@@ -67,7 +86,7 @@ function AllNotesSection() {
   return (
     <>
       <NotesAreaHeader length={filteredNotes.length} />
-      <NoNotes notesLength={filteredNotes.length} />
+      <NoNotes notesLength={filteredNotes.length} tagsClicked={tagsClicked} />
       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {filteredNotes.map((note, index) => (
           <div className="" key={index}>

@@ -99,6 +99,10 @@ const ContextProvider = createContext<GlobalContextType>({
     selectedTagToEdit: null,
     setSelectedTagToEdit: () => {},
   },
+  tagsClickedObject: {
+    tagsClicked: [],
+    setTagsClicked: () => {},
+  },
 });
 
 // values ===============================================================
@@ -194,6 +198,7 @@ export default function GlobalContextProvider({
   );
   const [selectedTagToEdit, setSelectedTagToEdit] =
     useState<SingleTagType | null>(null);
+  const [tagsClicked, setTagsClicked] = useState<string[]>([]);
   // ================================================================
 
   const handleResize = () => {
@@ -346,6 +351,10 @@ export default function GlobalContextProvider({
         selectedTagToEditObject: {
           selectedTagToEdit,
           setSelectedTagToEdit,
+        },
+        tagsClickedObject: {
+          tagsClicked,
+          setTagsClicked,
         },
       }}
     >

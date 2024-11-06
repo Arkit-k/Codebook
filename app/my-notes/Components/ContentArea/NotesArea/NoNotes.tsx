@@ -5,7 +5,13 @@ import { GrNotes } from "react-icons/gr";
 import { MdFavoriteBorder } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 
-export const NoNotes = ({ notesLength }: { notesLength: number }) => {
+export const NoNotes = ({
+  notesLength,
+  tagsClicked,
+}: {
+  notesLength: number;
+  tagsClicked: string[];
+}) => {
   const {
     sideBarMenuObject: { sideBarMenu },
     darkModeObject: { darkMode },
@@ -15,7 +21,29 @@ export const NoNotes = ({ notesLength }: { notesLength: number }) => {
   } = useGlobalContext();
 
   return (
-    notesLength === 0 && (
+    notesLength === 0 &&
+    (tagsClicked.filter((tag) => tag !== "All").length > 0 ? (
+      <>
+        {sideBarMenu[0].isSelected && (
+          <EmptyPlaceholder
+            icon={<GrNotes size={100} className="text-slate-400" />}
+            text={"No snippets found with that tag"}
+          />
+        )}
+        {sideBarMenu[1].isSelected && (
+          <EmptyPlaceholder
+            icon={<MdFavoriteBorder size={100} className="text-slate-400" />}
+            text={"No favorites with that tag"}
+          />
+        )}
+        {sideBarMenu[2].isSelected && (
+          <EmptyPlaceholder
+            icon={<FaTrash size={100} className="text-slate-400" />}
+            text={"Trash is empty"}
+          />
+        )}
+      </>
+    ) : (
       <>
         {sideBarMenu[0].isSelected && (
           <EmptyPlaceholder
@@ -37,7 +65,7 @@ export const NoNotes = ({ notesLength }: { notesLength: number }) => {
           />
         )}
       </>
-    )
+    ))
   );
 
   function EmptyPlaceholder({

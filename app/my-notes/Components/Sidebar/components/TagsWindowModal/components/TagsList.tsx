@@ -64,9 +64,9 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     selectedTagToEditObject: { setSelectedTagToEdit },
-
     allTagsObject: { allTags, setAllTags },
     allNotesObject: { allNotes, setAllNotes },
+    tagsClickedObject: { tagsClicked, setTagsClicked },
   } = useGlobalContext();
 
   function openTagEditWindow(tag: SingleTagType) {
@@ -100,7 +100,15 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
           <button
             className=""
             onClick={() =>
-              deleteTag(tag, allTags, setAllTags, allNotes, setAllNotes)
+              deleteTag(
+                tag,
+                allTags,
+                setAllTags,
+                allNotes,
+                setAllNotes,
+                tagsClicked,
+                setTagsClicked
+              )
             }
           >
             <MdDelete />
@@ -117,8 +125,16 @@ function deleteTag(
   allTags: SingleTagType[],
   setAllTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>,
   allNotes: SingleNoteType[],
-  setAllNotes: React.Dispatch<React.SetStateAction<SingleNoteType[]>>
+  setAllNotes: React.Dispatch<React.SetStateAction<SingleNoteType[]>>,
+  tagsClicked: string[],
+  setTagsClicked: React.Dispatch<React.SetStateAction<string[]>>
 ) {
+  // update clicked tags array if tag deleted
+  setTagsClicked(
+    tagsClicked.filter(
+      (t) => t.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+    )
+  );
   try {
     // update tags
     const updateAllTags = allTags.filter(

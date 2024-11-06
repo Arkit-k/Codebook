@@ -14,15 +14,48 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode } from "swiper/modules";
 import { useGlobalContext } from "@/Context/ContextApi";
+import { access } from "fs";
 
 export default function SwiperSelection() {
   const {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     allTagsObject: { allTags },
+    tagsClickedObject: { tagsClicked, setTagsClicked },
+    sideBarMenuObject: { sideBarMenu },
+    selectedTagsObject: { setSelectedTags },
   } = useGlobalContext();
 
-  const [tagsSelected, setTagsSelected] = useState<boolean[]>([]);
+  const [tagsSelected, setTagsSelected] = useState<boolean[]>([]); // for showing active tags
+
+  // get selected tags
+  useEffect(() => {
+    setTagsClicked((prevTagsClicked) => {
+      const newTagsClicked = allTags.reduce(
+        (acc, tag, index) => {
+          if (tagsSelected[index]) {
+            // add tag
+            if (!prevTagsClicked.includes(tag.name)) {
+              acc.push(tag.name);
+            }
+          } else {
+            if (prevTagsClicked.includes(tag.name)) {
+              // remove tag
+              const tagIndex = acc.indexOf(tag.name);
+              if (tagIndex !== -1) {
+                acc.splice(tagIndex, 1);
+              }
+            }
+          }
+          return acc;
+        },
+        [...prevTagsClicked]
+      );
+      return newTagsClicked;
+    });
+  }, [tagsSelected]);
+
+  console.log("tags clicked: ", tagsClicked);
 
   // initially get all tags and set selected to false other than ALL -----------------------------
   useEffect(() => {
@@ -32,6 +65,16 @@ export default function SwiperSelection() {
       setTagsSelected(newTagsSelected);
     }
   }, [allTags]);
+
+  useEffect(() => {
+    if (sideBarMenu) {
+      const newTagsSelected = Array(allTags.length).fill(false);
+      const newTagsClicked = ["All"];
+      newTagsSelected[0] = true;
+      setTagsClicked(newTagsClicked);
+      setTagsSelected(newTagsSelected);
+    }
+  }, [sideBarMenu]);
 
   // -----------------------------------------------
   function handleTagClick(index: number) {
@@ -87,22 +130,11 @@ export default function SwiperSelection() {
               {tag.name}
             </SwiperSlide>
           ))}
-          {/* <SwiperSlide className="bg-blue-600 p-1 rounded-md text-white">
-            All
-          </SwiperSlide>
-          <SwiperSlide className="">Slide 2</SwiperSlide>
-          <SwiperSlide className="">Slide 3</SwiperSlide>
-          <SwiperSlide className="">Slide 4</SwiperSlide>
-          <SwiperSlide className="">Slide 5</SwiperSlide>
-          <SwiperSlide className="">Slide 6</SwiperSlide>
-          <SwiperSlide className="">Slide 7</SwiperSlide>
-          <SwiperSlide className="">Slide 8</SwiperSlide>
-          <SwiperSlide className="">Slide 9</SwiperSlide> */}
         </Swiper>
       </div>
       <button
         onClick={() => setOpenNewTagsWindow(true)}
-        className="bg-blue-600 rounded-md px-3 flex gap-1 items-center text-white"
+        className="bg-blue-500 hover:bg-blue-700 rounded-md px-3 flex gap-1 items-center text-white"
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>
