@@ -19,6 +19,8 @@ function AllNotesSection() {
     allNotesObject: { allNotes },
     sideBarMenuObject: { sideBarMenu },
     tagsClickedObject: { tagsClicked },
+    isLoadingObject: { isLoading, setIsLoading },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
 
   const [filteredNotes, setFilteredNotes] = useState(
@@ -81,6 +83,48 @@ function AllNotesSection() {
       setFilteredNotes(filterTrashedNotes);
     }
   }, [sideBarMenu]);
+
+  // loading effect ---------------------------------------------------
+  if (isLoading) {
+    return (
+      <div className="mt-5 flex flex-wrap gap-4">
+        <NoteLoadingEffect />
+        <NoteLoadingEffect />
+        <NoteLoadingEffect />
+      </div>
+    );
+  }
+
+  function NoteLoadingEffect() {
+    return (
+      <div
+        className={`${
+          darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-300"
+        } max-sm:w-full w-[300px] animate-pulse rounded-md py-4 h-[420px] flex flex-col gap-4 p-2 *:rounded-md`}
+      >
+        <div
+          className={`${
+            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+          }   h-5 w-[200px]`}
+        ></div>
+        <div
+          className={`${
+            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+          }   h-8 w-[100px]`}
+        ></div>
+        <div
+          className={`${
+            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+          } flex-1`}
+        ></div>
+        <div
+          className={`${
+            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+          } h-5`}
+        ></div>
+      </div>
+    );
+  }
 
   // =======================================================
   return (

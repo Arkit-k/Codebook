@@ -134,4 +134,8 @@ export interface GlobalContextType {
     tagsClicked: string[] | [];
     setTagsClicked: React.Dispatch<React.SetStateAction<string[]>>;
   };
+  isLoadingObject: {
+    isLoading: boolean;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  };
 }

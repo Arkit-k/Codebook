@@ -103,6 +103,10 @@ const ContextProvider = createContext<GlobalContextType>({
     tagsClicked: [],
     setTagsClicked: () => {},
   },
+  isLoadingObject: {
+    isLoading: false,
+    setIsLoading: () => {},
+  },
 });
 
 // values ===============================================================
@@ -199,6 +203,7 @@ export default function GlobalContextProvider({
   const [selectedTagToEdit, setSelectedTagToEdit] =
     useState<SingleTagType | null>(null);
   const [tagsClicked, setTagsClicked] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   // ================================================================
 
   const handleResize = () => {
@@ -355,6 +360,10 @@ export default function GlobalContextProvider({
         tagsClickedObject: {
           tagsClicked,
           setTagsClicked,
+        },
+        isLoadingObject: {
+          isLoading,
+          setIsLoading,
         },
       }}
     >

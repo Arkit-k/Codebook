@@ -6,6 +6,7 @@ export function QuickLinks() {
     openSidebarObject: { openSidebar, setOpenSidebar },
     tagsAndLogoutMenuObject: { tagsAndLogoutMenu },
     openTagsWindowObject: { setOpenTagsWindow },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
 
   function clickedMenu(index: number) {
@@ -31,14 +32,22 @@ export function QuickLinks() {
   // =====================================================
   return (
     <div className="mt-20 text-sm ">
-      <div className="font-bold text-slate-400">Links</div>
-      <ul className="text-slate-400 mt-4 flex flex-col gap-2">
+      <div
+        className={`${
+          darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+        } font-bold `}
+      >
+        Links
+      </div>
+      <ul className="mt-4 flex flex-col gap-2">
         {sideBarMenu.map((menu, index) => (
           <li
             key={index}
             onClick={() => clickedMenu(index)}
-            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
-            ${menu.isSelected ? "bg-blue-400 text-white" : "text-slate-400"}
+            className={`${
+              darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+            } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
+            ${menu.isSelected ? "bg-blue-400 text-white" : ""}
               `}
           >
             {menu.icons}
@@ -51,7 +60,9 @@ export function QuickLinks() {
           <li
             key={index}
             onClick={() => clickedMenu2(index)}
-            className={`flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-blue-500
+            className={`${
+              darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+            } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-blue-500
             `}
           >
             {menu.icons}

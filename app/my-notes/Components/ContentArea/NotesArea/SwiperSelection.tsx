@@ -14,7 +14,6 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode } from "swiper/modules";
 import { useGlobalContext } from "@/Context/ContextApi";
-import { access } from "fs";
 
 export default function SwiperSelection() {
   const {
@@ -23,7 +22,7 @@ export default function SwiperSelection() {
     allTagsObject: { allTags },
     tagsClickedObject: { tagsClicked, setTagsClicked },
     sideBarMenuObject: { sideBarMenu },
-    selectedTagsObject: { setSelectedTags },
+    isLoadingObject: { isLoading, setIsLoading },
   } = useGlobalContext();
 
   const [tagsSelected, setTagsSelected] = useState<boolean[]>([]); // for showing active tags
@@ -106,32 +105,52 @@ export default function SwiperSelection() {
         darkMode[1].isSelected ? "bg-slate-900 text-slate-400" : "bg-white"
       } p-3 rounded-lg flex gap-5 justify-between`}
     >
-      <div className="overflow-x-auto pb-1">
-        {/* <div className="overflow-x-auto w-[1112px]"> */}
-        <Swiper
-          slidesPerView="auto"
-          spaceBetween={10}
-          freeMode={true}
-          // pagination={{
-          //   clickable: true,
-          // }}
-          modules={[FreeMode]}
-          // modules={[FreeMode, Pagination]}
-          className="mySwiper w-fit"
-        >
-          {allTags.map((tag, index) => (
-            <SwiperSlide
-              key={index}
-              className={`${
-                tagsSelected[index] ? "bg-blue-500 text-white" : ""
-              }`}
-              onClick={() => handleTagClick(index)}
-            >
-              {tag.name}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {isLoading ? (
+        <div className="flex gap-3 items-center mt-[2px] *:w-[80px] *:h-[30px] *:animate-pulse *:rounded-md">
+          <div
+            className={`${
+              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+            }`}
+          ></div>
+          <div
+            className={`${
+              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+            }`}
+          ></div>
+          <div
+            className={`${
+              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+            }`}
+          ></div>
+        </div>
+      ) : (
+        <div className="overflow-x-auto pb-1">
+          {/* <div className="overflow-x-auto w-[1112px]"> */}
+          <Swiper
+            slidesPerView="auto"
+            spaceBetween={10}
+            freeMode={true}
+            // pagination={{
+            //   clickable: true,
+            // }}
+            modules={[FreeMode]}
+            // modules={[FreeMode, Pagination]}
+            className="mySwiper w-fit"
+          >
+            {allTags.map((tag, index) => (
+              <SwiperSlide
+                key={index}
+                className={`${
+                  tagsSelected[index] ? "bg-blue-500 text-white" : ""
+                }`}
+                onClick={() => handleTagClick(index)}
+              >
+                {tag.name}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
       <button
         onClick={() => setOpenNewTagsWindow(true)}
         className="bg-blue-500 hover:bg-blue-700 rounded-md px-3 flex gap-1 items-center text-white"
