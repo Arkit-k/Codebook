@@ -13,10 +13,10 @@ export interface DarkModeType {
 
 export interface SingleNoteType {
   _id: string;
+  clerkUserId: string;
   title: string;
   isFavorite: boolean;
   tags: SingleTagType[];
-  // tags: string[];
   description: string;
   code: string;
   language: string;
@@ -26,6 +26,7 @@ export interface SingleNoteType {
 
 export interface SingleTagType {
   _id: string;
+  clerkUserId: string;
   name: string;
 }
 
@@ -137,5 +138,9 @@ export interface GlobalContextType {
   isLoadingObject: {
     isLoading: boolean;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  sharedUserIdObject: {
+    sharedUserId: string;
+    setSharedUserId: React.Dispatch<React.SetStateAction<string>>;
   };
 }

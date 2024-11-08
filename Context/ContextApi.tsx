@@ -9,6 +9,7 @@ import {
   SingleNoteType,
   SingleTagType,
 } from "@/app/types/Types";
+import { useUser } from "@clerk/nextjs";
 import {
   BorderAll,
   DarkMode,
@@ -20,7 +21,7 @@ import {
   StyleOutlined,
 } from "@mui/icons-material";
 import { createContext, useContext, useEffect, useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 // create context ==========================================================
 const ContextProvider = createContext<GlobalContextType>({
   sideBarMenuObject: {
@@ -106,6 +107,10 @@ const ContextProvider = createContext<GlobalContextType>({
   isLoadingObject: {
     isLoading: false,
     setIsLoading: () => {},
+  },
+  sharedUserIdObject: {
+    sharedUserId: "",
+    setSharedUserId: () => {},
   },
 });
 
@@ -203,12 +208,20 @@ export default function GlobalContextProvider({
   const [selectedTagToEdit, setSelectedTagToEdit] =
     useState<SingleTagType | null>(null);
   const [tagsClicked, setTagsClicked] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // TODO
+  const { isLoaded, isSignedIn, user } = useUser();
+  const [sharedUserId, setSharedUserId] = useState<string>("");
   // ================================================================
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 640);
   };
+
+  useEffect(() => {
+    if (user) {
+      setSharedUserId(user?.id);
+    }
+  }, [isLoaded, user]);
 
   useEffect(() => {
     handleResize();
@@ -218,70 +231,84 @@ export default function GlobalContextProvider({
     };
   }, []);
 
+  // get all notes from DB
   useEffect(() => {
-    function updateAllNotes() {
-      const allNotes = [
-        {
-          _id: "1",
-          title: "this is a note",
-          isFavorite: false,
-          tags: [
-            { _id: "1", name: "Tag1" },
-            { _id: "2", name: "Tag2" },
-          ],
-          description: "this is a note",
-          code: `
-          import React from 'react';
-
-          function HelloWorld(){
-            return <h1>Hello</h1>
-          }
-            export default HelloWorld
-          `,
-          language: "",
-          creationDate: "2024-01-02",
-          isTrash: false,
-        },
-        {
-          _id: "2",
-          title: "this is a note2",
-          isFavorite: false,
-          tags: [],
-          description: "this is a note2",
-          code: `
-          import React from 'react';
-
-          function HelloWorld(){
-            return <h1>Hello</h1>
-          }
-            export default HelloWorld
-          `,
-          language: "",
-          creationDate: "2024-01-02",
-          isTrash: false,
-        },
-      ];
-      setTimeout(() => {
-        setAllNotes(allNotes);
-      }, 1200);
+    async function fetchAllNotes() {
+      try {
+        const response = await fetch(`/api/snippets?clerkId=${user?.id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch snippets");
+        }
+        const data = await response.json();
+        if (data.notes) {
+          console.log("notes: ", data.notes);
+          setAllNotes(data.notes);
+        }
+      } catch (error) {
+        console.log("fetching notes error: ", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     function updateAllTags() {
-      const allTags = [
-        { _id: "0", name: "All" },
-        { _id: "1", name: "Tag1" },
-        { _id: "2", name: "Tag2" },
-        { _id: "3", name: "Tag3" },
-        { _id: "4", name: "Tag4" },
-        { _id: "5", name: "Tag5" },
-        { _id: "6", name: "Tag6" },
-      ];
+      const allTags = [{ _id: uuidv4(), clerkUserId: "", name: "All" }];
       setAllTags(allTags);
     }
 
-    updateAllNotes();
-    updateAllTags();
-  }, []);
+    if (isLoaded && isSignedIn) {
+      updateAllTags();
+      fetchAllNotes();
+    }
+  }, [user, isLoaded, isSignedIn]);
+
+  // useEffect(() => {
+  //   function updateAllNotes() {
+  //     const allNotes = [
+  //       {
+  //         _id: "1",
+  //         clerkUserId: "",
+  //         title: "this is a note",
+  //         isFavorite: false,
+  //         tags: [
+  //           { _id: "1", clerkUserId: "", name: "Tag1" },
+  //           { _id: "2", clerkUserId: "", name: "Tag2" },
+  //         ],
+  //         description: "this is a note",
+  //         code: `
+  //         import React from 'react';
+
+  //         function HelloWorld(){
+  //           return <h1>Hello</h1>
+  //         }
+  //           export default HelloWorld
+  //         `,
+  //         language: "",
+  //         creationDate: "2024-01-02",
+  //         isTrash: false,
+  //       },
+  //     ];
+  //     setTimeout(() => {
+  //       setAllNotes(allNotes);
+  //     }, 1200);
+  //   }
+
+  //   function updateAllTags() {
+  //     const allTags = [
+  //       { _id: "0", clerkUserId: "", name: "All" },
+  //       { _id: "1", clerkUserId: "", name: "Tag1" },
+  //       { _id: "2", clerkUserId: "", name: "Tag2" },
+  //       { _id: "3", clerkUserId: "", name: "Tag3" },
+  //       { _id: "4", clerkUserId: "", name: "Tag4" },
+  //       { _id: "5", clerkUserId: "", name: "Tag5" },
+  //       { _id: "6", clerkUserId: "", name: "Tag6" },
+  //     ];
+  //     setAllTags(allTags);
+  //   }
+
+  //   updateAllNotes();
+  //   updateAllTags();
+  // }, []);
 
   useEffect(() => {
     setSelectedTags(selectedNote?.tags || []);
@@ -364,6 +391,10 @@ export default function GlobalContextProvider({
         isLoadingObject: {
           isLoading,
           setIsLoading,
+        },
+        sharedUserIdObject: {
+          sharedUserId,
+          setSharedUserId,
         },
       }}
     >

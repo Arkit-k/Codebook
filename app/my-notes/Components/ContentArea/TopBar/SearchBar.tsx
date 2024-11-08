@@ -32,11 +32,13 @@ function AddSnippetButton() {
     selectedNoteObject: { setSelectedNote },
     openContentNoteObject: { setOpenContentNote },
     isNewNoteObject: { setIsNewNote },
+    sharedUserIdObject: { sharedUserId },
   } = useGlobalContext();
 
   function openTheContentNote() {
     const newSingleNote = {
       _id: uuidv4(),
+      clerkUserId: sharedUserId || "",
       title: "",
       isFavorite: false,
       tags: [],

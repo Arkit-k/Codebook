@@ -12,6 +12,7 @@ export const AddTagWindow = () => {
     allTagsObject: { allTags, setAllTags },
     selectedTagToEditObject: { selectedTagToEdit, setSelectedTagToEdit },
     allNotesObject: { allNotes, setAllNotes },
+    sharedUserIdObject: { sharedUserId },
   } = useGlobalContext();
   const [tagName, setTagName] = useState("");
   // const [placeholder, setPlaceholder] = useState("");
@@ -50,7 +51,11 @@ export const AddTagWindow = () => {
   }
 
   function addNewTagFunction() {
-    const newTag = { _id: uuidv4(), name: tagName };
+    const newTag = {
+      _id: uuidv4(),
+      clerkUserId: sharedUserId || "",
+      name: tagName,
+    };
     try {
       setAllTags([...allTags, newTag]);
 
