@@ -20,9 +20,9 @@ export default function SwiperSelection() {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     allTagsObject: { allTags },
-    tagsClickedObject: { tagsClicked, setTagsClicked },
+    tagsClickedObject: { setTagsClicked },
     sideBarMenuObject: { sideBarMenu },
-    isLoadingObject: { isLoading, setIsLoading },
+    isLoadingObject: { isLoading },
   } = useGlobalContext();
 
   const [tagsSelected, setTagsSelected] = useState<boolean[]>([]); // for showing active tags
@@ -53,8 +53,6 @@ export default function SwiperSelection() {
       return newTagsClicked;
     });
   }, [tagsSelected]);
-
-  console.log("tags clicked: ", tagsClicked);
 
   // initially get all tags and set selected to false other than ALL -----------------------------
   useEffect(() => {

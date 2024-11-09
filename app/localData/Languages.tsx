@@ -116,8 +116,6 @@ export const allLanguages = [
 ];
 
 export function getLanguageIcon(language: string | undefined) {
-  const icon = allLanguages.map((item) => {
-    if (item.name === language) return item.icon;
-  });
-  return icon;
+  const icon = allLanguages.find((item) => item.name === language);
+  return icon?.icon;
 }

@@ -15,6 +15,7 @@
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.2",
     "ace-builds": "^1.36.3",
+    "lodash": "^4.17.21",
     "mongoose": "^8.7.0",
     "next": "14.2.14",
     "react": "^18",
@@ -28,6 +29,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

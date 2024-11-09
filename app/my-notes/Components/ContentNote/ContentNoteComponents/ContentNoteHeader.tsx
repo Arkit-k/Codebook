@@ -31,13 +31,13 @@ export function ContentNoteHeader({
     setSingleNote(newSingleNote);
 
     // find and update main notes array
-    const newAllNotes = allNotes.map((note) => {
-      if (note._id === singleNote._id) {
-        return newSingleNote;
-      }
-      return note;
-    });
-    setAllNotes(newAllNotes);
+    // const newAllNotes = allNotes.map((note) => {
+    //   if (note._id === singleNote._id) {
+    //     return newSingleNote;
+    //   }
+    //   return note;
+    // });
+    // setAllNotes(newAllNotes);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -81,7 +81,7 @@ export function ContentNoteHeader({
           />
         </div>
         {/* close modal btn --------------------------------------- */}
-        <IoMdClose
+        {/* <IoMdClose
           size={25}
           className="cursor-pointer font-bold"
           onClick={() => {
@@ -91,7 +91,7 @@ export function ContentNoteHeader({
             // setSelectedNote(null);
             setIsNewNote(false);
           }}
-        />
+        /> */}
       </div>
     </div>
   );

@@ -18,10 +18,12 @@ const SingleSnippetSchema = new Schema({
   clerkUserId: {
     type: String,
     required: true,
+    default: "",
   },
   title: {
     type: String,
     required: true,
+    default: "",
   },
   isFavorite: {
     type: Boolean,
@@ -35,15 +37,18 @@ const SingleSnippetSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
+    default: "",
   },
   code: {
     type: String,
-    required: true,
+    required: false,
+    default: "",
   },
   language: {
     type: String,
-    required: true,
+    required: false,
+    default: "",
   },
   creationDate: {
     type: String,

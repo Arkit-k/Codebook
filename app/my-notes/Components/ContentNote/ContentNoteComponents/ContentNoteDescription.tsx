@@ -21,13 +21,13 @@ export function Description({
     const newSingleNote = { ...singleNote, description: event.target.value };
     setSingleNote(newSingleNote);
 
-    const newAllnotes = allNotes.map((note) => {
-      if (note._id === singleNote._id) {
-        return newSingleNote;
-      }
-      return note;
-    });
-    setAllNotes(newAllnotes);
+    // const newAllnotes = allNotes.map((note) => {
+    //   if (note._id === singleNote._id) {
+    //     return newSingleNote;
+    //   }
+    //   return note;
+    // });
+    // setAllNotes(newAllnotes);
   }
 
   // ===============================================================

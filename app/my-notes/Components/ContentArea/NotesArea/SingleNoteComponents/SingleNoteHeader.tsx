@@ -19,19 +19,43 @@ export function NoteHeader({
   const {
     openContentNoteObject: { setOpenContentNote },
     selectedNoteObject: { setSelectedNote },
-    allNotesObject: { allNotes, setAllNotes },
+    allNotesObject: { setAllNotes },
   } = useGlobalContext();
 
-  function handleClickedCheckbox() {
+  async function handleClickedCheckbox() {
     const currentFavorite = isFavorite;
     const newFavorite = !currentFavorite;
-    const newAllNotes = allNotes.map((note) => {
-      if (note._id === id) {
-        return { ...note, isFavorite: newFavorite };
+
+    try {
+      const response = await fetch(`api/snippets?snippetId=${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isFavorite: newFavorite }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return note;
-    });
-    setAllNotes(newAllNotes);
+
+      const updatedNote = await response.json();
+
+      setAllNotes((prev) =>
+        prev.map((note) =>
+          note._id === id ? { ...note, isFavorite: newFavorite } : note
+        )
+      );
+    } catch (error) {
+      console.error("error updating favorite note status: ", error);
+    }
+
+    // const newAllNotes = allNotes.map((note) => {
+    //   if (note._id === id) {
+    //     return { ...note, isFavorite: newFavorite };
+    //   }
+    //   return note;
+    // });
+    // setAllNotes(newAllNotes);
   }
 
   // ========================================================

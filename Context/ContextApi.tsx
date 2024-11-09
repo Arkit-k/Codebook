@@ -239,9 +239,16 @@ export default function GlobalContextProvider({
         if (!response.ok) {
           throw new Error("Failed to fetch snippets");
         }
-        const data = await response.json();
+        const data: { notes: SingleNoteType[] } = await response.json();
         if (data.notes) {
-          console.log("notes: ", data.notes);
+          // sort notes by date
+          const sortedAllNotes: SingleNoteType[] = data.notes.sort((a, b) => {
+            return (
+              new Date(b.creationDate).getTime() -
+              new Date(a.creationDate).getTime()
+            );
+          });
+          // console.log("notes: ", data.notes);
           setAllNotes(data.notes);
         }
       } catch (error) {

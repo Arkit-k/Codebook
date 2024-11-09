@@ -18,6 +18,7 @@ export const NoNotes = ({
     isNewNoteObject: { setIsNewNote },
     openContentNoteObject: { setOpenContentNote },
     selectedNoteObject: { setSelectedNote },
+    sharedUserIdObject: { sharedUserId },
   } = useGlobalContext();
 
   return (
@@ -78,8 +79,10 @@ export const NoNotes = ({
     isNew?: boolean;
   }) {
     function openTheContentNote() {
+      setIsNewNote(true);
       const newSingleNote = {
         _id: uuidv4(),
+        clerkUserId: sharedUserId || "",
         title: "",
         isFavorite: false,
         tags: [],
@@ -89,7 +92,6 @@ export const NoNotes = ({
         creationDate: formatDate(new Date()),
         isTrash: false,
       };
-      setIsNewNote(true);
       setOpenContentNote(true);
       // setAllNotes([...allNotes, newSingleNote]);
       setSelectedNote(newSingleNote);

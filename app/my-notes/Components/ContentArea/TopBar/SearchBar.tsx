@@ -36,6 +36,7 @@ function AddSnippetButton() {
   } = useGlobalContext();
 
   function openTheContentNote() {
+    setIsNewNote(true);
     const newSingleNote = {
       _id: uuidv4(),
       clerkUserId: sharedUserId || "",
@@ -48,7 +49,6 @@ function AddSnippetButton() {
       creationDate: formatDate(new Date()),
       isTrash: false,
     };
-    setIsNewNote(true);
     setOpenContentNote(true);
     // setAllNotes([...allNotes, newSingleNote]);
     setSelectedNote(newSingleNote);
