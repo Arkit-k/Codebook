@@ -4,8 +4,7 @@ import { useGlobalContext } from "@/Context/ContextApi";
 import { SearchRounded, StyleOutlined } from "@mui/icons-material";
 import React from "react";
 import toast from "react-hot-toast";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete, MdDragIndicator } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 export const TagsList = ({ searchQuery }: { searchQuery: string }) => {
   const {
@@ -78,7 +77,7 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
       } flex gap-2 border items-center justify-between px-4 p-2 rounded-md`}
     >
       <div className="flex gap-3 items-center w-full">
-        <MdDragIndicator size={20} />
+        {/* <MdDragIndicator size={20} /> */}
         <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
         <div className="flex flex-col flex-1">
           <span className="font-bold">{tag.name}</span>
@@ -88,9 +87,9 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
         <div
           className={`flex gap-2 text-white *:p-2 *:rounded-full *:bg-blue-500 hover:*:bg-blue-800`}
         >
-          <button className="" onClick={() => openTagEditWindow(tag)}>
+          {/* <button className="" onClick={() => openTagEditWindow(tag)}>
             <FaEdit className="pl-[2px]" />
-          </button>
+          </button> */}
           <button
             className=""
             onClick={() =>
@@ -114,7 +113,7 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
 }
 
 // delete tag ---------------------
-function deleteTag(
+async function deleteTag(
   tag: SingleTagType,
   allTags: SingleTagType[],
   setAllTags: React.Dispatch<React.SetStateAction<SingleTagType[]>>,
@@ -124,38 +123,125 @@ function deleteTag(
   setTagsClicked: React.Dispatch<React.SetStateAction<string[]>>
 ) {
   // update clicked tags array if tag deleted
-  setTagsClicked(
-    tagsClicked.filter(
-      (t) => t.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-    )
-  );
+  // setTagsClicked(
+  //   tagsClicked.filter(
+  //     (t) => t.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+  //   )
+  // );
+
+  // try {
+  //   // update tags
+  //   const updateAllTags = allTags.filter(
+  //     (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+  //   );
+  //   // update tags in all notes
+  //   const updateAllNotes = allNotes.map((note) => {
+  //     // if a note has tag
+  //     if (
+  //       note.tags.some(
+  //         (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase()
+  //       )
+  //     ) {
+  //       return {
+  //         ...note,
+  //         tags: note.tags.filter(
+  //           (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
+  //         ),
+  //       };
+  //     }
+  //     return note;
+  //   });
+
+  //   toast.success("Tag deleted");
+  //   setAllNotes(updateAllNotes);
+  //   setAllTags(updateAllTags);
+  // } catch (error) {
+  //   console.log("error deleting tag ", error);
+  // }
+
   try {
-    // update tags
-    const updateAllTags = allTags.filter(
-      (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-    );
-    // update tags in all notes
-    const updateAllNotes = allNotes.map((note) => {
-      // if a note has tag
-      if (
-        note.tags.some(
-          (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase()
-        )
-      ) {
-        return {
-          ...note,
-          tags: note.tags.filter(
-            (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-          ),
-        };
-      }
-      return note;
+    // delete from DB
+    const deleteTagResponse = await fetch(`/api/tags?tagId=${tag._id}`, {
+      method: "DELETE",
     });
 
-    toast.success("Tag deleted");
-    setAllNotes(updateAllNotes);
-    setAllTags(updateAllTags);
+    if (!deleteTagResponse.ok) {
+      const errorData = await deleteTagResponse.json();
+      throw new Error(errorData.message || "Failed to delete tag");
+    }
+
+    // update all notes containing the tag
+    // get all notes containing the tag
+    const notesToUpdate = allNotes.filter((note) =>
+      note.tags.some((t) => t.name.toLowerCase() === tag.name.toLowerCase())
+    );
+
+    // update notes in db
+    const updatePromises = notesToUpdate.map((note) =>
+      updateNote(note, tag.name)
+    );
+
+    const updatedNotes = await Promise.all(updatePromises);
+
+    // update local state ----------------------------------
+    // update tags
+    const updatedAllTags = allTags.filter(
+      (t) => t.name.toLowerCase() !== tag.name.toLowerCase()
+    );
+
+    // update notes
+    const updatedAllNotes = allNotes.map((note) => {
+      const updatedNote = updatedNotes.find((un) => un._id === note._id);
+      if (updatedNote) {
+        return updatedNote;
+      }
+      return {
+        ...note,
+        tags: note.tags.filter(
+          (t) => t.name.toLowerCase() !== tag.name.toLowerCase()
+        ),
+      };
+    });
+
+    setAllTags(updatedAllTags);
+    setAllNotes(updatedAllNotes);
+    setTagsClicked(
+      tagsClicked.filter((t) => t.toLowerCase() !== tag.name.toLowerCase())
+    );
+
+    toast.success("Tag deleted successfully");
   } catch (error) {
-    console.log("error deleting tag ", error);
+    console.error("error deleting tag: ", error);
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Failed to delete tag or update notes"
+    );
   }
+}
+
+async function updateNote(note: SingleNoteType, tagToRemove: string) {
+  const updatedTags = note.tags.filter(
+    (t) => t.name.toLowerCase() !== tagToRemove.toLowerCase()
+  );
+  const updateNoteResponse = await fetch(
+    `/api/snippets?snippetId=${note._id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...note,
+        tags: updatedTags,
+      }),
+    }
+  );
+
+  if (!updateNoteResponse.ok) {
+    throw new Error(`Failed to update note ${note._id}`);
+  }
+
+  const updatedNote = await updateNoteResponse.json();
+  return updatedNote.note;
 }

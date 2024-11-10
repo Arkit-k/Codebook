@@ -1,14 +1,22 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
+import CodeBg from "../assets/code-bg.png";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div
-      className={`poppins flex flex-col bg-gradient-to-b from-white/90 to-black/90 h-screen`}
+      className={`poppins flex flex-col bg-gradient-to-b from-white/90 to-blue-400/50 h-screen`}
     >
+      <Image
+        src={CodeBg}
+        alt="code"
+        className="-z-20 fixed h-[90%] w-[50%] object-cover right-0 bottom-0 opacity-40"
+      />
       <Navbar />
       <HeroSection />
+      <Buttons2 />
     </div>
   );
 }
@@ -24,18 +32,18 @@ function Navbar() {
 
 function Logo() {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center text-4xl">
       {/* <div className={`bg-[${mainColor}] p-[6px] rounded-md`}>
         <DataObjectIcon sx={{ fontSize: 27, color: "white" }} />
       </div> */}
-      <span className="font-extrabold text-slate-600 text-3xl">{"{"}</span>
-      <div className="flex gap-1 text-[23px]">
+      <span className="font-extrabold text-slate-600 ">{"{"}</span>
+      <div className="flex gap-1 text-3xl sm:text-[23px]">
         <span className={`font-bold text-mainColor`}>Code</span>
         <span className="text-slate-600">Board</span>
         {/* <span className={`font-bold text-[${mainColor}]`}>Snippet</span>
         <span className="text-slate-600">Master</span> */}
       </div>
-      <span className="font-extrabold text-slate-600 text-3xl">{"}"}</span>
+      <span className="font-extrabold text-slate-600 ">{"}"}</span>
     </div>
   );
 }
@@ -43,7 +51,7 @@ function Logo() {
 function Buttons() {
   const { userId } = useAuth();
   return (
-    <div className="max-sm:w-full">
+    <div className="max-sm:w-full max-sm:hidden">
       {userId ? (
         <Link href="/my-notes">
           <button
@@ -54,16 +62,54 @@ function Buttons() {
         </Link>
       ) : (
         <div className="flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8">
+          <Link href="/sign-in">
+            <button
+              className={`max-sm:w-full bg-mainColor p-[8px] px-6 text-sm text-white rounded-full`}
+            >
+              Sign in
+            </button>
+          </Link>
+          <Link href="/sign-up">
+            <button
+              className={`max-sm:w-full text-sm border border-mainColor text-mainColor hover:bg-mainColor hover:text-white p-[8px] px-6 rounded-full`}
+            >
+              Sign up
+            </button>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Buttons2() {
+  const { userId } = useAuth();
+  return (
+    <div className="w-[80%] mx-auto hidden max-sm:block mt-20">
+      {userId ? (
+        <Link href="/my-notes">
           <button
             className={`max-sm:w-full bg-mainColor p-[8px] px-6 text-sm text-white rounded-full`}
           >
-            <Link href="/sign-in">Sign in</Link>
+            Dashboard
           </button>
-          <button
-            className={`text-sm border border-mainColor text-mainColor hover:bg-mainColor hover:text-white p-[8px] px-6 rounded-full`}
-          >
-            <Link href="/sign-up">Sign up</Link>
-          </button>
+        </Link>
+      ) : (
+        <div className="flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8">
+          <Link href="/sign-in">
+            <button
+              className={`max-sm:w-full bg-mainColor hover:bg-blue-500 p-[8px] px-6 text-sm text-white rounded-full`}
+            >
+              Sign in
+            </button>
+          </Link>
+          <Link href="/sign-up">
+            <button
+              className={`max-sm:w-full text-sm border bg-white border-mainColor text-mainColor hover:bg-mainColor hover:text-white p-[8px] px-6 rounded-full`}
+            >
+              Sign up
+            </button>
+          </Link>
         </div>
       )}
     </div>
@@ -77,12 +123,12 @@ function HeroSection() {
       {/* <div className="h-full w-full -z-10 absolute">
         <Image src={HomeBg} alt="home" fill />
       </div> */}
-      <div className="flex flex-col mx-16 items-center mt-[120px] gap-6">
+      <div className="flex flex-col items-center mt-[50px] sm:mt-[120px] gap-6">
         <h1 className="font-bold text-2xl md:text-4xl text-center">
           Organize your code snippets
           <span className="text-blue-700"> Efficiently</span>
         </h1>
-        <p className="text-center text-md md:text-lg w-[450px] max-sm:w-full text-white">
+        <p className="text-center text-md md:text-lg w-[550px] max-sm:w-full text-black">
           Store and save all your snippets. With tagging and search features,
           you can quickly find the snippet you need.
         </p>

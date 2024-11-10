@@ -15,7 +15,7 @@ function ContentArea() {
   return (
     <div
       className={`w-full p-0 sm:p-5 ${
-        darkMode[1].isSelected ? "bg-slate-800" : "bg-slate-100"
+        darkMode[1].isSelected ? "bg-slate-800" : "bg-gray-200"
       }`}
     >
       <TopBar />

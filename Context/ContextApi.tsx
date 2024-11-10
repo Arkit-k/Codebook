@@ -237,8 +237,8 @@ export default function GlobalContextProvider({
     };
   }, []);
 
-  // get all notes from DB
   useEffect(() => {
+    // get all notes from DB ----------------------
     async function fetchAllNotes() {
       try {
         const response = await fetch(`/api/snippets?clerkId=${user?.id}`);
@@ -264,13 +264,42 @@ export default function GlobalContextProvider({
       }
     }
 
-    function updateAllTags() {
-      const allTags = [{ _id: uuidv4(), clerkUserId: "", name: "All" }];
-      setAllTags(allTags);
+    // get all tags -------------------------
+    async function fetchAllTags() {
+      try {
+        const response = await fetch(`/api/tags?clerkId=${user?.id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch tags");
+        }
+
+        const data: { tags: SingleTagType[] } = await response.json();
+
+        if (data.tags) {
+          // add All tag in frontend
+          const allTag: SingleTagType = {
+            _id: uuidv4(),
+            name: "All",
+            clerkUserId: user?.id || "",
+          };
+          const tempAllTags = [allTag, ...data.tags]; // add all tag
+          setAllTags(tempAllTags);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
+    // function updateAllTags() {
+    //   const allTags = [{ _id: uuidv4(), clerkUserId: "", name: "All" }];
+    //   setAllTags(allTags);
+    // }
+
     if (isLoaded && isSignedIn) {
-      updateAllTags();
+      // updateAllTags();
+      fetchAllTags();
       fetchAllNotes();
     }
   }, [user, isLoaded, isSignedIn]);

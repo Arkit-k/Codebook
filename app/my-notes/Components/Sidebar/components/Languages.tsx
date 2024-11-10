@@ -11,8 +11,8 @@ export function Languages() {
     <div className="mt-12 text-sm">
       {codeLanguageCounter.length > 0 && (
         <>
-          <div className="font-bold text-slate-400">Languages</div>
-          <div className="mt-5 ml-2 text-slate-400 flex flex-col gap-4">
+          <div className="font-bold text-slate-500">Languages</div>
+          <div className="mt-5 ml-2 text-slate-500 flex flex-col gap-4">
             {codeLanguageCounter.map((language, index) => (
               <div className="flex justify-between" key={index}>
                 <div className="flex gap-2 items-center">

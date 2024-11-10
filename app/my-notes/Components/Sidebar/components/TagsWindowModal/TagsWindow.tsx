@@ -20,7 +20,7 @@ export const TagsWindow = () => {
       } ${openTagsWindow ? "block no-doc-scroll" : "hidden"}`}
     >
       <div
-        className={`h-[80%] max-md:w-[90%] max-lg:w-[80%] w-[60%] rounded-md p-4 overflow-scroll ${
+        className={`h-[80%] max-md:w-[80%] max-lg:w-[65%] w-[50%] rounded-md p-4 overflow-scroll ${
           darkMode[1].isSelected
             ? "bg-slate-900 border-[1px] border-gray-400"
             : "bg-white"

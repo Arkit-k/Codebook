@@ -1,9 +1,9 @@
 "use client";
+import { SingleTagType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { MdErrorOutline } from "react-icons/md";
-import { v4 as uuidv4 } from "uuid";
 
 export const AddTagWindow = () => {
   const {
@@ -50,20 +50,57 @@ export const AddTagWindow = () => {
     }
   }
 
-  function addNewTagFunction() {
-    const newTag = {
-      _id: uuidv4(),
-      clerkUserId: sharedUserId || "",
-      name: tagName,
-    };
-    try {
-      setAllTags([...allTags, newTag]);
+  // add tag ------------------------------------------------
+  async function addNewTagFunction() {
+    const newTag = { name: tagName, clerkUserId: sharedUserId || "" };
 
-      setTagName("");
-      toast.success("Tag has been added successfully");
+    try {
+      const response = await fetch("/api/tags", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTag),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add tag");
+      }
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // update tag locally
+      const addedTag: SingleTagType = {
+        _id: data.tags._id,
+        name: data.tags.name,
+        clerkUserId: data.tags.clerkUserId,
+      };
+
+      setAllTags((prev) => [...prev, addedTag]);
+      setOpenNewTagsWindow(false);
+      toast.success("Tag added successfully");
     } catch (error) {
-      console.log(error);
+      console.error("Error adding new tag: ", error);
+      toast.error(error instanceof Error ? error.message : "Failed to add tag");
     }
+
+    // const newTag = {
+    //   _id: uuidv4(),
+    //   clerkUserId: sharedUserId || "",
+    //   name: tagName,
+    // };
+    // try {
+    //   setAllTags([...allTags, newTag]);
+
+    //   setTagName("");
+    //   toast.success("Tag has been added successfully");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   // edit tag and update in all notes
@@ -135,7 +172,7 @@ export const AddTagWindow = () => {
           {selectedTagToEdit ? "Edit tag" : "Add new tag"}
         </span>
         <div className="flex my-5 gap-3 items-center relative ">
-          <span>Tag name</span>
+          <span>Tag name:</span>
           <input
             ref={inputRef}
             value={tagName}
