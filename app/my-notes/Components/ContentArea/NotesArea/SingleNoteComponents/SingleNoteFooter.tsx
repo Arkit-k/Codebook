@@ -18,7 +18,7 @@ export function NoteFooter({
     noteToDeleteObject: { setNoteToDelete },
   } = useGlobalContext();
 
-  function trashNoteFunction() {
+  async function trashNoteFunction() {
     // if note is already in trash open modal-------------------
     if (note.isTrash) {
       setOpenDeleteConfirmationWindow(true);
@@ -26,14 +26,38 @@ export function NoteFooter({
       // setSelectedNote(note);
       return;
     }
-    const copyAllNotes = [...allNotes]; // copy of all notes
-    const findIndex = copyAllNotes.findIndex((n) => n._id === note._id); // find index
 
-    const clickedNote = { ...copyAllNotes[findIndex], isTrash: true }; // mark as trashed
+    try {
+      const response = await fetch(`api/snippets?snippetId=${note._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isTrash: true }),
+      });
 
-    copyAllNotes[findIndex] = clickedNote; // update note
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    setAllNotes(copyAllNotes);
+      const updateNote = await response.json();
+
+      setAllNotes((prev) =>
+        prev.map((n) => (n._id === note._id ? { ...n, isTrash: true } : n))
+      );
+    } catch (error) {
+      console.error("Error moving note to trash: ", error);
+    }
+
+    // -----------------------------------------
+    // const copyAllNotes = [...allNotes]; // copy of all notes
+    // const findIndex = copyAllNotes.findIndex((n) => n._id === note._id); // find index
+
+    // const clickedNote = { ...copyAllNotes[findIndex], isTrash: true }; // mark as trashed
+
+    // copyAllNotes[findIndex] = clickedNote; // update note
+
+    // setAllNotes(copyAllNotes);
 
     // toast notification
     toast((t) => (
@@ -54,13 +78,51 @@ export function NoteFooter({
   }
 
   // undo note deletion -----------------------------------
-  function resetNoteFunction() {
-    const trashedNoteIndex = allNotes.findIndex((n) => n._id === note._id);
-    if (trashedNoteIndex !== -1) {
-      const trashedNote = allNotes[trashedNoteIndex];
-      trashedNote.isTrash = false;
-      setAllNotes([...allNotes]);
+  async function resetNoteFunction() {
+    try {
+      const response = await fetch(`api/snippets?snippetId=${note._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isTrash: false }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const updateNote = await response.json();
+
+      setAllNotes((prev) =>
+        prev.map((n) => (n._id === note._id ? { ...n, isTrash: false } : n))
+      );
+    } catch (error) {
+      console.error("Error moving note to trash: ", error);
     }
+    // --------------------------
+    // const trashedNoteIndex = allNotes.findIndex((n) => n._id === note._id);
+    // if (trashedNoteIndex !== -1) {
+    //   const trashedNote = allNotes[trashedNoteIndex];
+    //   trashedNote.isTrash = false;
+    //   setAllNotes([...allNotes]);
+    // }
+
+    toast((t) => (
+      <div className="flex gap-2 items-center">
+        <span>Note restored from trash</span>
+        {/* <button
+           className="bg-white p-[4px] px-3 text-sm text-blue-500 rounded-md flex gap-1 items-center"
+           onClick={() => {
+             toast.dismiss(t.id);
+             resetNoteFunction();
+           }}
+         >
+           <LuUndo2 size={15} />
+           <span>Undo</span>
+         </button> */}
+      </div>
+    ));
   }
 
   // ===========================================================

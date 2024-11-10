@@ -35,7 +35,7 @@ export const SaveNote = ({
             : "hover:bg-slate-200 border-slate-400"
         } border`}
       >
-        Cancel
+        Close
       </button>
     </div>
   );
