@@ -1,6 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export const DeleteNotePermanently = () => {
@@ -11,28 +11,59 @@ export const DeleteNotePermanently = () => {
     },
     darkModeObject: { darkMode },
     allNotesObject: { allNotes, setAllNotes },
-    noteToDeleteObject: { noteToDelete },
+    noteToDeleteObject: { noteToDelete, setNoteToDelete },
   } = useGlobalContext();
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   // ---------------------------------------------------
-  function deleteSnippet() {
+  async function deleteSnippet() {
     if (noteToDelete) {
-      // const updateAllNotes = allNotes.filter(
-      //   (note) => note._id !== selectedNote._id
-      // );
-      // setAllNotes(updateAllNotes);
-      // setOpenDeleteConfirmationWindow(false);
-      // setSelectedNote(null);
+      setIsDeleting(true);
+      try {
+        const response = await fetch(`api/snippets?snippetId=${noteToDelete}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-      const updateAllNotes = allNotes.filter(
-        (note) => note._id !== noteToDelete
-      );
-      setAllNotes(updateAllNotes);
-      setOpenDeleteConfirmationWindow(false);
-      // setSelectedNote(null);
-
-      toast.success("snippet deleted");
+        // update local state after successful deletion -------------------------------
+        const copyAllNotes = [...allNotes];
+        const updateAllNotes = copyAllNotes.filter(
+          (note) => note._id !== noteToDelete
+        );
+        setAllNotes(updateAllNotes);
+        setOpenDeleteConfirmationWindow(false);
+        setNoteToDelete(null);
+      } catch (error) {
+        console.error("Error deleting snippet: ", error);
+        toast.error("Failed to delete snippet, please try again");
+      } finally {
+        setIsDeleting(false);
+      }
     }
+    // --------------------------------------------
+    // if (noteToDelete) {
+    //   // const updateAllNotes = allNotes.filter(
+    //   //   (note) => note._id !== selectedNote._id
+    //   // );
+    //   // setAllNotes(updateAllNotes);
+    //   // setOpenDeleteConfirmationWindow(false);
+    //   // setSelectedNote(null);
+
+    //   const updateAllNotes = allNotes.filter(
+    //     (note) => note._id !== noteToDelete
+    //   );
+    //   setAllNotes(updateAllNotes);
+    //   setOpenDeleteConfirmationWindow(false);
+    //   // setSelectedNote(null);
+
+    //   toast.success("snippet deleted");
+    // }
   }
   // ======================================================
   return (
@@ -65,7 +96,7 @@ export const DeleteNotePermanently = () => {
             onClick={deleteSnippet}
             className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 "
           >
-            Confirm
+            {isDeleting ? "Deleting..." : "Confirm"}
           </button>
         </div>
       </div>

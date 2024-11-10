@@ -13,12 +13,24 @@ export const DeleteAllTrashedNotesConfirmationWindow = () => {
     allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
 
-  function deleteAllTrashedNotes() {
-    const newNotes = allNotes.filter((note) => note.isTrash === false);
-    setAllNotes(newNotes);
-    setOpenDeleteAllNotesConfirmationWindow(false);
+  async function deleteAllTrashedNotes() {
+    try {
+      const response = await fetch("api/delete-all-snippets", {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    toast.success("All notes deleted");
+      // update local state after successful deletion ----------------------
+      const newNotes = allNotes.filter((note) => note.isTrash === false);
+      setAllNotes(newNotes);
+      setOpenDeleteAllNotesConfirmationWindow(false);
+      toast.success("All notes deleted");
+    } catch (error) {
+      console.error("Error deleting snippets: ", error);
+      toast.error("Failed to delete all snippets, please try again");
+    }
   }
   // ===================================
   return (

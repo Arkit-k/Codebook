@@ -112,6 +112,10 @@ const ContextProvider = createContext<GlobalContextType>({
     sharedUserId: "",
     setSharedUserId: () => {},
   },
+  showLogoutConfirmationModal: {
+    showLogoutConfirmationModal: false,
+    setShowLogoutConfirmationModal: () => {},
+  },
 });
 
 // values ===============================================================
@@ -134,12 +138,12 @@ const sideBarMenuItems = [
     isSelected: false,
     icons: <DeleteOutlineOutlined sx={{ fontSize: 18 }} />,
   },
-  {
-    id: 4,
-    name: "Log Out",
-    isSelected: false,
-    icons: <Logout sx={{ fontSize: 18 }} />,
-  },
+  // {
+  //   id: 4,
+  //   name: "Log Out",
+  //   isSelected: false,
+  //   icons: <Logout sx={{ fontSize: 18 }} />,
+  // },
 ];
 
 const darkModeItems = [
@@ -211,6 +215,8 @@ export default function GlobalContextProvider({
   const [isLoading, setIsLoading] = useState(true); // TODO
   const { isLoaded, isSignedIn, user } = useUser();
   const [sharedUserId, setSharedUserId] = useState<string>("");
+  const [showLogoutConfirmationModal, setShowLogoutConfirmationModal] =
+    useState(false);
   // ================================================================
 
   const handleResize = () => {
@@ -402,6 +408,10 @@ export default function GlobalContextProvider({
         sharedUserIdObject: {
           sharedUserId,
           setSharedUserId,
+        },
+        showLogoutConfirmationModal: {
+          showLogoutConfirmationModal,
+          setShowLogoutConfirmationModal,
         },
       }}
     >

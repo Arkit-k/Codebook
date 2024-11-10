@@ -76,24 +76,24 @@ function HeroSection() {
   return (
     <>
       {/* bg image */}
-      <div className="h-full w-full -z-10 absolute">
+      {/* <div className="h-full w-full -z-10 absolute">
         <Image src={HomeBg} alt="home" fill />
-      </div>
+      </div> */}
       <div className="flex flex-col mx-16 items-center mt-[120px] gap-6">
         <h1 className="font-bold text-2xl md:text-4xl text-center">
           Organize your code snippets
           <span className="text-blue-700"> Efficiently</span>
         </h1>
-        <p className="text-center text-sm md:text-md w-[450px] max-sm:w-full text-white">
+        <p className="text-center text-md md:text-lg w-[450px] max-sm:w-full text-white">
           Store and save all your snippets. With tagging and search features,
           you can quickly find the snippet you need.
         </p>
-        <button
+        {/* <button
           className="block  px-9 py-3 text-md text-blue-400 transition focus:outline-none"
           type="button"
         >
           {`Let's get started`}
-        </button>
+        </button> */}
       </div>
     </>
   );

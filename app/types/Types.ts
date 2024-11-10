@@ -143,4 +143,10 @@ export interface GlobalContextType {
     sharedUserId: string;
     setSharedUserId: React.Dispatch<React.SetStateAction<string>>;
   };
+  showLogoutConfirmationModal: {
+    showLogoutConfirmationModal: boolean;
+    setShowLogoutConfirmationModal: React.Dispatch<
+      React.SetStateAction<boolean>
+    >;
+  };
 }

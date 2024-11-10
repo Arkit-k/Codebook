@@ -7,6 +7,7 @@ import { DeleteNotePermanently } from "./Components/ContentArea/NotesArea/Single
 import { DeleteAllTrashedNotesConfirmationWindow } from "./Components/ContentArea/NotesArea/DeleteAllTrashedNotesConfirmationWindow";
 import { TagsWindow } from "./Components/Sidebar/components/TagsWindowModal/TagsWindow";
 import { AddTagWindow } from "./Components/Sidebar/components/TagsWindowModal/AddTagWindow";
+import LogoutConfirmationWindow from "./Components/Sidebar/components/LogoutConfirmationWindow";
 
 const page = () => {
   return (
@@ -27,6 +28,7 @@ const page = () => {
       <DeleteAllTrashedNotesConfirmationWindow />
       <TagsWindow />
       <AddTagWindow />
+      <LogoutConfirmationWindow />
     </div>
   );
 };

@@ -1,12 +1,15 @@
 import { useGlobalContext } from "@/Context/ContextApi";
+import { useClerk } from "@clerk/nextjs";
 
 export function QuickLinks() {
+  const { signOut } = useClerk();
   const {
     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
     openSidebarObject: { openSidebar, setOpenSidebar },
     tagsAndLogoutMenuObject: { tagsAndLogoutMenu },
     openTagsWindowObject: { setOpenTagsWindow },
     darkModeObject: { darkMode },
+    showLogoutConfirmationModal: { setShowLogoutConfirmationModal },
   } = useGlobalContext();
 
   function clickedMenu(index: number) {
@@ -25,7 +28,7 @@ export function QuickLinks() {
     if (index === 0) {
       setOpenTagsWindow(true);
     } else if (index === 1) {
-      console.log("logout");
+      setShowLogoutConfirmationModal(true);
     }
   }
 
