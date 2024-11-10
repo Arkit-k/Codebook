@@ -2,12 +2,10 @@ import { SingleNoteType } from "@/app/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { TitleOutlined } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 
 export function ContentNoteHeader({
   singleNote,
   setSingleNote,
-  setIsOpened,
 }: {
   singleNote: SingleNoteType;
   setSingleNote: React.Dispatch<
@@ -16,11 +14,8 @@ export function ContentNoteHeader({
   setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
-    allNotesObject: { allNotes, setAllNotes },
-    openContentNoteObject: { openContentNote, setOpenContentNote },
-    selectedLanguageObject: { setSelectedLanguage },
+    openContentNoteObject: { openContentNote },
     darkModeObject: { darkMode },
-    isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();
 
   const textRef = useRef<HTMLTextAreaElement>(null);

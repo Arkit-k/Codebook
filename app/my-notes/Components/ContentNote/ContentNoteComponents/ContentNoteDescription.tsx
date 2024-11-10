@@ -13,7 +13,6 @@ export function Description({
 }) {
   const {
     darkModeObject: { darkMode },
-    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
   // const [isHovered, setisHovered] = useState(second)
 

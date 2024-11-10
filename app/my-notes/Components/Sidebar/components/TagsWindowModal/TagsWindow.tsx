@@ -40,7 +40,7 @@ export const TagsWindow = () => {
         {/* search --------------- */}
         <TagsSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         {/* list ------------------- */}
-        <TagsList searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <TagsList searchQuery={searchQuery} />
       </div>
     </div>
   );

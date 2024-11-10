@@ -2,7 +2,7 @@ import { useGlobalContext } from "@/Context/ContextApi";
 
 export function NoteDate({ creationDate }: { creationDate: string }) {
   function getDateOnly(dateTimeString: string) {
-    const [date, time] = dateTimeString.split(", ");
+    const [date] = dateTimeString.split(", ");
     return date;
   }
   return (

@@ -37,6 +37,6 @@ export function Languages() {
 }
 function capitalizeFirstChar(str: string) {
   if (!str) return str;
-  let s = str[0].toUpperCase() + str.slice(1, str.length);
+  const s = str[0].toUpperCase() + str.slice(1, str.length);
   return s;
 }

@@ -1,8 +1,6 @@
 import { useGlobalContext } from "@/Context/ContextApi";
-import { useClerk } from "@clerk/nextjs";
 
 export function QuickLinks() {
-  const { signOut } = useClerk();
   const {
     sideBarMenuObject: { sideBarMenu, setSideBarMenu },
     openSidebarObject: { openSidebar, setOpenSidebar },

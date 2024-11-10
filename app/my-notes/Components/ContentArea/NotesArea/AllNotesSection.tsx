@@ -19,7 +19,7 @@ function AllNotesSection() {
     allNotesObject: { allNotes },
     sideBarMenuObject: { sideBarMenu },
     tagsClickedObject: { tagsClicked },
-    isLoadingObject: { isLoading, setIsLoading },
+    isLoadingObject: { isLoading },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 

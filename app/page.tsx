@@ -1,8 +1,6 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
-import HomeBg from "../assets/01.jpg";
 
 export default function Home() {
   return (

@@ -13,7 +13,7 @@ export function NoteFooter({
   note: SingleNoteType;
 }) {
   const {
-    allNotesObject: { allNotes, setAllNotes },
+    allNotesObject: { setAllNotes },
     openDeleteConfirmationObject: { setOpenDeleteConfirmationWindow },
     noteToDeleteObject: { setNoteToDelete },
   } = useGlobalContext();
@@ -40,7 +40,7 @@ export function NoteFooter({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const updateNote = await response.json();
+      // const updateNote = await response.json();
 
       setAllNotes((prev) =>
         prev.map((n) => (n._id === note._id ? { ...n, isTrash: true } : n))
@@ -92,7 +92,7 @@ export function NoteFooter({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const updateNote = await response.json();
+      // const updateNote = await response.json();
 
       setAllNotes((prev) =>
         prev.map((n) => (n._id === note._id ? { ...n, isTrash: false } : n))
@@ -108,7 +108,7 @@ export function NoteFooter({
     //   setAllNotes([...allNotes]);
     // }
 
-    toast((t) => (
+    toast(() => (
       <div className="flex gap-2 items-center">
         <span>Note restored from trash</span>
         {/* <button

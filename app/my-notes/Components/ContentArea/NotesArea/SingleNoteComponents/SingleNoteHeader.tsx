@@ -38,7 +38,7 @@ export function NoteHeader({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const updatedNote = await response.json();
+      // const updatedNote = await response.json();
 
       setAllNotes((prev) =>
         prev.map((note) =>

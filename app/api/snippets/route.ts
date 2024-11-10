@@ -1,6 +1,6 @@
 import connect from "@/app/lib/connect";
 import SingleSnippet from "@/app/Models/SnippetSchema";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: any) {
+export async function GET(req: NextRequest) {
   try {
     const clerkId = req.nextUrl.searchParams.get("clerkId");
     await connect();
@@ -51,7 +51,7 @@ export async function GET(req: any) {
   }
 }
 
-export async function PUT(request: any) {
+export async function PUT(request: NextRequest) {
   try {
     const snippetId = request.nextUrl.searchParams.get("snippetId");
     const {

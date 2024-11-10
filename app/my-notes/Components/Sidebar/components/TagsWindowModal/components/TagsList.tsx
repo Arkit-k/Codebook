@@ -7,13 +7,7 @@ import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdDragIndicator } from "react-icons/md";
 
-export const TagsList = ({
-  searchQuery,
-  setSearchQuery,
-}: {
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+export const TagsList = ({ searchQuery }: { searchQuery: string }) => {
   const {
     darkModeObject: { darkMode },
     allTagsObject: { allTags },
