@@ -8,6 +8,7 @@ import { DeleteAllTrashedNotesConfirmationWindow } from "./Components/ContentAre
 import { TagsWindow } from "./Components/Sidebar/components/TagsWindowModal/TagsWindow";
 import { AddTagWindow } from "./Components/Sidebar/components/TagsWindowModal/AddTagWindow";
 import LogoutConfirmationWindow from "./Components/Sidebar/components/LogoutConfirmationWindow";
+import ShowCodeModal from "./Components/ContentArea/NotesArea/SingleNoteComponents/ShowCodeModal";
 
 const page = () => {
   return (
@@ -29,6 +30,7 @@ const page = () => {
       <TagsWindow />
       <AddTagWindow />
       <LogoutConfirmationWindow />
+      <ShowCodeModal />
     </div>
   );
 };

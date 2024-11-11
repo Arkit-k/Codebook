@@ -6,7 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 function SearchBar() {
   const {
     darkModeObject: { darkMode },
+    searchSnippetObject: { searchSnippetText, setSearchSnippetText },
   } = useGlobalContext();
+
+  const searchSnippet = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchSnippetText(event.target.value.toLowerCase());
+  };
+
+  // -----------------------------------------------------
   return (
     <div
       className={`relative pl-3 w-[60%] h-[36px] rounded-3xl flex items-center gap-2 ${
@@ -16,6 +23,9 @@ function SearchBar() {
       <Search className="text-sky-400" sx={{ fontSize: 13 }} />
       <input
         placeholder="Search a snippet"
+        value={searchSnippetText}
+        onChange={searchSnippet}
+        // onChange={(e) => setSearchSnippetText(e.target.value.toLowerCase())}
         className={`w-[70%] outline-none text-sm bg-slate-100 text-slate-500 ${
           darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
         }`}

@@ -149,4 +149,16 @@ export interface GlobalContextType {
       React.SetStateAction<boolean>
     >;
   };
+  searchSnippetObject: {
+    searchSnippetText: string;
+    setSearchSnippetText: React.Dispatch<React.SetStateAction<string>>;
+  };
+  showCodeModalObject: {
+    showCodeModal: boolean;
+    setShowCodeModal: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  currentSelectedCodeObject: {
+    currentSelectedCode: string | "";
+    setCurrentSelectedCode: React.Dispatch<React.SetStateAction<string | "">>;
+  };
 }

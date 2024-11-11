@@ -62,10 +62,10 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
     tagsClickedObject: { tagsClicked, setTagsClicked },
   } = useGlobalContext();
 
-  function openTagEditWindow(tag: SingleTagType) {
-    setOpenNewTagsWindow(true);
-    setSelectedTagToEdit(tag);
-  }
+  // function openTagEditWindow(tag: SingleTagType) {
+  //   setOpenNewTagsWindow(true);
+  //   setSelectedTagToEdit(tag);
+  // }
 
   // ============================================================
   return (

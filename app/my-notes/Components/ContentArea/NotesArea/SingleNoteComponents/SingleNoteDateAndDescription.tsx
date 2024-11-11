@@ -1,12 +1,19 @@
 import { useGlobalContext } from "@/Context/ContextApi";
 
 export function NoteDate({ creationDate }: { creationDate: string }) {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
   function getDateOnly(dateTimeString: string) {
     const [date] = dateTimeString.split(", ");
     return date;
   }
   return (
-    <div className="text-slate-500 text-[12px] flex gap-1 font-light mx-4 mt-3">
+    <div
+      className={`${
+        darkMode[1].isSelected ? "text-slate-200" : "text-slate-700"
+      } text-[12px] font-normal flex gap-1 mx-4`}
+    >
       <span className="">{getDateOnly(creationDate)}</span>
     </div>
   );

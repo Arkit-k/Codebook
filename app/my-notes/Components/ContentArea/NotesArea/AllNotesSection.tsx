@@ -21,6 +21,7 @@ function AllNotesSection() {
     tagsClickedObject: { tagsClicked },
     isLoadingObject: { isLoading },
     darkModeObject: { darkMode },
+    searchSnippetObject: { searchSnippetText, setSearchSnippetText },
   } = useGlobalContext();
 
   const [filteredNotes, setFilteredNotes] = useState(
@@ -32,7 +33,56 @@ function AllNotesSection() {
     (note) => note.isTrash === false
   );
 
-  // =========================
+  // all notes search ----------------------------------------------
+
+  useEffect(() => {
+    console.log("search: ", searchSnippetText);
+    console.log("filtered notes: ", filteredNotes);
+
+    // all snippets
+    if (sideBarMenu[0].isSelected) {
+      const updatedNotes = allNotes.filter((note) => note.isTrash === false);
+      if (searchSnippetText.length === 0) {
+        setFilteredNotes(updatedNotes);
+      }
+      if (searchSnippetText.length > 0) {
+        const searchedSnippets = updatedNotes.filter((note) =>
+          note.title.toLowerCase().includes(searchSnippetText)
+        );
+        setFilteredNotes(searchedSnippets);
+      }
+    }
+    // if favorites
+    if (sideBarMenu[1].isSelected) {
+      const updatedNotes = allNotes.filter(
+        (note) => note.isFavorite && note?.isTrash === false
+      );
+      if (searchSnippetText.length === 0) {
+        setFilteredNotes(updatedNotes);
+      }
+      if (searchSnippetText.length > 0) {
+        const searchedSnippets = updatedNotes.filter((note) =>
+          note.title.toLowerCase().includes(searchSnippetText)
+        );
+        setFilteredNotes(searchedSnippets);
+      }
+    }
+    // show trash notes
+    if (sideBarMenu[2].isSelected) {
+      const updatedNotes = allNotes.filter((note) => note?.isTrash === true);
+      if (searchSnippetText.length === 0) {
+        setFilteredNotes(updatedNotes);
+      }
+      if (searchSnippetText.length > 0) {
+        const searchedSnippets = updatedNotes.filter((note) =>
+          note.title.toLowerCase().includes(searchSnippetText)
+        );
+        setFilteredNotes(searchedSnippets);
+      }
+    }
+  }, [searchSnippetText]);
+
+  // when tags is clicked =========================
   useEffect(() => {
     // all snippets
     if (sideBarMenu[0].isSelected) {
@@ -131,7 +181,7 @@ function AllNotesSection() {
     <>
       <NotesAreaHeader length={filteredNotes.length} />
       <NoNotes notesLength={filteredNotes.length} tagsClicked={tagsClicked} />
-      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="my-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {filteredNotes.map((note, index) => (
           <div className="" key={index}>
             <SingleNote note={note} />

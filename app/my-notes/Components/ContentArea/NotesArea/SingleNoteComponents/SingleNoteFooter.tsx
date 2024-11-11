@@ -149,7 +149,7 @@ export function NoteFooter({
         )}
         <DeleteRounded
           onClick={trashNoteFunction}
-          sx={{ fontSize: 17 }}
+          sx={{ fontSize: 19 }}
           className="cursor-pointer"
         />
       </div>

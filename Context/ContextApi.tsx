@@ -116,6 +116,18 @@ const ContextProvider = createContext<GlobalContextType>({
     showLogoutConfirmationModal: false,
     setShowLogoutConfirmationModal: () => {},
   },
+  searchSnippetObject: {
+    searchSnippetText: "",
+    setSearchSnippetText: () => {},
+  },
+  showCodeModalObject: {
+    showCodeModal: false,
+    setShowCodeModal: () => {},
+  },
+  currentSelectedCodeObject: {
+    currentSelectedCode: "",
+    setCurrentSelectedCode: () => {},
+  },
 });
 
 // values ===============================================================
@@ -217,6 +229,11 @@ export default function GlobalContextProvider({
   const [sharedUserId, setSharedUserId] = useState<string>("");
   const [showLogoutConfirmationModal, setShowLogoutConfirmationModal] =
     useState(false);
+  const [searchSnippetText, setSearchSnippetText] = useState("");
+  const [showCodeModal, setShowCodeModal] = useState(false);
+  const [currentSelectedCode, setCurrentSelectedCode] = useState<string | "">(
+    ""
+  );
   // ================================================================
 
   const handleResize = () => {
@@ -441,6 +458,18 @@ export default function GlobalContextProvider({
         showLogoutConfirmationModal: {
           showLogoutConfirmationModal,
           setShowLogoutConfirmationModal,
+        },
+        searchSnippetObject: {
+          searchSnippetText,
+          setSearchSnippetText,
+        },
+        showCodeModalObject: {
+          showCodeModal,
+          setShowCodeModal,
+        },
+        currentSelectedCodeObject: {
+          currentSelectedCode,
+          setCurrentSelectedCode,
         },
       }}
     >

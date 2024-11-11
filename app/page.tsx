@@ -1,22 +1,20 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
-import CodeBg from "../assets/code-bg.png";
+import Img1 from "../assets/img1.png";
+import Img2 from "../assets/img2.png";
+import Img3 from "../assets/img3.png";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div
-      className={`poppins flex flex-col bg-gradient-to-b from-white/90 to-blue-400/50 h-screen`}
+      className={`poppins flex flex-col bg-gradient-to-b from-white/90 to-blue-400/50 min-h-screen`}
     >
-      <Image
-        src={CodeBg}
-        alt="code"
-        className="-z-20 fixed h-[90%] w-[50%] object-cover right-0 bottom-0 opacity-40"
-      />
       <Navbar />
       <HeroSection />
       <Buttons2 />
+      <ImagesSection />
     </div>
   );
 }
@@ -140,5 +138,21 @@ function HeroSection() {
         </button> */}
       </div>
     </>
+  );
+}
+
+function ImagesSection() {
+  return (
+    <div className="*:object-contain flex flex-col gap-4 mt-16 mx-auto px-10 mb-10">
+      <Image
+        src={Img1}
+        alt="code"
+        className="object-cover w-full md:w-[90%] mx-auto"
+      />
+      <div className="flex gap-3 max-xl:flex-col mx-auto md:*:h-[380px]  md:*:w-[700px]">
+        <Image src={Img2} alt="code" className="object-cover" />
+        <Image src={Img3} alt="code" className="object-cover" />
+      </div>
+    </div>
   );
 }
