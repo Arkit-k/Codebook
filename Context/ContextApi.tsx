@@ -304,9 +304,10 @@ export default function GlobalContextProvider({
         }
       } catch (error) {
         console.error(error);
-      } finally {
-        setIsLoading(false);
       }
+      // finally {
+      //   setIsLoading(false);
+      // }
     }
 
     // function updateAllTags() {
