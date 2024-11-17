@@ -1,5 +1,5 @@
 "use client";
-import { SingleNoteType } from "@/app/types/Types";
+import { SingleNoteType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 
@@ -36,8 +36,8 @@ function AllNotesSection() {
   // all notes search ----------------------------------------------
 
   useEffect(() => {
-    console.log("search: ", searchSnippetText);
-    console.log("filtered notes: ", filteredNotes);
+    // console.log("search: ", searchSnippetText);
+    // console.log("filtered notes: ", filteredNotes);
 
     // all snippets
     if (sideBarMenu[0].isSelected) {

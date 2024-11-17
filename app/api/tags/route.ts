@@ -1,5 +1,5 @@
-import connect from "@/app/lib/connect";
-import Tag from "@/app/Models/TagSchema";
+import connect from "@/lib/connect";
+import Tag from "@/Models/TagSchema";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -61,7 +61,7 @@ export async function PUT(request: NextRequest) {
       { returnDocument: "after" } // Return the updated document
     );
 
-    console.log(updatedTag);
+    // console.log(updatedTag);
 
     return NextResponse.json({
       note: updatedTag,

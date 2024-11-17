@@ -1,5 +1,5 @@
 "use client";
-import { SingleNoteType, SingleTagType } from "@/app/types/Types";
+import { SingleNoteType, SingleTagType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { SearchRounded, StyleOutlined } from "@mui/icons-material";
 import React from "react";

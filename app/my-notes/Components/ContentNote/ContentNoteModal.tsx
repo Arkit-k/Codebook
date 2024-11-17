@@ -1,5 +1,5 @@
 "use client";
-import { SingleNoteType } from "@/app/types/Types";
+import { SingleNoteType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 
 import React, { useEffect, useMemo, useState } from "react";

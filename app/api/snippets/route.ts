@@ -1,5 +1,5 @@
-import connect from "@/app/lib/connect";
-import SingleSnippet from "@/app/Models/SnippetSchema";
+import connect from "@/lib/connect";
+import SingleSnippet from "@/Models/SnippetSchema";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     });
 
     const savedNote = await note.save();
-    console.log("saved note: ", savedNote);
+    // console.log("saved note: ", savedNote);
 
     return NextResponse.json({ notes: savedNote });
   } catch (error) {
@@ -95,7 +95,7 @@ export async function PUT(request: NextRequest) {
       { returnDocument: "after" } // Return the updated document
     );
 
-    console.log(updatedSnippet);
+    // console.log(updatedSnippet);
 
     return NextResponse.json({
       note: updatedSnippet,

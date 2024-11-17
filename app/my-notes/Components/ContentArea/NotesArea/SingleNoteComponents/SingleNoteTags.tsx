@@ -1,4 +1,4 @@
-import { SingleTagType } from "@/app/types/Types";
+import { SingleTagType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 
 export function NoteTags({ tags }: { tags: SingleTagType[] }) {

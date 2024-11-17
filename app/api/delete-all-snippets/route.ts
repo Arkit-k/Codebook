@@ -1,5 +1,5 @@
-import connect from "@/app/lib/connect";
-import SingleSnippet from "@/app/Models/SnippetSchema";
+import connect from "@/lib/connect";
+import SingleSnippet from "@/Models/SnippetSchema";
 import { NextResponse } from "next/server";
 
 export async function DELETE() {

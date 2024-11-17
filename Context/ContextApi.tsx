@@ -8,7 +8,7 @@ import {
   SingleCodeLanguageType,
   SingleNoteType,
   SingleTagType,
-} from "@/app/types/Types";
+} from "@/types/Types";
 import { useUser } from "@clerk/nextjs";
 import {
   BorderAll,

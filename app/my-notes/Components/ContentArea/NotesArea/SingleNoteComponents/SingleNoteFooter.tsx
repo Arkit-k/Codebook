@@ -1,5 +1,5 @@
-import { getLanguageIcon } from "@/app/localData/Languages";
-import { SingleNoteType } from "@/app/types/Types";
+import { getLanguageIcon } from "@/utils/localData/Languages";
+import { SingleNoteType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { DeleteRounded, RestoreFromTrashOutlined } from "@mui/icons-material";
 import toast from "react-hot-toast";

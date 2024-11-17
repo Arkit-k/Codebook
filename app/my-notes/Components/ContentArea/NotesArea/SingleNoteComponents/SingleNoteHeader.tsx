@@ -1,4 +1,4 @@
-import { SingleNoteType } from "@/app/types/Types";
+import { SingleNoteType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Checkbox } from "@mui/material";

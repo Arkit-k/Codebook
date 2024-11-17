@@ -7,9 +7,9 @@ import "ace-builds/src-noconflict/theme-terminal";
 import "ace-builds/src-noconflict/theme-solarized_dark";
 import "ace-builds/src-noconflict/mode-javascript";
 
-import { SingleCodeLanguageType, SingleNoteType } from "@/app/types/Types";
+import { SingleCodeLanguageType, SingleNoteType } from "@/types/Types";
 import { useEffect, useRef, useState } from "react";
-import { allLanguages } from "@/app/localData/Languages";
+import { allLanguages } from "@/utils/localData/Languages";
 
 export function CodeEditor({
   singleNote,

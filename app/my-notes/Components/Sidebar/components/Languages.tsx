@@ -1,4 +1,4 @@
-import { getLanguageIcon } from "@/app/localData/Languages";
+import { getLanguageIcon } from "@/utils/localData/Languages";
 import { useGlobalContext } from "@/Context/ContextApi";
 export function Languages() {
   const {

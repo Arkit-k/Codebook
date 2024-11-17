@@ -1,4 +1,4 @@
-import { SingleNoteType, SingleTagType } from "@/app/types/Types";
+import { SingleNoteType, SingleTagType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { EditOutlined, StyleOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
