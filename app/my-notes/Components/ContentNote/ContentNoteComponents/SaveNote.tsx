@@ -24,15 +24,9 @@ export const SaveNote = ({
       {/* <button className="bg-blue-500 text-white hover:bg-blue-700">Save</button> */}
       <button
         onClick={() => {
-          setOpenContentNote(false);
-          setIsOpened(false);
-          setSelectedLanguage(null);
-          // setSelectedNote(null);
-          setSingleNote(undefined);
-          setIsNewNote(false);
           saveSnippet();
         }}
-        className={`bg-blue-500 text-white border hover:bg-blue-700`}
+        className={`bg-blue-500 text-white hover:bg-blue-700`}
       >
         Save
       </button>

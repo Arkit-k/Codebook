@@ -1,6 +1,8 @@
 "use client";
 import { useGlobalContext } from "@/Context/ContextApi";
-import React from "react";
+import { ContentCopyOutlined, DoneAllOutlined } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import React, { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
   monoBlue,
@@ -13,6 +15,16 @@ export default function ShowCodeModal() {
     showCodeModalObject: { showCodeModal, setShowCodeModal },
     currentSelectedCodeObject: { currentSelectedCode, setCurrentSelectedCode },
   } = useGlobalContext();
+  const [isCopied, setIsCopied] = useState(false);
+
+  // copy code ------------------------------------
+  function clickedCopyBtn() {
+    navigator.clipboard.writeText(currentSelectedCode);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1200);
+  }
 
   return (
     <div
@@ -27,7 +39,30 @@ export default function ShowCodeModal() {
             : "bg-white"
         }`}
       >
-        <div className="flex justify-end">
+        <div className="flex justify-end items-center">
+          {/* copy button ------------------------------------------------------------- */}
+          <div className="mr-4">
+            {/* <div className="absolute top-4 right-4 z-50 "> */}
+            <IconButton disabled={isCopied}>
+              {isCopied ? (
+                <DoneAllOutlined
+                  sx={{ fontSize: 18 }}
+                  className={`${
+                    darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                  }`}
+                />
+              ) : (
+                <ContentCopyOutlined
+                  onClick={() => clickedCopyBtn()}
+                  sx={{ fontSize: 18 }}
+                  className={`${
+                    darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                  }`}
+                />
+              )}
+            </IconButton>
+          </div>
+          {/* close button ----------------------------------------- */}
           <button
             onClick={() => {
               setCurrentSelectedCode("");

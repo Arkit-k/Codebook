@@ -1,7 +1,7 @@
 import { SingleNoteType, SingleTagType } from "@/types/Types";
 import { useGlobalContext } from "@/Context/ContextApi";
 import { EditOutlined, StyleOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function NoteTags({
   singleNote,
@@ -23,6 +23,8 @@ export function NoteTags({
     selectedTagsObject: { selectedTags, setSelectedTags },
     allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
+
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpened) {
@@ -52,6 +54,19 @@ export function NoteTags({
     setAllNotes(newAllNotes);
     setSingleNote(newSingleNote);
   }, [selectedTags]);
+
+  // to close drop down menu ----------------------------------------------------
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsOpened(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   // ---------------------------------------------------------
   return (
     <div className="flex text-[13px] items-center gap-2 relative">
@@ -103,7 +118,9 @@ export function NoteTags({
                 } cursor-pointer`}
               />
               {/* show tags menu -------------------------------------------------- */}
-              {isOpened && <TagsMenu onClickedTag={onClickedTag} />}
+              {isOpened && (
+                <TagsMenu menuRef={menuRef} onClickedTag={onClickedTag} />
+              )}
             </div>
           )}
         </div>
@@ -113,8 +130,10 @@ export function NoteTags({
   // ----------------------------------------------------------
   function TagsMenu({
     onClickedTag,
+    menuRef,
   }: {
     onClickedTag: (tag: SingleTagType) => void;
+    menuRef: any;
   }) {
     const {
       darkModeObject: { darkMode },
@@ -124,6 +143,7 @@ export function NoteTags({
     // ----------------------------------------
     return (
       <ul
+        ref={menuRef}
         className={`${
           darkMode[1].isSelected
             ? "bg-slate-700 border border-slate-400 text-slate-200"

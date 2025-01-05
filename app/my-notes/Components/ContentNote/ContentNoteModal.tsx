@@ -14,12 +14,12 @@ import toast from "react-hot-toast";
 
 function ContentNoteModal() {
   const {
-    openContentNoteObject: { openContentNote },
+    openContentNoteObject: { openContentNote, setOpenContentNote },
     darkModeObject: { darkMode },
     selectedNoteObject: { selectedNote },
     isNewNoteObject: { isNewNote, setIsNewNote },
     allNotesObject: { allNotes, setAllNotes },
-    selectedLanguageObject: { selectedLanguage },
+    selectedLanguageObject: { selectedLanguage, setSelectedLanguage },
   } = useGlobalContext();
 
   const [singleNote, setSingleNote] = useState<SingleNoteType | undefined>(
@@ -54,7 +54,14 @@ function ContentNoteModal() {
   const saveSnippet = () => {
     // console.log("saved");
     if (singleNote && singleNote.title !== "") {
+      setOpenContentNote(false);
+      setIsOpened(false);
+      setSelectedLanguage(null);
+      setSingleNote(undefined);
+      setIsNewNote(false);
       saveNoteToDB(singleNote, isNewNote);
+    } else {
+      toast.error("Title required");
     }
     return;
   };
