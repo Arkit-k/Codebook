@@ -10,6 +10,7 @@ import { CodeEditor } from "./ContentNoteComponents/CodeEditor";
 import { Error } from "mongoose";
 import { debounce } from "lodash";
 import { SaveNote } from "./ContentNoteComponents/SaveNote";
+import toast from "react-hot-toast";
 
 function ContentNoteModal() {
   const {
@@ -35,19 +36,28 @@ function ContentNoteModal() {
   }, [openContentNote, selectedNote]);
 
   // debounce title -----------------------------------------------
-  useEffect(() => {
-    if (singleNote && singleNote.title !== "") {
-      debouncedSaveNote(singleNote, isNewNote);
-    }
-  }, [singleNote, isNewNote]);
+  // useEffect(() => {
+  //   if (singleNote && singleNote.title !== "") {
+  //     debouncedSaveNote(singleNote, isNewNote);
+  //   }
+  // }, [singleNote, isNewNote]);
 
-  const debouncedSaveNote = useMemo(
-    () =>
-      debounce((note: SingleNoteType, isNew: boolean) => {
-        saveNoteToDB(note, isNew);
-      }, 500),
-    []
-  );
+  // const debouncedSaveNote = useMemo(
+  //   () =>
+  //     debounce((note: SingleNoteType, isNew: boolean) => {
+  //       saveNoteToDB(note, isNew);
+  //     }, 500),
+  //   []
+  // );
+
+  // save snippet button ===========================================
+  const saveSnippet = () => {
+    // console.log("saved");
+    if (singleNote && singleNote.title !== "") {
+      saveNoteToDB(singleNote, isNewNote);
+    }
+    return;
+  };
 
   // create new note only if not empty -------------------------------------
   // useEffect(() => {
@@ -116,9 +126,13 @@ function ContentNoteModal() {
       if (isNew) {
         setSingleNote(savedNote);
         setIsNewNote(false);
+        toast.success("Snippet added");
+      } else {
+        toast.success("Snippet updated");
       }
     } catch (error) {
       console.log("add note to db error: ", error);
+      toast.error("Failed to add snippet");
     }
   }
 
@@ -204,7 +218,11 @@ function ContentNoteModal() {
       >
         {singleNote && (
           <div>
-            <SaveNote setIsOpened={setIsOpened} setSingleNote={setSingleNote} />
+            <SaveNote
+              setIsOpened={setIsOpened}
+              setSingleNote={setSingleNote}
+              saveSnippet={saveSnippet}
+            />
             <ContentNoteHeader
               singleNote={singleNote}
               setSingleNote={setSingleNote}

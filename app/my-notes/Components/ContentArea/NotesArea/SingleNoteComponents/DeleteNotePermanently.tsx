@@ -39,6 +39,7 @@ export const DeleteNotePermanently = () => {
         setAllNotes(updateAllNotes);
         setOpenDeleteConfirmationWindow(false);
         setNoteToDelete(null);
+        toast.success("snippet deleted");
       } catch (error) {
         console.error("Error deleting snippet: ", error);
         toast.error("Failed to delete snippet, please try again");

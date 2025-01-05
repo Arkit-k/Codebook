@@ -5,11 +5,13 @@ import React from "react";
 export const SaveNote = ({
   setIsOpened,
   setSingleNote,
+  saveSnippet,
 }: {
   setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
   setSingleNote: React.Dispatch<
     React.SetStateAction<SingleNoteType | undefined>
   >;
+  saveSnippet: () => void;
 }) => {
   const {
     darkModeObject: { darkMode },
@@ -20,6 +22,20 @@ export const SaveNote = ({
   return (
     <div className="flex gap-2 *:w-[90px] justify-end *:rounded-md *:px-3 *:py-2 mb-3">
       {/* <button className="bg-blue-500 text-white hover:bg-blue-700">Save</button> */}
+      <button
+        onClick={() => {
+          setOpenContentNote(false);
+          setIsOpened(false);
+          setSelectedLanguage(null);
+          // setSelectedNote(null);
+          setSingleNote(undefined);
+          setIsNewNote(false);
+          saveSnippet();
+        }}
+        className={`bg-blue-500 text-white border hover:bg-blue-700`}
+      >
+        Save
+      </button>
       <button
         onClick={() => {
           setOpenContentNote(false);
