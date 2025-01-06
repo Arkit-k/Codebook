@@ -19,7 +19,7 @@ function DarkMode() {
   // =========================================================
   return (
     <div
-      className={`h-[36px] w-[74px] rounded-3xl flex items-center gap-2 pl-[5px] shadow-md ${
+      className={`h-[36px] w-[74px] rounded-md flex items-center gap-2 pl-[5px] shadow-md ${
         darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
       }`}
     >
@@ -32,7 +32,7 @@ function DarkMode() {
                 : `${
                     darkMode[1].isSelected ? "" : "bg-slate-100"
                   }  text-blue-500`
-            } w-7 h-7 flex items-center justify-center rounded-full top-[4px] p-1 left-1 cursor-pointer select-none`}
+            } w-7 h-7 flex items-center justify-center rounded-md top-[4px] p-1 left-1 cursor-pointer select-none`}
             key={index}
             onClick={() => handleClickDarkMode(index)}
           >

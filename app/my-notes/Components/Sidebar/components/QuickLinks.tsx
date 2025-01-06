@@ -48,7 +48,7 @@ export function QuickLinks() {
             className={`${
               darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
             } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
-            ${menu.isSelected ? "bg-blue-400 text-white" : ""}
+            ${menu.isSelected ? "bg-blue-500 text-white" : ""}
               `}
           >
             {menu.icons}

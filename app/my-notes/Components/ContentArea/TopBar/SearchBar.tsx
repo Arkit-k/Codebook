@@ -16,7 +16,7 @@ function SearchBar() {
   // -----------------------------------------------------
   return (
     <div
-      className={`relative pl-3 w-[60%] h-[36px] rounded-3xl flex items-center gap-2 ${
+      className={`relative pl-3 w-[60%] h-[36px] rounded-md flex items-center gap-2 ${
         darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
       }`}
     >
@@ -80,7 +80,7 @@ function AddSnippetButton() {
   // ==================================================================
   return (
     <div
-      className="flex absolute gap-2 px-[10px] rounded-3xl bg-blue-500 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none"
+      className="flex absolute gap-2 px-[10px] rounded-md bg-blue-500 hover:bg-blue-700 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none"
       onClick={openTheContentNote}
     >
       {/* <div className="md:font-bold max-md:text-xl">+</div> */}
