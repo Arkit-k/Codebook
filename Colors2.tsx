@@ -1,5 +1,5 @@
 const colors = {
-  mainColor: "#8338EC",
+  mainColor: "#D90429",
 };
 
 module.exports = colors;

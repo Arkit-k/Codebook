@@ -1,101 +1,80 @@
-import connect from "@/lib/connect";
-import Tag from "@/Models/TagSchema";
 import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
+
+// ✅ Create a new tag
 export async function POST(req: Request) {
   try {
     const { name, clerkUserId } = await req.json();
 
-    await connect();
-
-    const tag = new Tag({
-      name,
-      clerkUserId,
+    const savedTag = await prisma.tag.create({
+      data: { name, clerkUserId, snippet: { connect: { id: "someSnippetId" } } },
     });
 
-    const savedTag = await tag.save();
-
-    return NextResponse.json({ tags: savedTag });
+    return NextResponse.json({ tag: savedTag });
   } catch (error) {
-    console.log(error);
-
-    return NextResponse.json({ error: error }, { status: 400 });
+    console.error(error);
+    return NextResponse.json({ error: "Failed to create tag" }, { status: 400 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
+// ✅ Get tags for a user
 export async function GET(req: NextRequest) {
   try {
     const clerkId = req.nextUrl.searchParams.get("clerkId");
-    await connect();
-    const tags = await Tag.find({ clerkUserId: clerkId });
-    return NextResponse.json({ tags: tags });
+    if (!clerkId) return NextResponse.json({ error: "clerkId required" }, { status: 400 });
+
+    const tags = await prisma.tag.findMany({ where: { clerkUserId: clerkId } });
+
+    return NextResponse.json({ tags });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 400 });
+    console.error(error);
+    return NextResponse.json({ error: "Failed to fetch tags" }, { status: 400 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
+// ✅ Update a tag
 export async function PUT(request: NextRequest) {
   try {
     const tagId = request.nextUrl.searchParams.get("tagId");
     const { name, clerkUserId } = await request.json();
 
-    if (!tagId) {
-      return NextResponse.json(
-        { message: "tag ID is required" },
-        { status: 400 }
-      );
-    }
+    if (!tagId) return NextResponse.json({ error: "tagId required" }, { status: 400 });
 
-    // Connect to the database
-    await connect();
-
-    // Find the snippet by snippet and update it
-    const updatedTag = await Tag.findOneAndUpdate(
-      { _id: tagId },
-      {
-        $set: {
-          name,
-          clerkUserId,
-        },
-      },
-      { returnDocument: "after" } // Return the updated document
-    );
-
-    // console.log(updatedTag);
-
-    return NextResponse.json({
-      note: updatedTag,
+    const updatedTag = await prisma.tag.update({
+      where: { id: tagId },
+      data: { name, clerkUserId },
     });
+
+    return NextResponse.json({ tag: updatedTag });
   } catch (error) {
-    console.error("Error updating the tag:", error);
-    return NextResponse.json({ status: 500 });
+    console.error("Error updating tag:", error);
+    return NextResponse.json({ error: "Failed to update tag" }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
-export async function DELETE(request: Request) {
+// ✅ Delete a tag
+export async function DELETE(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const tagId = url.searchParams.get("tagId");
+    const tagId = request.nextUrl.searchParams.get("tagId");
 
-    if (!tagId) {
-      return NextResponse.json(
-        { message: "tagId is required" },
-        { status: 400 }
-      );
-    }
+    if (!tagId) return NextResponse.json({ error: "tagId required" }, { status: 400 });
 
-    const tagToDelete = await Tag.findOneAndDelete({ _id: tagId });
+    await prisma.tag.delete({ where: { id: tagId } });
 
-    if (!tagToDelete) {
-      return NextResponse.json({ message: "tag not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ message: "tag deleted successfully" });
+    return NextResponse.json({ message: "Tag deleted successfully" });
   } catch (error) {
-    console.error("Error deleting tag:", error); // Log the error for debugging
-    return NextResponse.json(
-      { message: "Failed to delete tag" },
-      { status: 500 }
-    );
+    console.error("Error deleting tag:", error);
+    return NextResponse.json({ error: "Failed to delete tag" }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
+
