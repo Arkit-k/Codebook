@@ -1,12 +1,16 @@
-"use client"
-import { ThemeProvider } from "next-themes";
+"use client"; // Ensure it's a client component
 
-import { ReactNode } from "react";
+import { useTheme } from "./theme-switcher";
 
-export function Providers({children}: {children: ReactNode}) {
-  
-  return  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div suppressHydrationWarning>{children}</div>
-    </ThemeProvider>
-};
+export default function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
 
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 bg-gray-200 dark:bg-gray-800 rounded-lg transition"
+    >
+      {theme === "light" ? "🌙" : "☀️"}
+    </button>
+  );
+}

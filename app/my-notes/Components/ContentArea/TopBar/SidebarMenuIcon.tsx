@@ -12,13 +12,13 @@ function SidebarMenuIcon() {
         <MenuOutlined
           onClick={() => setOpenSidebar(!openSidebar)}
           // className="text-red-500 cursor-pointer md:hidden"
-          className="text-slate-500 cursor-pointer hidden max-lg:block"
+          className="text-stone-900 cursor-pointer hidden max-lg:block"
         />
       ) : (
         <CloseOutlined
           onClick={() => setOpenSidebar(!openSidebar)}
           // className="text-slate-500 cursor-pointer md:hidden"
-          className="text-slate-500 "
+          className="text-stone-200 "
         />
       )}
     </div>

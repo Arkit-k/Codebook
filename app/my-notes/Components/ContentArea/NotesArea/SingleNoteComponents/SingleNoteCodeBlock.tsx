@@ -34,7 +34,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
             setShowCodeModal(true);
             setCurrentSelectedCode(code);
           }}
-          className={`bg-blue-500 hover:bg-blue-700 transition-all py-2 px-3 rounded-full absolute text-white bottom-5 right-5 hover:shadow-md text-sm flex items-center gap-1`}
+          className={`bg-stone-500 hover:bg-stone-700 transition-all py-2 px-3 rounded-full absolute text-white bottom-5 right-5 hover:shadow-md text-sm flex items-center gap-1`}
         >
           View code
           <FaCode size={18} />

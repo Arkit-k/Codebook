@@ -21,7 +21,7 @@ function LogoutConfirmationWindow() {
       <div
         className={`h-[200px] max-md:w-[80%] max-lg:w-[50%] w-[40%] rounded-md p-4 overflow-scroll flex flex-col justify-between ${
           darkMode[1].isSelected
-            ? "bg-slate-900 border-[1px] border-gray-400 text-white"
+            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
             : "bg-white "
         }`}
       >

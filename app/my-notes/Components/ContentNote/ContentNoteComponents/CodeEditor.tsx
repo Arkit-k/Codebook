@@ -79,7 +79,7 @@ export function CodeEditor({
               <DoneAllOutlined
                 sx={{ fontSize: 18 }}
                 className={`${
-                  darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                  darkMode[1].isSelected ? "text-white" : "text-stone-800"
                 }`}
               />
             ) : (
@@ -87,7 +87,7 @@ export function CodeEditor({
                 onClick={() => clickedCopyBtn()}
                 sx={{ fontSize: 18 }}
                 className={`${
-                  darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                  darkMode[1].isSelected ? "text-white" : "text-stone-800"
                 }`}
               />
             )}
@@ -97,7 +97,7 @@ export function CodeEditor({
         <div
           className={`flex gap-2 justify-between p-[6px] px-3 rounded-md items-center text-[12px] mt-3 absolute top-1 left-3 cursor-pointer ${
             darkMode[1].isSelected
-              ? "bg-slate-600 text-white hover:bg-slate-500"
+              ? "bg-stone-900 text-white hover:bg-slate-500"
               : "bg-slate-300 text-slate-700"
           }`}
           onClick={() => setIsOpened(!isOpened)}
@@ -200,14 +200,14 @@ export function CodeEditor({
         ref={menuRef}
         className={`flex flex-col h-[220px] w-[250px] gap-2 justify-between p-[6px] px-1 rounded-md items-center text-[12px] mt-3 absolute top-10 left-3 border z-50  ${
           darkMode[1].isSelected
-            ? "bg-slate-900 text-white border-slate-400"
+            ? "bg-stone-900 text-white border-slate-400"
             : "bg-slate-100 text-slate-800 border-slate-500"
         }`}
       >
         <div
           className={`flex w-full gap-1 p-2 items-center rounded-md ${
             darkMode[1].isSelected
-              ? "bg-slate-800"
+              ? "bg-stone-800"
               : "bg-slate-300 text-slate-900 "
           }`}
         >
@@ -227,8 +227,8 @@ export function CodeEditor({
               key={language.id}
               className={`flex mb-2 gap-2 bg-transparent p-[6px] px-2 rounded-md items-center cursor-pointer ${
                 darkMode[1].isSelected
-                  ? "hover:bg-slate-800"
-                  : "hover:bg-slate-300"
+                  ? "hover:bg-stone-800"
+                  : "hover:bg-stone-300"
               }`}
             >
               {language?.icon}

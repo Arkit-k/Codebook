@@ -35,7 +35,7 @@ export default function ShowCodeModal() {
       <div
         className={`h-[500px] max-md:w-[90%] max-lg:w-[80%] max-xl:w-[60%] w-[60%] rounded-md p-4 justify-between flex flex-col gap-3  ${
           darkMode[1].isSelected
-            ? "bg-slate-900 border-[1px] border-gray-400 text-white"
+            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
             : "bg-white"
         }`}
       >
@@ -48,7 +48,7 @@ export default function ShowCodeModal() {
                 <DoneAllOutlined
                   sx={{ fontSize: 18 }}
                   className={`${
-                    darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                    darkMode[1].isSelected ? "text-white" : "text-stone-900"
                   }`}
                 />
               ) : (
@@ -56,7 +56,7 @@ export default function ShowCodeModal() {
                   onClick={() => clickedCopyBtn()}
                   sx={{ fontSize: 18 }}
                   className={`${
-                    darkMode[1].isSelected ? "text-white" : "text-slate-700"
+                    darkMode[1].isSelected ? "text-white" : "text-stone-900"
                   }`}
                 />
               )}
@@ -70,8 +70,8 @@ export default function ShowCodeModal() {
             }}
             className={`${
               darkMode[1].isSelected
-                ? "border-slate-600 hover:bg-slate-800"
-                : "border-slate-500 bg-slate-200 hover:bg-slate-300"
+                ? "border-stone-900 hover:bg-slate-800"
+                : "border-slate-500 bg-slate-200 hover:bg-stone-700"
             } p-2 rounded-md border `}
           >
             Close

@@ -78,9 +78,9 @@ export function NoteHeader({
       {!isTrashed && (
         <Checkbox
           icon={
-            <FavoriteBorderOutlined className="text-blue-500 cursor-pointer" />
+            <FavoriteBorderOutlined className="text-stone-500 cursor-pointer" />
           }
-          checkedIcon={<Favorite className="text-blue-500 cursor-pointer" />}
+          checkedIcon={<Favorite className="text-stone-500 cursor-pointer" />}
           checked={isFavorite}
           onClick={handleClickedCheckbox}
         />

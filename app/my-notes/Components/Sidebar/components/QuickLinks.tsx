@@ -35,7 +35,7 @@ export function QuickLinks() {
     <div className="mt-20 text-sm ">
       <div
         className={`${
-          darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+          darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
         } font-bold `}
       >
         Links
@@ -48,7 +48,7 @@ export function QuickLinks() {
             className={`${
               darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
             } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
-            ${menu.isSelected ? "bg-blue-500 text-white" : ""}
+            ${menu.isSelected ? "bg-stone-900 text-white" : ""}
               `}
           >
             {menu.icons}
@@ -62,7 +62,7 @@ export function QuickLinks() {
             key={index}
             onClick={() => clickedMenu2(index)}
             className={`${
-              darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+              darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
             } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-blue-500
             `}
           >

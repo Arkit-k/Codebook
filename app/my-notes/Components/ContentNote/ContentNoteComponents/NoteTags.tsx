@@ -72,7 +72,7 @@ export function NoteTags({
     <div className="flex text-[13px] items-center gap-2 relative">
       <StyleOutlined
         sx={{ fontSize: 19 }}
-        className={`${hovered ? "text-blue-400" : "text-slate-400"}`}
+        className={`${hovered ? "text-stone-700" : "text-slate-400"}`}
       />
       <div
         className="flex justify-between w-full"
@@ -88,7 +88,7 @@ export function NoteTags({
                 key={index}
                 className={`${
                   darkMode[1].isSelected
-                    ? "bg-blue-700 text-white"
+                    ? "bg-stone-700 text-white"
                     : "bg-slate-200 text-blue-700"
                 } p-1 text-xs rounded-full px-3 mr-1`}
               >
@@ -99,7 +99,7 @@ export function NoteTags({
             <span
               className={`${
                 darkMode[1].isSelected
-                  ? "bg-blue-700 text-white"
+                  ? "bg-stone-700 text-white"
                   : "bg-slate-200 text-blue-700"
               } p-1 text-xs rounded-full px-2 mr-1`}
             >
@@ -146,7 +146,7 @@ export function NoteTags({
         ref={menuRef}
         className={`${
           darkMode[1].isSelected
-            ? "bg-slate-700 border border-slate-400 text-slate-200"
+            ? "bg-stone-700 border border-slate-400 text-slate-200"
             : "bg-slate-100 border border-slate-500"
         } absolute p-1 top-10 -left-10 rounded-md flex flex-col gap-1 overflow-auto z-[100] h-[350px]`}
       >
@@ -160,13 +160,13 @@ export function NoteTags({
                   (t) => t.name.toLowerCase() === tag.name.toLocaleLowerCase()
                 )
                   ? `${
-                      darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+                      darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-300"
                     }`
                   : ""
               }
               ${
                 darkMode[1].isSelected
-                  ? "hover:bg-slate-800"
+                  ? "hover:bg-stone-800"
                   : "hover:bg-slate-400"
               } py-2 px-4 select-none cursor-pointer transition-all rounded-md`}
           >

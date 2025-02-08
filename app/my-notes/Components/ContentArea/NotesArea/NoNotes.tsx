@@ -121,7 +121,7 @@ export const NoNotes = ({
           <div className="flex h-fit justify-center items-center">
             <button
               onClick={openTheContentNote}
-              className="bg-blue-500 text-sm md:text-lg hover:bg-blue-700 text-white p-2 rounded-md"
+              className="bg-stone-900 text-sm md:text-lg hover:bg-stone-700 text-white p-2 rounded-md"
             >
               + Add new snippet
             </button>

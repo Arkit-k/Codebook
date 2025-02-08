@@ -26,7 +26,7 @@ export const SaveNote = ({
         onClick={() => {
           saveSnippet();
         }}
-        className={`bg-blue-500 text-white hover:bg-blue-700`}
+        className={`bg-stone-500 text-white hover:bg-stone-700`}
       >
         Save
       </button>
@@ -41,8 +41,8 @@ export const SaveNote = ({
         }}
         className={`${
           darkMode[1].isSelected
-            ? "text-white border-slate-700 hover:bg-slate-700"
-            : "hover:bg-slate-200 border-slate-400"
+            ? "text-white border-stone-900 hover:bg-stone-700"
+            : "hover:bg-stone-200 border-slate-400"
         } border`}
       >
         Close

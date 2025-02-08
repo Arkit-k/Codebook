@@ -55,7 +55,7 @@ function ProfileUser() {
         ) : (
           <span
             className={` text-[11px] ${
-              darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+              darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
             }`}
           >
             {user?.emailAddresses[0].emailAddress}

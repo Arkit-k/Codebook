@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t nextjs-app .",
+    "docker:run": "docker run -p 3000:3000 nextjs-app"
   },
   "dependencies": {
     "@builder.io/react-hydration-overlay": "^0.3.0",
@@ -16,6 +18,8 @@
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.2",
     "@prisma/client": "^6.3.1",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-slot": "^1.1.2",
     "ace-builds": "^1.36.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

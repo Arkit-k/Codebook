@@ -61,14 +61,14 @@ export function ContentNoteHeader({
           <TitleOutlined
             sx={{ fontSize: 19 }}
             className={`${
-              onFocus ? "text-blue-400" : "text-slate-400"
+              onFocus ? "text-stone-700" : "text-slate-400"
             }  group-hover:text-blue-400 mt-[4px]`}
           />
           <textarea
             ref={textRef}
             placeholder="New title"
             className={`text-lg p-1 font-bold resize-none outline-none overflow-scroll w-full h-[45px] border border-slate-400 rounded-md group-hover:text-blue-500 ${
-              darkMode[1].isSelected ? "bg-slate-800" : "bg-white"
+              darkMode[1].isSelected ? "bg-stone-800" : "bg-white"
             }`}
             value={singleNote.title}
             onChange={onUpdateTitle}

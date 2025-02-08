@@ -164,7 +164,7 @@ export const AddTagWindow = () => {
       <div
         className={`h-[230px] max-md:w-[90%] max-lg:w-[80%] max-xl:w-[60%] w-[40%] rounded-md p-4 justify-between flex flex-col  ${
           darkMode[1].isSelected
-            ? "bg-slate-900 border-[1px] border-gray-400 text-white"
+            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
             : "bg-white"
         }`}
       >
@@ -180,7 +180,7 @@ export const AddTagWindow = () => {
             placeholder="Tag name here."
             className={`${
               darkMode[1].isSelected
-                ? "bg-slate-900 border-gray-500 "
+                ? "bg-stone-900 border-gray-500 "
                 : "bg-gray-100 border-gray-300"
             } flex-1 rounded-md p-2 border-[1px] outline-none`}
           />
@@ -201,7 +201,7 @@ export const AddTagWindow = () => {
             }}
             className={`${
               darkMode[1].isSelected
-                ? "hover:bg-slate-950"
+                ? "hover:bg-stone-950"
                 : " hover:border-black"
             } py-2 px-4 rounded-md border`}
           >
@@ -209,7 +209,7 @@ export const AddTagWindow = () => {
           </button>
           <button
             onClick={handleClickedTag}
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 "
+            className="bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-stone-700 "
           >
             {selectedTagToEdit ? "Save changes" : "Add tag"}
           </button>

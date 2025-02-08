@@ -34,7 +34,7 @@ export const TagsSearch = ({
       </div>
       <button
         onClick={() => setOpenNewTagsWindow(true)}
-        className="bg-blue-500 hover:bg-blue-700 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
+        className="bg-stone-500 hover:bg-stone-700 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Add Tag</span>

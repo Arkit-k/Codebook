@@ -13,21 +13,26 @@ function SearchBar() {
     setSearchSnippetText(event.target.value.toLowerCase());
   };
 
-  // -----------------------------------------------------
   return (
     <div
-      className={`relative pl-3 w-[60%] h-[36px] rounded-md flex items-center gap-2 ${
-        darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
+      className={`relative pl-3 w-[60%] h-[36px] rounded-md flex items-center gap-2 transition-all duration-300 ${
+        darkMode[1].isSelected ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      <Search className="text-sky-400" sx={{ fontSize: 13 }} />
+      <Search
+        className={`${
+          darkMode[1].isSelected ? "text-sky-300" : "text-sky-500"
+        }`}
+        sx={{ fontSize: 13 }}
+      />
       <input
         placeholder="Search a snippet"
         value={searchSnippetText}
         onChange={searchSnippet}
-        // onChange={(e) => setSearchSnippetText(e.target.value.toLowerCase())}
-        className={`w-[70%] outline-none text-sm bg-slate-100 text-slate-500 ${
-          darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-100"
+        className={`w-[70%] outline-none text-sm transition-all duration-300 ${
+          darkMode[1].isSelected
+            ? "bg-black text-white placeholder-gray-400"
+            : "bg-white text-black"
         }`}
       />
       <AddSnippetButton />
@@ -43,6 +48,7 @@ function AddSnippetButton() {
     openContentNoteObject: { setOpenContentNote },
     isNewNoteObject: { setIsNewNote },
     sharedUserIdObject: { sharedUserId },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
 
   function openTheContentNote() {
@@ -60,7 +66,6 @@ function AddSnippetButton() {
       isTrash: false,
     };
     setOpenContentNote(true);
-    // setAllNotes([...allNotes, newSingleNote]);
     setSelectedNote(newSingleNote);
   }
 
@@ -77,13 +82,15 @@ function AddSnippetButton() {
     return new Intl.DateTimeFormat("en-US", options).format(date);
   }
 
-  // ==================================================================
   return (
     <div
-      className="flex absolute gap-2 px-[10px] rounded-md bg-blue-500 hover:bg-blue-700 shadow-lg right-0 h-full text-[13px] text-white items-center cursor-pointer select-none"
+      className={`flex absolute gap-2 px-[10px] rounded-md transition-all duration-300 shadow-lg right-0 h-full text-[13px] items-center cursor-pointer select-none ${
+        darkMode[1].isSelected
+          ? "bg-black text-white hover:bg-stone-800"
+          : "bg-white text-black hover:bg-gray-200"
+      }`}
       onClick={openTheContentNote}
     >
-      {/* <div className="md:font-bold max-md:text-xl">+</div> */}
       <AddOutlined sx={{ fontSize: 18 }} />
       <div className="max-md:hidden">Snippet</div>
     </div>

@@ -22,7 +22,7 @@ export const TagsWindow = () => {
       <div
         className={`h-[80%] max-md:w-[80%] max-lg:w-[65%] w-[50%] rounded-md p-4 overflow-scroll ${
           darkMode[1].isSelected
-            ? "bg-slate-900 border-[1px] border-gray-400"
+            ? "bg-stone-900 border-[1px] border-gray-400"
             : "bg-white"
         }`}
       >

@@ -15,7 +15,7 @@ function ContentArea() {
   return (
     <div
       className={`w-full p-0 sm:p-5 ${
-        darkMode[1].isSelected ? "bg-slate-800" : "bg-gray-200"
+        darkMode[1].isSelected ? "bg-stone-900" : "bg-gray-200"
       }`}
     >
       <TopBar />
@@ -33,7 +33,7 @@ function TopBar() {
   return (
     <div
       className={`flex justify-between items-center p-2 ${
-        darkMode[1].isSelected ? "bg-slate-900" : "bg-white"
+        darkMode[1].isSelected ? "bg-stone-900" : "bg-white"
       }`}
     >
       <ProfileUser />

@@ -39,7 +39,7 @@ export function Description({
       <textarea
         placeholder="Description"
         className={`p-2 rounded-md w-full text-sm outline-none border border-slate-300 group-hover:border-blue-400 resize-none ${
-          darkMode[1].isSelected ? "bg-slate-700 text-white" : "bg-slate-50"
+          darkMode[1].isSelected ? "bg-stone-700 text-white" : "bg-slate-50"
         }`}
         value={singleNote.description}
         onChange={onUpdateDescription}

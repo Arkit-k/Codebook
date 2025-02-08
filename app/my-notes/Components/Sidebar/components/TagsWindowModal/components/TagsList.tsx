@@ -72,7 +72,7 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
     <div
       className={`${
         darkMode[1].isSelected
-          ? "border-slate-600 bg-slate-800"
+          ? "border-slate-600 bg-stone-800"
           : "bg-gray-200 border-slate-300"
       } flex gap-2 border items-center justify-between px-4 p-2 rounded-md`}
     >
@@ -85,7 +85,7 @@ function SingleTag({ tag }: { tag: SingleTagType }) {
         </div>
         {/* edit and delete buttons ------------------------------------- */}
         <div
-          className={`flex gap-2 text-white *:p-2 *:rounded-full *:bg-blue-500 hover:*:bg-blue-800`}
+          className={`flex gap-2 text-white *:p-2 *:rounded-full *:bg-stone-500 hover:*:bg-stone-800`}
         >
           {/* <button className="" onClick={() => openTagEditWindow(tag)}>
             <FaEdit className="pl-[2px]" />
@@ -122,43 +122,6 @@ async function deleteTag(
   tagsClicked: string[],
   setTagsClicked: React.Dispatch<React.SetStateAction<string[]>>
 ) {
-  // update clicked tags array if tag deleted
-  // setTagsClicked(
-  //   tagsClicked.filter(
-  //     (t) => t.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-  //   )
-  // );
-
-  // try {
-  //   // update tags
-  //   const updateAllTags = allTags.filter(
-  //     (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-  //   );
-  //   // update tags in all notes
-  //   const updateAllNotes = allNotes.map((note) => {
-  //     // if a note has tag
-  //     if (
-  //       note.tags.some(
-  //         (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase()
-  //       )
-  //     ) {
-  //       return {
-  //         ...note,
-  //         tags: note.tags.filter(
-  //           (t) => t.name.toLocaleLowerCase() !== tag.name.toLocaleLowerCase()
-  //         ),
-  //       };
-  //     }
-  //     return note;
-  //   });
-
-  //   toast.success("Tag deleted");
-  //   setAllNotes(updateAllNotes);
-  //   setAllTags(updateAllTags);
-  // } catch (error) {
-  //   console.log("error deleting tag ", error);
-  // }
-
   try {
     // delete from DB
     const deleteTagResponse = await fetch(`/api/tags?tagId=${tag._id}`, {

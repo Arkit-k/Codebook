@@ -5,7 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import GlobalContextProvider from "@/Context/ContextApi";
 import Footer from "@/compo/layout/Footer"
-import { Providers } from "./provider";
+import { ThemeProvider } from "./theme-switcher";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <ClerkProvider>
       <GlobalContextProvider>   
-        <Providers>
+        <ThemeProvider>
           <body
             className={`${poppins.className} antialiased`}
             // className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} antialiased`}
@@ -46,7 +46,7 @@ export default function RootLayout({
               {children}
               <Footer />
             </body>
-            </Providers>
+            </ThemeProvider>
         </GlobalContextProvider>
         
       </ClerkProvider>

@@ -100,24 +100,24 @@ export default function SwiperSelection() {
   return (
     <div
       className={`${
-        darkMode[1].isSelected ? "bg-slate-900 text-slate-400" : "bg-white"
+        darkMode[1].isSelected ? "bg-stone-900 text-slate-400" : "bg-white"
       } p-3 rounded-lg flex gap-5 justify-between`}
     >
       {isLoading ? (
         <div className="flex gap-3 items-center mt-[2px] *:w-[80px] *:h-[30px] *:animate-pulse *:rounded-md">
           <div
             className={`${
-              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+              darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-300"
             }`}
           ></div>
           <div
             className={`${
-              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+              darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-300"
             }`}
           ></div>
           <div
             className={`${
-              darkMode[1].isSelected ? "bg-slate-500" : "bg-slate-300"
+              darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-300"
             }`}
           ></div>
         </div>
@@ -139,7 +139,7 @@ export default function SwiperSelection() {
               <SwiperSlide
                 key={index}
                 className={`${
-                  tagsSelected[index] ? "bg-blue-500 text-white" : ""
+                  tagsSelected[index] ? "bg-stone-800 text-white" : ""
                 }`}
                 onClick={() => handleTagClick(index)}
               >
@@ -151,7 +151,7 @@ export default function SwiperSelection() {
       )}
       <button
         onClick={() => setOpenNewTagsWindow(true)}
-        className="bg-blue-500 hover:bg-blue-700 rounded-md px-3 flex gap-1 items-center text-white"
+        className="bg-stone-900 hover:bg-stone-700 rounded-md px-3 flex gap-1 items-center text-white"
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>

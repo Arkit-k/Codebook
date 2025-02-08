@@ -149,27 +149,27 @@ function AllNotesSection() {
     return (
       <div
         className={`${
-          darkMode[1].isSelected ? "bg-slate-700" : "bg-slate-300"
+          darkMode[1].isSelected ? "bg-stone-700" : "bg-slate-300"
         } max-sm:w-full w-[300px] animate-pulse rounded-md py-4 h-[420px] flex flex-col gap-4 p-2 *:rounded-md`}
       >
         <div
           className={`${
-            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+            darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-400"
           }   h-5 w-[200px]`}
         ></div>
         <div
           className={`${
-            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+            darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-400"
           }   h-8 w-[100px]`}
         ></div>
         <div
           className={`${
-            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+            darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-400"
           } flex-1`}
         ></div>
         <div
           className={`${
-            darkMode[1].isSelected ? "bg-slate-600" : "bg-slate-400"
+            darkMode[1].isSelected ? "bg-stone-900" : "bg-slate-400"
           } h-5`}
         ></div>
       </div>
@@ -215,7 +215,7 @@ function SingleNote({ note }: { note: SingleNoteType }) {
     <div
       className={`${
         darkMode[1].isSelected
-          ? "bg-slate-900 text-white border-slate-700"
+          ? "bg-stone-900 text-white border-slate-700"
           : "bg-white border-gray-400"
       } max-sm:w-full rounded-md py-4 border-[1px] h-[420px] flex flex-col`}
     >
