@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/compo/ui/button";
 import { useAuth } from "@clerk/nextjs";
 import ThemeToggle from "@/app/provider";
 import { Menu, X } from "lucide-react"; // Icons for mobile menu
+import { useGlobalContext } from "@/Context/ContextApi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +16,18 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Logo */}
         <Link href="/">
-          <h1 className="text-2xl font-bold">Logo</h1>
+          <Logo />
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-4">
+        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
+      {/* GitHub Button */}
+          <Link href="https://github.com/Arkit-k/Codebook">
+            <FaGithub className="w-5 h-5" />
+          </Link>
+        </div>
+     
           <ThemeToggle />
           <Buttons />
         </div>
@@ -54,7 +63,7 @@ function Buttons() {
     <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
       {userId ? (
         <Link href="/my-notes">
-          <Button className="bg-gray-200 text-black dark:bg-gray-700 dark:text-white w-full md:w-auto">
+          <Button className="w-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-white dark:text-stone-900 font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
             Dashboard
           </Button>
         </Link>
@@ -67,7 +76,7 @@ function Buttons() {
 
           </Link>
           <Link href="/sign-in">
-            <Button className="bg-gray-200 text-black dark:bg-gray-700 dark:text-white w-full md:w-auto">
+            <Button className="w-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-white dark:text-stone-900 font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
               Sign In
             </Button>
           </Link>
@@ -76,6 +85,40 @@ function Buttons() {
     </div>
   );
 }
+
+export function Logo() {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
+  return (
+    // <div className="flex gap-2 items-center">
+    <div
+      className={`flex gap-2 items-center pointer-events-none ${
+        darkMode[1].isSelected ? "text-gray-50" : "text-stone-900"
+      }`}
+    >
+      <div className="flex items-center gap-1 text-[23px]">
+  {/* Opening Bracket */}
+  <span className="font-extrabold text-stone-900 dark:bg-gradient-to-r dark:from-cyan-400 dark:to-emerald-400 dark:text-transparent dark:bg-clip-text transition-opacity">
+    {"</"}
+  </span>
+
+  {/* CodeBook Text */}
+  <div className="flex gap-1">
+    <span className="text-stone-900 dark:text-gray-100 font-bold">Code</span>
+    <span className=" text-cyan-400  font-bold">Book</span>
+  </div>
+
+  {/* Closing Bracket */}
+  <span className="font-extrabold text-stone-900 dark:bg-gradient-to-r dark:from-cyan-400 dark:to-emerald-400 dark:text-transparent dark:bg-clip-text transition-opacity">
+    {">"}
+  </span>
+</div>
+
+    </div>
+  );
+}
+
 
 export default Navbar;
 

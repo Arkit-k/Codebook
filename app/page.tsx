@@ -1,12 +1,14 @@
 import {Badge} from "@/compo/ui/badge";
 import Link from "next/link";
+import Dashboard from "./public/dashboard-ui.png"
 import {ArrowRightIcon} from "@radix-ui/react-icons";
 import {Button} from "@/compo/ui/button";
 import Image from "next/image";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/compo/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo/ui/card";
 import {features} from "@/data/features";
-import {pricing} from "@/data/pricing";
-import {CircleCheck} from "lucide-react";
+import Subscribe from "@/app/components/subscribe"
+
+
 import Navbar from "@/compo/layout/Navbar";
 
 export default function Home() {
@@ -48,16 +50,30 @@ export default function Home() {
       </div>
     </div>
 
-    <div className="max-w-4xl mx-auto mb-8">
-      <Image
-        className="w-full"
-        src="/dashboard-ui.png"
-        alt="Dashboard ui design"
-        priority
-        width={1200}
-        height={800}
-      />
-    </div>
+   {/* For Desktop */}
+<div className="max-w-4xl mx-auto mt-12 hidden md:block">
+  <Image
+    className="w-full mt-12"
+    src={Dashboard}
+    alt="Dashboard ui design"
+    priority
+    width={1200}
+    height={800}
+  />
+</div>
+
+{/* For Mobile with Extra Margin */}
+<div className="max-w-4xl mx-auto mt-20 md:hidden">
+  <Image
+    className="w-full"
+    src={Dashboard}
+    alt="Dashboard ui design"
+    priority
+    width={1200}
+    height={800}
+  />
+</div>
+
   </main>
 </div>
 
@@ -68,7 +84,7 @@ export default function Home() {
                 className="border-b border-border bg-gradient-to-b from-background to-transparent via-background via-90% relative">
                 <div className="container mx-auto text-center">
                     <div className="my-24">
-                        <h5 className="text-primary">
+                        <h5 className="text-cyan-400">
                             WHY CHOOSE US
                         </h5>
                         <h2 className="text-4xl font-extrabold my-4">
@@ -90,7 +106,7 @@ export default function Home() {
                                         </div>
                                     </CardHeader>
                                     <CardContent>
-                                        <CardTitle>{feature.title}</CardTitle>
+                                        <CardTitle className="text-cyan-400">{feature.title}</CardTitle>
                                         <CardDescription className="mt-4">
                                             {feature.description}
                                         </CardDescription>
@@ -110,63 +126,182 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Pricing */}
+            {/* benift */}
 
-            <section className="border-b border-border bg-background mb-8">
-  <div className="container mx-auto text-center">
-    
-    {/* Coming Soon Label */}
-    <div className="flex justify-center">
-      <div className="flex items-center gap-3 bg-yellow-500 text-black px-4 py-2 rounded-md m-12">
-        <span className="font-semibold">🚀 Coming Soon</span>
-        <p className="text-sm">Exciting new plans are on the way!</p>
+            <section className="min-h-screen bg-white dark:bg-black text-black dark:text-white px-4 py-16 md:py-24 relative overflow-hidden transition-colors duration-300">
+  {/* Decorative geometric elements */}
+  <div className="absolute -top-32 -left-32 w-64 h-64 bg-stone-300 dark:bg-stone-700 rounded-full opacity-20 blur-3xl" />
+  <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-stone-300 dark:bg-stone-700 rounded-full opacity-20 blur-3xl" />
+
+  <div className="max-w-6xl mx-auto relative z-10">
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* Left Side - Headings */}
+      <div>
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          Unlock Efficiency: <br className="hidden md:block" />
+          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            Save & Reuse
+          </span>
+        </h1>
+        <p className="text-lg md:text-xl text-stone-700 dark:text-stone-300 leading-relaxed">
+          Our code snippet saver allows you to store and organize your code snippets for quick access. 
+          Streamline your workflow and enhance productivity by reusing.
+        </p>
       </div>
-    </div>
 
-    <div className="py-14">
-      <h2 className="text-4xl font-extrabold my-4 text-foreground">Pricing Plans</h2>
-
-      <p className="mx-auto my-4 text-sm w-full max-w-md bg-transparent text-center font-medium leading-relaxed tracking-wide text-muted-foreground">
-        Choose a plan that works best for you. You can always upgrade or downgrade your plan later.
-      </p>
-
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {pricing.map((plan) => (
-          <Card key={plan.title} className="w-full mx-auto max-w-xl text-left relative bg-card text-foreground">
-            
-            {plan.fancy && (
-              <Badge className="absolute top-4 right-4 bg-green-600 text-white">Popular</Badge>
-            )}
-
-            <CardHeader>
-              <CardTitle className="text-2xl">{plan.title}</CardTitle>
-              <CardDescription className="mt-4">{plan.description}</CardDescription>
-              <h5 className="text-2xl font-bold">{plan.price}</h5>
-            </CardHeader>
-
-            <CardContent>
-              <Button className="w-full" variant={plan.fancy ? "default" : "secondary"}>
-                Get Started
-              </Button>
-            </CardContent>
-
-            <CardFooter>
-              <ul className="mt-4">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <CircleCheck className="w-4 h-4 text-green-500" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </CardFooter>
-          </Card>
-        ))}
+      {/* Right Side - Feature Boxes */}
+      <div className="space-y-8">
+        <FeatureCard
+          title="Time Savings"
+          content="Reduce repetitive coding tasks and focus on what truly matters—building great software."
+          decoration="▲"
+        />
+        <FeatureCard
+          title="Organized Access"
+          content="Keep your code snippets neatly organized for quick retrieval whenever you need."
+          decoration="◆"
+        />
       </div>
     </div>
   </div>
 </section>
 
+
+   {/* subscribe */}
+  <Subscribe />
+
+
+
+
+    <footer className="bg-gray-100 dark:bg-black border-t border-gray-300 dark:border-stone-800 relative overflow-hidden">
+  {/* Decorative Elements */}
+  <div className="absolute -top-32 inset-x-0 mx-auto w-96 h-96 bg-pink-400/10 rounded-full blur-3xl" />
+  <div className="absolute bottom-0 right-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl" />
+
+  <div className="max-w-7xl mx-auto px-6 py-16 sm:px-8 lg:px-12 relative z-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
+      {/* Branding Section */}
+      <div className="space-y-5">
+        <div className="flex items-center gap-1 text-[23px]">
+          <span className="font-extrabold text-stone-900 dark:bg-gradient-to-r dark:from-cyan-400 dark:to-emerald-400 dark:text-transparent dark:bg-clip-text">
+            {"</"}
+          </span>
+          <div className="flex gap-1">
+            <span className="text-stone-900 dark:text-gray-100 font-bold">Code</span>
+            <span className="text-cyan-400 font-bold">Book</span>
+          </div>
+          <span className="font-extrabold text-stone-900 dark:bg-gradient-to-r dark:from-cyan-400 dark:to-emerald-400 dark:text-transparent dark:bg-clip-text">
+            {">"}
+          </span>
+        </div>
+
+        <p className="text-gray-700 dark:text-stone-400 text-sm leading-relaxed">
+          Elevating developer productivity through intelligent code management solutions.
+        </p>
+        
+        {/* Social Icons */}
+        <div className="flex space-x-4">
+          {["github", "twitter", "linkedin", "discord"].map((platform) => (
+            <button
+              key={platform}
+              className="p-2 rounded-full bg-gray-200 dark:bg-stone-800 hover:bg-gray-300 dark:hover:bg-stone-700 transition-all text-gray-600 dark:text-stone-400 hover:text-cyan-400 flex items-center justify-center"
+            >
+              <span className="sr-only">{platform}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                {/* Add appropriate SVG paths for each platform */}
+              </svg>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Links */}
+      <div className="space-y-4">
+        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Quick Links</h3>
+        <nav className="space-y-2">
+          {["Features", "Documentation", "Pricing", "Status"].map((link) => (
+            <a
+              key={link}
+              href="#"
+              className="text-gray-600 dark:text-stone-400 hover:text-cyan-400 text-sm transition-colors flex items-center group"
+            >
+              <span className="w-2 h-2 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {link}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      {/* Resources */}
+      <div className="space-y-4">
+        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Resources</h3>
+        <nav className="space-y-2">
+          {["Blog", "Tutorials", "API Reference", "Support"].map((link) => (
+            <a
+              key={link}
+              href="#"
+              className="text-gray-600 dark:text-stone-400 hover:text-emerald-400 text-sm transition-colors flex items-center group"
+            >
+              <span className="w-2 h-2 bg-emerald-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {link}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      {/* Newsletter Section */}
+      <div className="space-y-6">
+        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Stay Updated</h3>
+        <form className="space-y-4">
+          <input
+            type="email"
+            placeholder="Your email address"
+            className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-stone-800 border border-gray-300 dark:border-stone-700 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-stone-500 transition-all outline-none text-sm"
+          />
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-white dark:text-stone-900 font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Subscribe Now
+          </button>
+        </form>
+        <p className="text-xs text-gray-600 dark:text-stone-500">
+          Join 10,000+ developers staying ahead
+        </p>
+      </div>
+    </div>
+
+    {/* Bottom Copyright */}
+    <div className="border-t border-gray-300 dark:border-stone-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-center space-y-4 md:space-y-0">
+      <p className="text-gray-600 dark:text-stone-500 text-sm">
+        © {new Date().getFullYear()} CodeSnippets. All rights reserved.
+      </p>
+      <div className="flex space-x-6">
+        <a href="#" className="text-gray-600 dark:text-stone-500 hover:text-cyan-400 text-sm transition-colors">
+          Privacy Policy
+        </a>
+        <a href="#" className="text-gray-600 dark:text-stone-500 hover:text-emerald-400 text-sm transition-colors">
+          Terms of Service
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
         </>
     );
+}
+
+function FeatureCard({ title, content, decoration }: { title: string; content: string; decoration: string }) {
+  return (
+    <div className="relative bg-black backdrop-blur-sm p-8 rounded-2xl border border-stone-700/50 hover:border-cyan-400/30 transition-all">
+      <div className="absolute -top-6 -right-6 text-9xl opacity-10 transform rotate-12">
+        {decoration}
+      </div>
+      <h3 className="text-2xl font-bold mb-4 text-cyan-400">{title}</h3>
+      <p className="text-stone-300 leading-relaxed">{content}</p>
+      
+      {/* Animated hover effect line */}
+      <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300 group-hover:w-full" />
+    </div>
+  );
 }

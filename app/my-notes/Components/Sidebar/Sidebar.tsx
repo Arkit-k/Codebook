@@ -53,7 +53,7 @@ function Logo() {
     >
       <span className="font-extrabold text-3xl">{"{"}</span>
       <div className="flex gap-1 text-[23px]">
-        <span className={`font-bold text-mainColor`}>Code</span>
+        <span className={`font-bold text-gray-500`}>Code</span>
         <span className="">Book</span>
       </div>
       <span className="font-extrabold  text-3xl">{"}"}</span>
