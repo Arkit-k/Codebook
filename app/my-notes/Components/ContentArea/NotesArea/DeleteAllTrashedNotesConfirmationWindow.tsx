@@ -44,7 +44,7 @@ export const DeleteAllTrashedNotesConfirmationWindow = () => {
       <div
         className={`h-[200px] max-sm:w-[90%] max-lg:w-[50%] w-[30%] rounded-md p-4 flex flex-col  ${
           darkMode[1].isSelected
-            ? "bg-slate-900 border-[1px] border-gray-400 text-white"
+            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
             : "bg-white text-black"
         }`}
       >
@@ -55,7 +55,7 @@ export const DeleteAllTrashedNotesConfirmationWindow = () => {
             onClick={() => setOpenDeleteAllNotesConfirmationWindow(false)}
             className={`${
               darkMode[1].isSelected
-                ? "hover:bg-slate-600"
+                ? "hover:bg-stone-600"
                 : " hover:border-black"
             } py-2 px-4 rounded-md border`}
           >

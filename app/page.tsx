@@ -6,6 +6,7 @@ import {Button} from "@/compo/ui/button";
 import Image from "next/image";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo/ui/card";
 import {features} from "@/data/features";
+import Footer from "@/app/components/footer-sub"
 import Subscribe from "@/app/components/subscribe"
 
 
@@ -23,24 +24,23 @@ export default function Home() {
           className="flex flex-row items-center justify-center gap-5 p-1 text-xs bg-card/60 backdrop-blur-lg rounded-md border border-border"
         >
           <Badge className="font-semibold">New</Badge>
-          <h5>Announce your new feature here</h5>
+          <h5>Save, Organize, and Share Your Code Effortlessly!</h5>
           <Link href="/" className="flex flex-row items-center">
             View all features
             <ArrowRightIcon className="w-6 h-6 ml-2" />
           </Link>
         </div>
       </div>
-      <h1 className="md:text-7xl my-4 font-extrabold text-4xl md:leading-tight">
-        Create perfect projects with this landing page!
+      <h1 className="md:text-6xl my-4 font-extrabold text-4xl md:leading-tight">
+      CodeBook – Your Ultimate Code Snippet Manager
       </h1>
       <p className="mx-auto my-4 text-sm w-full max-w-xl text-center font-medium leading-relaxed tracking-wide">
-        This is a landing page template that you can use to create a beautiful website. It is designed
-        to be easy to use and customize. You can use this template to create a landing page for your app, product,
-        or service. It is built with Next.js, Tailwind CSS, and TypeScript.
+      What is CodeBook?
+      CodeBook is your personal code snippet manager that helps developers store, organize, and quickly retrieve their most-used code snippets. Never lose a piece of code again—access your snippets anytime, anywhere
       </p>
       <div className="flex flex-row justify-center items-center space-x-4 my-8">
-        <Button>Get Started</Button>
-        <Button variant="secondary">Learn More</Button>
+        <Button><Link href="/sign-in">Get Started</Link></Button>
+        <Button variant="secondary"><Link href="/feature">Learn More</Link></Button>
       </div>
 
       <div className="absolute top-0 -z-10 max-h-full max-w-screen-lg w-full h-full blur-2xl">
@@ -85,15 +85,14 @@ export default function Home() {
                 <div className="container mx-auto text-center">
                     <div className="my-24">
                         <h5 className="text-cyan-400">
-                            WHY CHOOSE US
+                        Why Use CodeBook?
                         </h5>
                         <h2 className="text-4xl font-extrabold my-4">
-                            Build better websites with us
+                            Save snippet in few clicks
                         </h2>
 
                         <p className="mx-auto my-4 text-sm w-full max-w-md bg-transparent text-center font-medium leading-relaxed tracking-wide text-muted-foreground">
-                            Show off your features or services in a beautiful way. This section is perfect for
-                            showcasing
+                            codebook ensure developers to save there snippets and reuse multiple in any language 
                         </p>
 
                         <div className="flex flex-col md:flex-row gap-4 mt-12">
@@ -144,7 +143,7 @@ export default function Home() {
           </span>
         </h1>
         <p className="text-lg md:text-xl text-stone-700 dark:text-stone-300 leading-relaxed">
-          Our code snippet saver allows you to store and organize your code snippets for quick access. 
+          Our code-book saver allows you to store and organize your code snippets for quick access. 
           Streamline your workflow and enhance productivity by reusing.
         </p>
       </div>
@@ -217,58 +216,37 @@ export default function Home() {
 
       {/* Quick Links */}
       <div className="space-y-4">
-        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Quick Links</h3>
-        <nav className="space-y-2">
-          {["Features", "Documentation", "Pricing", "Status"].map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="text-gray-600 dark:text-stone-400 hover:text-cyan-400 text-sm transition-colors flex items-center group"
-            >
-              <span className="w-2 h-2 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-              {link}
-            </a>
-          ))}
-        </nav>
-      </div>
+  <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Resources</h3>
+  <nav className="space-y-2">
+    {["feature", "sign-in", "Blog", "About-me"].map((link) => (
+      <Link key={link} href={`/${link.toLowerCase()}`} passHref>
+        <div className="text-gray-600 dark:text-stone-400 hover:text-emerald-400 text-sm transition-colors flex items-center group">
+          <span className="w-2 h-2 bg-emerald-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {link}
+        </div>
+      </Link>
+    ))}
+  </nav>
+</div>
+
 
       {/* Resources */}
       <div className="space-y-4">
-        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Resources</h3>
-        <nav className="space-y-2">
-          {["Blog", "Tutorials", "API Reference", "Support"].map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="text-gray-600 dark:text-stone-400 hover:text-emerald-400 text-sm transition-colors flex items-center group"
-            >
-              <span className="w-2 h-2 bg-emerald-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-              {link}
-            </a>
-          ))}
-        </nav>
-      </div>
+  <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Social Links</h3>
+  <nav className="space-y-2">
+    {["github", "twitter", "linkedin", "discord"].map((link) => (
+      <Link key={link} href={`/${link.toLowerCase()}`} passHref>
+        <div className="text-gray-600 dark:text-stone-400 hover:text-emerald-400 text-sm transition-colors flex items-center group">
+          <span className="w-2 h-2 bg-emerald-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {link}
+        </div>
+      </Link>
+    ))}
+  </nav>
+</div>
 
       {/* Newsletter Section */}
-      <div className="space-y-6">
-        <h3 className="text-gray-900 dark:text-stone-300 font-semibold">Stay Updated</h3>
-        <form className="space-y-4">
-          <input
-            type="email"
-            placeholder="Your email address"
-            className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-stone-800 border border-gray-300 dark:border-stone-700 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-stone-500 transition-all outline-none text-sm"
-          />
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-white dark:text-stone-900 font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
-          >
-            Subscribe Now
-          </button>
-        </form>
-        <p className="text-xs text-gray-600 dark:text-stone-500">
-          Join 10,000+ developers staying ahead
-        </p>
-      </div>
+     <Footer/>
     </div>
 
     {/* Bottom Copyright */}

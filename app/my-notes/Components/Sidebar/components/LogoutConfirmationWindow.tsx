@@ -21,7 +21,7 @@ function LogoutConfirmationWindow() {
       <div
         className={`h-[200px] max-md:w-[80%] max-lg:w-[50%] w-[40%] rounded-md p-4 overflow-scroll flex flex-col justify-between ${
           darkMode[1].isSelected
-            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
+            ? "bg-text-c-900 border-[1px] bordertext-c-400 text-white"
             : "bg-white "
         }`}
       >
@@ -30,8 +30,8 @@ function LogoutConfirmationWindow() {
           <button
             className={`border ${
               darkMode[1].isSelected
-                ? "border-slate-500 hover:bg-slate-800"
-                : "border-slate-400 hover:bg-slate-200"
+                ? "border-text-c-500 hover:bg-text-c-800"
+                : "border-text-c-400 hover:bg-text-c-200"
             }`}
             onClick={() => {
               setShowLogoutConfirmationModal(false);

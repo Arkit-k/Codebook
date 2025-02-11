@@ -27,19 +27,19 @@ export const NoNotes = ({
       <>
         {sideBarMenu[0].isSelected && (
           <EmptyPlaceholder
-            icon={<GrNotes size={100} className="text-slate-400" />}
+            icon={<GrNotes size={100} className="text-stone-400" />}
             text={"No snippets found with that tag"}
           />
         )}
         {sideBarMenu[1].isSelected && (
           <EmptyPlaceholder
-            icon={<MdFavoriteBorder size={100} className="text-slate-400" />}
+            icon={<MdFavoriteBorder size={100} className="text-stone-400" />}
             text={"No favorites with that tag"}
           />
         )}
         {sideBarMenu[2].isSelected && (
           <EmptyPlaceholder
-            icon={<FaTrash size={100} className="text-slate-400" />}
+            icon={<FaTrash size={100} className="text-stone-400" />}
             text={"Trash is empty"}
           />
         )}
@@ -48,20 +48,20 @@ export const NoNotes = ({
       <>
         {sideBarMenu[0].isSelected && (
           <EmptyPlaceholder
-            icon={<GrNotes size={100} className="text-slate-400" />}
+            icon={<GrNotes size={100} className="text-stone-400" />}
             text={""}
             isNew={true}
           />
         )}
         {sideBarMenu[1].isSelected && (
           <EmptyPlaceholder
-            icon={<MdFavoriteBorder size={100} className="text-slate-400" />}
+            icon={<MdFavoriteBorder size={100} className="text-stone-400" />}
             text={"No favorites added"}
           />
         )}
         {sideBarMenu[2].isSelected && (
           <EmptyPlaceholder
-            icon={<FaTrash size={100} className="text-slate-400" />}
+            icon={<FaTrash size={100} className="text-stone-400" />}
             text={"Trash is empty"}
           />
         )}
@@ -121,7 +121,7 @@ export const NoNotes = ({
           <div className="flex h-fit justify-center items-center">
             <button
               onClick={openTheContentNote}
-              className="bg-stone-900 text-sm md:text-lg hover:bg-stone-700 text-white p-2 rounded-md"
+              className="bg-cyan-500 text-sm md:text-lg hover:bg-cyan-700 text-white p-2 rounded-md"
             >
               + Add new snippet
             </button>

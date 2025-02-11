@@ -38,7 +38,6 @@ export function NoteHeader({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // const updatedNote = await response.json();
 
       setAllNotes((prev) =>
         prev.map((note) =>
@@ -48,14 +47,6 @@ export function NoteHeader({
     } catch (error) {
       console.error("error updating favorite note status: ", error);
     }
-
-    // const newAllNotes = allNotes.map((note) => {
-    //   if (note._id === id) {
-    //     return { ...note, isFavorite: newFavorite };
-    //   }
-    //   return note;
-    // });
-    // setAllNotes(newAllNotes);
   }
 
   // ========================================================
@@ -63,7 +54,7 @@ export function NoteHeader({
     <div className="flex justify-between mx-4">
       <div
         className={`font-bold text-lg w-[87%] line-clamp-1 h-fit ${
-          !isTrashed ? "hover:text-blue-500 cursor-pointer" : ""
+          !isTrashed ? "hover:text-cyan-500 cursor-pointer" : ""
         }`}
         onClick={() => {
           if (isTrashed) return;
@@ -78,9 +69,9 @@ export function NoteHeader({
       {!isTrashed && (
         <Checkbox
           icon={
-            <FavoriteBorderOutlined className="text-stone-500 cursor-pointer" />
+            <FavoriteBorderOutlined className="text-cyan-500 cursor-pointer" />
           }
-          checkedIcon={<Favorite className="text-stone-500 cursor-pointer" />}
+          checkedIcon={<Favorite className="text-cyan-500 cursor-pointer" />}
           checked={isFavorite}
           onClick={handleClickedCheckbox}
         />

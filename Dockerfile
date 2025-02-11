@@ -1,24 +1,47 @@
-# Base image
+# Stage 1 - Builder
 FROM node:18-alpine AS builder
-
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json first
-COPY package.json package-lock.json ./
-
 # Install dependencies
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci --no-optional
 
-# Copy rest of the application files
+# Copy source files
 COPY . .
 
-# Ensure dependencies exist before building
-RUN npm list @radix-ui/react-icons || npm install @radix-ui/react-icons
-RUN npm list @radix-ui/react-slot || npm install @radix-ui/react-slot
+# Build application
+RUN npm run build -- --debug=false
 
-RUN npx prisma generate
+# Stage 2 - Runner
+FROM node:18-alpine AS runner
+WORKDIR /app
 
-# Build the Next.js application
-RUN npm run build
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001 -G nodejs
+
+# Copy necessary files with proper permissions
+COPY . .
+
+# Cleanup
+RUN rm -rf .next/cache
+
+# Environment
+ENV NODE_ENV production
+ENV PORT 3000
+EXPOSE 3000
+ENV NODE_OPTIONS="--enable-source-maps --max-old-space-size=2048"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/api/health || exit 1
+
+USER nextjs
+
+# Start command
+CMD ["npm", "start"]
+
+
+
+
 

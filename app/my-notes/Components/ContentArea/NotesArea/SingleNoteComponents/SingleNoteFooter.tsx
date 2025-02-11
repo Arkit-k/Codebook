@@ -64,7 +64,7 @@ export function NoteFooter({
       <div className="flex gap-2 items-center">
         <span>Note moved to trash</span>
         <button
-          className="bg-white p-[4px] px-3 text-sm text-blue-500 rounded-md flex gap-1 items-center"
+          className="bg-white p-[4px] px-3 text-sm text-cyan-500 rounded-md flex gap-1 items-center"
           onClick={() => {
             toast.dismiss(t.id);
             resetNoteFunction();
@@ -127,7 +127,7 @@ export function NoteFooter({
 
   // ===========================================================
   return (
-    <div className="flex justify-between text-[13px] text-slate-500 mx-4 mt-3 h-fit">
+    <div className="flex justify-between text-[13px] text-stone-500 mx-4 mt-3 h-fit">
       {language ? (
         <div className="flex gap-1 items-center">
           {getLanguageIcon(language)}

@@ -16,8 +16,8 @@ export function NoteTags({ tags }: { tags: SingleTagType[] }) {
         <span
           className={`${
             darkMode[1].isSelected
-              ? "bg-stone-700 text-white"
-              : "bg-slate-200 text-white-700"
+              ? "bg-cyan-700 text-cyan"
+              : "bg-stone-200 text-cyan-700"
           } p-1 text-xs rounded-full px-2 mr-1`}
         >
           No Tags
@@ -28,8 +28,8 @@ export function NoteTags({ tags }: { tags: SingleTagType[] }) {
           key={index}
           className={`${
             darkMode[1].isSelected
-              ? "bg-stone-700 text-white"
-              : "bg-slate-200 text-white-700"
+              ? "bg-cyan-700 text-white"
+              : "bg-stone-200 text-cyan-700"
           } p-1 text-xs rounded-full px-2 mr-1`}
         >
           {tag.name}

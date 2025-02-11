@@ -1,100 +1,142 @@
+import connect from "@/lib/connect";
+import SingleSnippet from "@/Models/SnippetSchema";
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
-// ✅ Create a new snippet
 export async function POST(req: Request) {
   try {
-    const { title, isFavorite, clerkUserId, tags, description, code, language, creationDate, isTrash } = await req.json();
+    const {
+      title,
+      isFavorite,
+      clerkUserId,
+      tags,
+      description,
+      code,
+      language,
+      creationDate,
+      isTrash,
+    } = await req.json();
 
-    const savedSnippet = await prisma.snippet.create({
-      data: {
-        title,
-        isFavorite,
-        clerkUserId,
-        tags,
-        description,
-        code,
-        language,
-        creationDate: new Date(creationDate), // Ensure date format
-        isTrash,
-      },
+    await connect();
+
+    const note = new SingleSnippet({
+      title,
+      isFavorite,
+      clerkUserId,
+      tags,
+      description,
+      code,
+      language,
+      creationDate,
+      isTrash,
     });
 
-    return NextResponse.json({ snippet: savedSnippet });
+    const savedNote = await note.save();
+    // console.log("saved note: ", savedNote);
+
+    return NextResponse.json({ notes: savedNote });
   } catch (error) {
-    console.error("POST error:", error);
-    return NextResponse.json({ error: "Failed to create snippet" }, { status: 400 });
-  } finally {
-    await prisma.$disconnect();
+    console.log("POST error: ", error);
+    return NextResponse.json({ error: error }, { status: 400 });
   }
 }
 
-// ✅ Get all snippets for a user
 export async function GET(req: NextRequest) {
   try {
     const clerkId = req.nextUrl.searchParams.get("clerkId");
-    if (!clerkId) return NextResponse.json({ error: "clerkId required" }, { status: 400 });
-
-    const snippets = await prisma.snippet.findMany({ where: { clerkUserId: clerkId } });
-
-    return NextResponse.json({ snippets });
+    await connect();
+    const notes = await SingleSnippet.find({ clerkUserId: clerkId });
+    return NextResponse.json({ notes: notes });
   } catch (error) {
-    console.error("GET error:", error);
-    return NextResponse.json({ error: "Failed to fetch snippets" }, { status: 400 });
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json({ error: error }, { status: 400 });
   }
 }
 
-// ✅ Update a snippet
 export async function PUT(request: NextRequest) {
   try {
     const snippetId = request.nextUrl.searchParams.get("snippetId");
-    const { title, isFavorite, clerkUserId, tags, description, code, language, creationDate, isTrash } = await request.json();
+    const {
+      title,
+      isFavorite,
+      clerkUserId,
+      tags,
+      description,
+      code,
+      language,
+      creationDate,
+      isTrash,
+    } = await request.json();
 
-    if (!snippetId) return NextResponse.json({ error: "snippetId required" }, { status: 400 });
+    if (!snippetId) {
+      return NextResponse.json(
+        { message: "Snippet ID is required" },
+        { status: 400 }
+      );
+    }
 
-    const updatedSnippet = await prisma.snippet.update({
-      where: { id: snippetId },
-      data: {
-        title,
-        isFavorite,
-        clerkUserId,
-        tags,
-        description,
-        code,
-        language,
-        creationDate: new Date(creationDate), // Ensure valid date format
-        isTrash,
+    // Connect to the database
+    await connect();
+
+    // Find the snippet by snippet and update it
+    const updatedSnippet = await SingleSnippet.findOneAndUpdate(
+      { _id: snippetId },
+      {
+        $set: {
+          title,
+          isFavorite,
+          clerkUserId,
+          tags,
+          description,
+          code,
+          language,
+          creationDate,
+          isTrash,
+        },
       },
-    });
+      { returnDocument: "after" } // Return the updated document
+    );
 
-    return NextResponse.json({ snippet: updatedSnippet });
+    // console.log(updatedSnippet);
+
+    return NextResponse.json({
+      note: updatedSnippet,
+    });
   } catch (error) {
     console.error("Error updating snippet:", error);
-    return NextResponse.json({ error: "Failed to update snippet" }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json({ status: 500 });
   }
 }
 
-// ✅ Delete a snippet
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request: Request) {
   try {
-    const snippetId = request.nextUrl.searchParams.get("snippetId");
+    const url = new URL(request.url);
+    const snippetId = url.searchParams.get("snippetId");
 
-    if (!snippetId) return NextResponse.json({ error: "snippetId required" }, { status: 400 });
+    if (!snippetId) {
+      return NextResponse.json(
+        { message: "snippetId is required" },
+        { status: 400 }
+      );
+    }
 
-    await prisma.snippet.delete({ where: { id: snippetId } });
+    await connect();
+
+    const snippetToDelete = await SingleSnippet.findOneAndDelete({
+      _id: snippetId,
+    });
+
+    if (!snippetToDelete) {
+      return NextResponse.json(
+        { message: "Snippet not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({ message: "Snippet deleted successfully" });
   } catch (error) {
-    console.error("Error deleting snippet:", error);
-    return NextResponse.json({ error: "Failed to delete snippet" }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
+    console.error("Error deleting snippet:", error); // Log the error for debugging
+    return NextResponse.json(
+      { message: "Failed to delete snippet" },
+      { status: 500 }
+    );
   }
 }
-

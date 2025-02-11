@@ -35,7 +35,7 @@ export function QuickLinks() {
     <div className="mt-20 text-sm ">
       <div
         className={`${
-          darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
+          darkMode[1].isSelected ? "text-stone-300" : "text-stone-500"
         } font-bold `}
       >
         Links
@@ -46,9 +46,9 @@ export function QuickLinks() {
             key={index}
             onClick={() => clickedMenu(index)}
             className={`${
-              darkMode[1].isSelected ? "text-slate-300" : "text-slate-500"
+              darkMode[1].isSelected ? "text-stone-300" : "text-stone-500"
             } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md
-            ${menu.isSelected ? "bg-stone-900 text-white" : ""}
+            ${menu.isSelected ? "bg-cyan-500 text-white" : ""}
               `}
           >
             {menu.icons}
@@ -56,14 +56,14 @@ export function QuickLinks() {
           </li>
         ))}
       </ul>
-      <ul className="text-slate-400 mt-5 flex flex-col gap-2">
+      <ul className="text-stone-400 mt-5 flex flex-col gap-2">
         {tagsAndLogoutMenu.map((menu, index) => (
           <li
             key={index}
             onClick={() => clickedMenu2(index)}
             className={`${
-              darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
-            } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-blue-500
+              darkMode[1].isSelected ? "text-stone-300" : "text-stone-500"
+            } flex cursor-pointer select-none gap-1 items-center p-[7px] px-2 w-[80%] rounded-md hover:text-cyan-500
             `}
           >
             {menu.icons}

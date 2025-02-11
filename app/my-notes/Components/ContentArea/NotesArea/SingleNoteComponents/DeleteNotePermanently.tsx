@@ -87,7 +87,7 @@ export const DeleteNotePermanently = () => {
             onClick={() => setOpenDeleteConfirmationWindow(false)}
             className={`${
               darkMode[1].isSelected
-                ? "hover:bg-stone-600"
+                ? "hover:bg-slate-600"
                 : " hover:border-black"
             } py-2 px-4 rounded-md border`}
           >

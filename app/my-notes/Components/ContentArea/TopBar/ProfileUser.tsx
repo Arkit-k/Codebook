@@ -11,14 +11,14 @@ function ProfileUser() {
   } = useGlobalContext();
 
   const loading = (
-    <div className="w-9 h-9 rounded-full mb-[5px] bg-slate-200"></div>
+    <div className="w-9 h-9 rounded-full mb-[5px] bg-stone-200"></div>
   );
 
   const loadingUsername = (
-    <span className="font-semibold bg-slate-100 h-4 w-[100px] rounded-full"></span>
+    <span className="font-semibold bg-stone-100 h-4 w-[100px] rounded-full"></span>
   );
   const loadingUserEmail = (
-    <span className="text-slate-500 text-[11px] bg-slate-100 h-2 w-[130px] rounded-full"></span>
+    <span className="text-stone-500 text-[11px] bg-stone-100 h-2 w-[130px] rounded-full"></span>
   );
 
   // ========================================================================
@@ -55,7 +55,7 @@ function ProfileUser() {
         ) : (
           <span
             className={` text-[11px] ${
-              darkMode[1].isSelected ? "text-slate-300" : "text-stone-900"
+              darkMode[1].isSelected ? "text-slate-300" : "text-black"
             }`}
           >
             {user?.emailAddresses[0].emailAddress}

@@ -69,7 +69,7 @@ function Buttons() {
         </Link>
       ) : (
         <div className="flex flex-col md:flex-row gap-2 w-full">
-          <Link href="/sign-in">
+          <Link href="/blog">
           <Button>
   Get Started
 </Button>

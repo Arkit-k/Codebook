@@ -30,7 +30,7 @@ export default function Sidebar() {
             : "max-lg:hidden"
         }
         pr-5 flex flex-col gap-2 p-6 min-h-screen shadow-lg pt-7 ${
-          darkMode[1].isSelected ? "bg-stone-700" : "bg-white"
+          darkMode[1].isSelected ? "bg-stone-900" : "bg-white"
         }`}
     >
       <Logo />
@@ -48,15 +48,15 @@ function Logo() {
     // <div className="flex gap-2 items-center">
     <div
       className={`flex gap-2 items-center pointer-events-none ${
-        darkMode[1].isSelected ? "text-white" : "text-stone-900"
+        darkMode[1].isSelected ? "text-white" : "text-stone-600"
       }`}
     >
-      <span className="font-extrabold text-3xl">{"{"}</span>
+      <span className="font-extrabold text-3xl text-cyan-500">{"</"}</span>
       <div className="flex gap-1 text-[23px]">
-        <span className={`font-bold text-gray-500`}>Code</span>
-        <span className="">Book</span>
+        <span className={`font-bold text-stone-800`}>Code</span>
+        <span className="text-cyan-500">Board</span>
       </div>
-      <span className="font-extrabold  text-3xl">{"}"}</span>
+      <span className="font-extrabold text-cyan-500 text-3xl">{">"}</span>
     </div>
   );
 }

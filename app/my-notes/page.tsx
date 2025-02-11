@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import ContentArea from "./Components/ContentArea/ContentArea";
@@ -10,19 +9,16 @@ import { TagsWindow } from "./Components/Sidebar/components/TagsWindowModal/Tags
 import { AddTagWindow } from "./Components/Sidebar/components/TagsWindowModal/AddTagWindow";
 import LogoutConfirmationWindow from "./Components/Sidebar/components/LogoutConfirmationWindow";
 import ShowCodeModal from "./Components/ContentArea/NotesArea/SingleNoteComponents/ShowCodeModal";
-import { useGlobalContext } from "@/Context/ContextApi"; // Import context
 
-const Page = () => {
-  const { darkModeObject: { darkMode } } = useGlobalContext(); // Get dark mode state
-
+const page = () => {
   return (
-    <div className={`flex min-h-screen transition-all ${darkMode ? "bg-black text-white" : "bg-white text-black"}`}>
+    <div className="flex min-h-screen">
       <Toaster
         position="top-center"
         toastOptions={{
           style: {
-            backgroundColor: darkMode ? "#202020" : "#ffffff",
-            color: darkMode ? "white" : "black",
+            backgroundColor: "#3b82f6",
+            color: "white",
           },
         }}
       />
@@ -39,4 +35,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;

@@ -22,7 +22,7 @@ export const NotesAreaHeader = ({ length }: { length: number }) => {
     <div className="flex justify-between items-center mt-6 md:mt-10">
       <div
         className={` ml-5 text-xl md:text-2xl font-bold ${
-          darkMode[1].isSelected ? "text-stone-900" : "text-black"
+          darkMode[1].isSelected ? "text-stone-200" : "text-black"
         }`}
       >
         {currentMenu}

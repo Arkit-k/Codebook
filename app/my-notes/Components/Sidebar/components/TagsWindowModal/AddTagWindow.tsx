@@ -164,8 +164,8 @@ export const AddTagWindow = () => {
       <div
         className={`h-[230px] max-md:w-[90%] max-lg:w-[80%] max-xl:w-[60%] w-[40%] rounded-md p-4 justify-between flex flex-col  ${
           darkMode[1].isSelected
-            ? "bg-stone-900 border-[1px] border-gray-400 text-white"
-            : "bg-white"
+            ? "bg-stone-900 border-[1px] border-stone-400 text-white"
+            : "bg-white text-stone-700"
         }`}
       >
         <span className="font-bold">
@@ -209,7 +209,7 @@ export const AddTagWindow = () => {
           </button>
           <button
             onClick={handleClickedTag}
-            className="bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-stone-700 "
+            className="bg-cyan-500 text-white py-2 px-4 rounded-md hover:bg-cyan-700 "
           >
             {selectedTagToEdit ? "Save changes" : "Add tag"}
           </button>

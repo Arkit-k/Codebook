@@ -65,11 +65,11 @@ export function CodeEditor({
     <div className="flex gap-2 text-[12px] mt-8 group">
       <FaCode
         size={16}
-        className={`mt-[9px] text-slate-400 group-hover:text-blue-400`}
+        className={`mt-[9px] text-stone-400 group-hover:textstone-400`}
       />
       <div
-        className={`w-full overflow-scroll border border-slate-300 rounded-lg p-3 pt-16 relative group-hover:border-blue-400
-          ${darkMode[1].isSelected ? "bg-slate-800" : "bg-slate-100"}
+        className={`w-full overflow-scroll border border-stone-300 rounded-lg p-3 pt-16 relative group-hover:border-blue-400
+          ${darkMode[1].isSelected ? "bg-stone-800" : "bg-stone-100 text-stone-700"}
           `}
       >
         {/* copy button ------------------------------------------------------------- */}
@@ -79,7 +79,7 @@ export function CodeEditor({
               <DoneAllOutlined
                 sx={{ fontSize: 18 }}
                 className={`${
-                  darkMode[1].isSelected ? "text-white" : "text-stone-800"
+                  darkMode[1].isSelected ? "text-white" : "text-stone-700"
                 }`}
               />
             ) : (
@@ -87,7 +87,7 @@ export function CodeEditor({
                 onClick={() => clickedCopyBtn()}
                 sx={{ fontSize: 18 }}
                 className={`${
-                  darkMode[1].isSelected ? "text-white" : "text-stone-800"
+                  darkMode[1].isSelected ? "text-white" : "text-stone-700"
                 }`}
               />
             )}
@@ -97,8 +97,8 @@ export function CodeEditor({
         <div
           className={`flex gap-2 justify-between p-[6px] px-3 rounded-md items-center text-[12px] mt-3 absolute top-1 left-3 cursor-pointer ${
             darkMode[1].isSelected
-              ? "bg-stone-900 text-white hover:bg-slate-500"
-              : "bg-slate-300 text-slate-700"
+              ? "bg-stone-600 text-black hover:bg-black"
+              : "bg-stone-750 text-stone-700"
           }`}
           onClick={() => setIsOpened(!isOpened)}
         >
@@ -200,15 +200,15 @@ export function CodeEditor({
         ref={menuRef}
         className={`flex flex-col h-[220px] w-[250px] gap-2 justify-between p-[6px] px-1 rounded-md items-center text-[12px] mt-3 absolute top-10 left-3 border z-50  ${
           darkMode[1].isSelected
-            ? "bg-stone-900 text-white border-slate-400"
-            : "bg-slate-100 text-slate-800 border-slate-500"
+            ? "bg-stone-900 text-white border-stone-400"
+            : "bg-stone-100 text-slate-800 border-stone-500"
         }`}
       >
         <div
           className={`flex w-full gap-1 p-2 items-center rounded-md ${
             darkMode[1].isSelected
               ? "bg-stone-800"
-              : "bg-slate-300 text-slate-900 "
+              : "bg-stone-300 stonestone-900 "
           }`}
         >
           <FaSearch />

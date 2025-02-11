@@ -19,7 +19,7 @@ export const TagsSearch = ({
       <div
         className={`${
           darkMode[1].isSelected
-            ? "text-white border-slate-600"
+            ? "text-white border-stone-600"
             : "text-black bg-gray-50"
         } flex items-center gap-2 border p-2 flex-1 rounded-md max-md:text-sm`}
       >
@@ -34,7 +34,7 @@ export const TagsSearch = ({
       </div>
       <button
         onClick={() => setOpenNewTagsWindow(true)}
-        className="bg-stone-500 hover:bg-stone-700 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
+        className="bg-cyan-500 hover:bg-cyan-700 rounded-md max-md:text-sm p-2 flex gap-1 items-center text-white"
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Add Tag</span>

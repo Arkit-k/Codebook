@@ -34,12 +34,12 @@ export function Description({
     <div className="flex gap-2 text-[12px] mt-8 group">
       <DescriptionOutlined
         sx={{ fontSize: 18 }}
-        className={`text-slate-400 group-hover:text-blue-400 mt-[4px]`}
+        className={`text-stone-400 group-hover:text-cyan-400 mt-[4px]`}
       />
       <textarea
         placeholder="Description"
-        className={`p-2 rounded-md w-full text-sm outline-none border border-slate-300 group-hover:border-blue-400 resize-none ${
-          darkMode[1].isSelected ? "bg-stone-700 text-white" : "bg-slate-50"
+        className={`p-2 rounded-md w-full text-sm outline-none border border-stone-300 group-hover:border-cyan-400 resize-none ${
+          darkMode[1].isSelected ? "bg-stone-700 text-white" : "bg-stone-50"
         }`}
         value={singleNote.description}
         onChange={onUpdateDescription}
