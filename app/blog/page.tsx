@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, } from 'react';
+import Image from "next/image";
 import Navbar from '@/compo/layout/Navbar';
 import Subscribe from "@/app/components/subscribe"
 import Link from "next/link"
@@ -184,7 +185,7 @@ function App() {
               className="bg-white dark:bg-stone-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <div className="relative h-64">
-                <img
+                <Image
                   src={post.imageUrl}
                   alt={post.title}
                   className="w-full h-full object-cover"
@@ -197,7 +198,7 @@ function App() {
               </div>
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <img
+                  <Image
                     src={post.author.avatar}
                     alt={post.author.name}
                     className="h-10 w-10 rounded-full"
@@ -247,7 +248,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {topContributors.map((contributor) => (
               <div key={contributor.name} className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-stone-700 rounded-lg">
-                <img
+                <Image
                   src={contributor.avatar}
                   alt={contributor.name}
                   className="h-12 w-12 rounded-full"
