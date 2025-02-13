@@ -167,7 +167,7 @@ export default function FeaturesPage() {
     {/* Bottom Copyright */}
     <div className="border-t border-gray-300 dark:border-stone-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-center space-y-4 md:space-y-0">
       <p className="text-gray-600 dark:text-stone-500 text-sm">
-        © {new Date().getFullYear()} CodeSnippets. All rights reserved.
+        © {new Date().getFullYear()} Arkit-karmokar. All rights reserved.
       </p>
       <div className="flex space-x-6">
         <a href="#" className="text-gray-600 dark:text-stone-500 hover:text-cyan-400 text-sm transition-colors">

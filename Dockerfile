@@ -1,37 +1,43 @@
-# Base Image - Builder
+# Stage 1 - Builder
 FROM node:18-alpine AS builder
-
-# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Install dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --no-optional
 
-# Copy rest of the application files
+# Copy source files
 COPY . .
 
-
-# Build Next.js application
+# Build application
 RUN npm run build
 
-# Production Image - Runner
+# Stage 2 - Runner
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Copy built files from builder stage
-COPY --from=builder /app . 
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001 -G nodejs
 
-# Set environment variables for production
+# Copy only necessary files from builder
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
+
+# Set environment variables
 ENV NODE_ENV=production
-
-
-# Expose port
+ENV PORT=3000
 EXPOSE 3000
+ENV NODE_OPTIONS="--enable-source-maps --max-old-space-size=2048"
 
-# Start the application
-CMD ["npm", "run", "start"]
+# Health check for Railway
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/api/health || exit 1
 
+USER nextjs
 
-
-
+# Start Next.js app in production mode
+CMD ["npm", "start"]
