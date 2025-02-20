@@ -15,7 +15,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Code Board",
+  title: "Code Book",
   description: "Code snippet saver",
 };
 
